@@ -1,5 +1,5 @@
 // @import "../App.scss";
-@use '../App.scss';
+@use '../App.scss' as *;
 // @use '../App.scss' as app;
 
 // form
@@ -48,7 +48,11 @@
 
 .header{
     height: 60px;
-    background: url("../../assets/images/header_img.jpg") center/cover no-repeat;
+    background: url("../assets/images/header_img.jpg") center/cover no-repeat;
+    // background-image: url('../assets/images/header_img.jpg');
+    // background-position: center;
+    // background-size: cover;
+    // background-repeat: no-repeat;
     position: relative;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
