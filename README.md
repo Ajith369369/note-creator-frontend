@@ -19,6 +19,50 @@ Creating documentation for a Note Creator app involves detailing the app's purpo
 
 The Note Creator app allows users to create, view, edit, and delete notes. It's a simple application designed to manage personal notes efficiently with a user-friendly interface.
 
+## Project Structure
+
+├── note-app/
+│   ├── app/
+│   │   ├── models/
+│   │   │   ├── userModel.js
+│   │   │   ├── projectModel.js
+│   │   │   └── ...
+│   │   ├── views/
+│   │   │   ├── index.ejs
+│   │   │   ├── login.ejs
+│   │   │   └── ...
+│   │   ├── controllers/
+│   │   │   ├── userController.js
+│   │   │   ├── projectController.js
+│   │   │   └── ...
+│   │   ├── routes/
+│   │   │   ├── userRoutes.js
+│   │   │   ├── projectRoutes.js
+│   │   │   └── index.js
+│   │   ├── middlewares/
+│   │   │   ├── authMiddleware.js
+│   │   │   ├── errorMiddleware.js
+│   │   │   └── ...
+│   │   ├── config/
+│   │   │   ├── db.js
+│   │   │   └── ...
+│   │   ├── public/
+│   │   │   ├── css/
+│   │   │   │   ├── style.css
+│   │   │   ├── js/
+│   │   │   │   ├── script.js
+│   │   │   ├── images/
+│   │   │   └── ...
+│   │   ├── utils/
+│   │   │   ├── helpers.js
+│   │   │   └── ...
+│   │   ├── .env
+│   │   ├── package.json
+│   │   ├── server.js
+│   │   └── ...
+└── ...
+
+
 ## Features
 
 - **Create Notes:** Add new notes with titles and content.
@@ -33,7 +77,7 @@ The Note Creator app allows users to create, view, edit, and delete notes. It's 
 - **Frontend:** React
 - **Backend:** JSON Server (for mocking a REST API)
 - **Styling:** Bootstrap (for styling)
-- **State Management:** Redux (for state management, if used)
+- **State Management:** Redux (for state management)
 
 ## Installation
 
