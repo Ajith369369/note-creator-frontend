@@ -1,9 +1,9 @@
 // import React from 'react';
 // import {notes_icon} from "../../utils/images";
 import "./Sidebar.scss";
-// import {AiFillHome} from "react-icons/ai";
-// import {BsPlusLg} from "react-icons/bs";
-// import {MdNoteAlt} from "react-icons/md";
+import {AiFillHome} from "react-icons/ai";
+import {BsPlusLg} from "react-icons/bs";
+import {MdNoteAlt} from "react-icons/md";
 import {Link, useLocation} from "react-router-dom";
 
 const Sidebar = () => {
@@ -14,7 +14,7 @@ const Sidebar = () => {
     <div className='app-sidebar'>
       <div className='sidebar-content py-3 flex flex-column'>
         <Link to = "/" className='app-brand flex align-center justify-center'>
-          <img src = {notes_icon} alt = "" />
+          {/* <img src = {notes_icon} alt = "" /> */}
         </Link>
 
         <ul className='links my-4'>
