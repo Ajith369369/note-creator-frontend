@@ -26,7 +26,11 @@ const Sidebar = () => {
           </Link>
 
           <ul className="links my-4">
-            {/* This is a sidebar with navigation links, dynamically highlighting the active link based on the current URL.
+            {/* This will dynamically highlight the active link based on the current URL.
+            Adds active-link class if the pathname is 'home'.
+            className={`text-white flex justify-center align-center link-item ${
+                pathname === "home" ? "active-link" : ""
+              }`}
              */}
             <Link
               to="/home"
