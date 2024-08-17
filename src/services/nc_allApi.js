@@ -1,5 +1,5 @@
-import { serverUrl } from './serverUrl';
-import { commonApi } from './commonApi';
+import { serverUrl } from './nc_serverUrl';
+import { commonApi } from './nc_commonApi';
 
 
 // register
