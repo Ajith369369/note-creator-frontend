@@ -62,7 +62,7 @@ function Auth({ register }) {
           JSON.stringify(result.data.existingUser)
         );
 
-        // token was already a string whn received.
+        // token was already a string when received.
         sessionStorage.setItem("token", result.data.token);
         navigate("/");
       } else {
