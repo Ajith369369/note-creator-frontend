@@ -1,7 +1,7 @@
 import {useState} from 'react';
-import { useDispatch } from 'react-redux';
-import { addNewNote } from './noteSlice';
-import 'react-toastify/dist/ReactToastify.css';
+// import { useDispatch } from 'react-redux';
+// import { addNewNote } from './noteSlice';
+// import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast} from 'react-toastify';
 
 const AddNoteForm = () => {
