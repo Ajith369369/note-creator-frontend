@@ -1,4 +1,3 @@
-// import React from 'react';
 import { AiFillHome } from "react-icons/ai";
 import { BsPlusLg } from "react-icons/bs";
 import { MdNoteAlt } from "react-icons/md";

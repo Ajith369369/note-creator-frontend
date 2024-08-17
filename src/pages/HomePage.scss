@@ -1,6 +1,8 @@
-// @import "../App.scss";
-@use "../App.scss" as *;
 // @use '../App.scss' as app;
+
+// Avoid using the default namespace 'App'.
+@use "../App.scss" as *;
+
 
 // form
 .form-control {
