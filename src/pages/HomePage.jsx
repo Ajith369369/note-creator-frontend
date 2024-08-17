@@ -15,21 +15,21 @@ function HomePage() {
     // Creates a new Date object representing the current date and time.
     const currentDate = new Date();
 
-    // Format Day of the Week: Formats the day to a full weekday name (e.g., "Monday") using toLocaleDateString with the weekday option.
+    // Formats the day to a full weekday name (e.g., "Monday") using toLocaleDateString with the weekday option.
     const day = currentDate.toLocaleDateString("default", { weekday: "long" });
 
-    // Format Month: Formats the month to a full month name (e.g., "August") using toLocaleString with the month option.
+    // Formats the month to a full month name (e.g., "August") using toLocaleString with the month option.
     const month = currentDate.toLocaleString("default", { month: "long" });
 
-    // Update Date State: Combines the formatted day, month, current date (currentDate.getDate()), and year (currentDate.getFullYear()) into a string and updates the date state.
+    // Combines the formatted day, month, current date (currentDate.getDate()), and year (currentDate.getFullYear()) into a string and updates the date state.
     setDate(
       `${day}, ${month} ${currentDate.getDate()}, ${currentDate.getFullYear()}`
     );
 
-    // Get Current Hour: Retrieves the current hour from currentDate (24-hour format).
+    // Retrieves the current hour from currentDate (24-hour format).
     let currentHour = currentDate.getHours();
 
-    // Set Greeting Text: Checks the current hour and updates the greetText state based on the time of day:
+    // Checks the current hour and updates the greetText state based on the time of day.
     if (currentHour > 0 && currentHour < 12) setGreetText("Good Morning!");
     else if (currentHour == 12) setGreetText("Good Noon!");
     else if (currentHour > 12 && currentHour < 18) setGreetText("Good Afternoon!");
