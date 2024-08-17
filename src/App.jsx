@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "../pages/Home";
+import Home from "./pages/Home";
 import "./App.scss";
 import AddNote from "./pages/AddNote";
 import EditNote from "./pages/EditNote";

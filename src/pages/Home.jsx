@@ -3,11 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import proFairLogo from "../assets/project-fair-logo.jpg";
-import Footer from "../components/Footer";
-import ProjectCard from "../components/ProjectCard";
-import { homeProjectApi } from "../services/allApi";
-npm i --save @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons
+import proFairLogo from "../assets/images/note-creator-logo.jpeg";
+// import { homeProjectApi } from "../services/allApi";
 
 function Home() {
   const [token, setToken] = useState("");
@@ -71,21 +68,7 @@ function Home() {
         </Row>
       </div>
 
-      <div className="container-fluid">
-        <h1 className="text-center my-5">Explore Our Projects</h1>
-        <div className="row mb-5">
-          {homeProject?.length > 0? homeProject?.map((item) => (
-                <div key={item._id} className="col-md-4 justify-content-center d-flex p-3">
-                  <ProjectCard project={item} />
-                </div>
-          ))
-            : null}
-        </div>
-        <Link to={"/project"} className="text-danger">
-          <h5 className="text-center my-5">See more Projects</h5>
-        </Link>
-      </div>
-      <Footer />
+
     </>
   );
 }

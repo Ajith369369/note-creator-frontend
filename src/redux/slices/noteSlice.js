@@ -1,5 +1,5 @@
 import { createSlice} from "@reduxjs/toolkit";
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
 // import {storeInLocalStorage, fetchFromLocalStorage} from "../../utils/helpers";
 
 const initialState = {
@@ -14,7 +14,7 @@ const noteSlice = createSlice({
     reducers: {
         addNewNote(state, action){
             const {noteTitle, noteContent} = action.payload;
-            let noteId = uuid();
+            // let noteId = uuid();
             let newPost = {noteId, noteTitle, noteContent};
             newPost.noteDate = new Date().toISOString();
             state.notes.push(newPost);
