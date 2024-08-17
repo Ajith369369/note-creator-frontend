@@ -3,7 +3,7 @@ import { createSlice} from "@reduxjs/toolkit";
 // import {storeInLocalStorage, fetchFromLocalStorage} from "../../utils/helpers";
 
 const initialState = {
-    notes: fetchFromLocalStorage('notes'),
+    // notes: fetchFromLocalStorage('notes'),
     error: null,
     count: 0
 }

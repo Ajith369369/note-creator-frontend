@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import proFairLogo from "../assets/images/note-creator-logo.jpeg";
+import noteCreatorLogo from "../assets/images/note-creator-logo.jpeg";
+import "./Home.css";
 // import { homeProjectApi } from "../services/allApi";
 
 function Home() {
@@ -11,8 +12,8 @@ function Home() {
   const [homeProject, setHomeProject] = useState([]);
 
   const getHomeProject = async () => {
-    const result = await homeProjectApi();
-    setHomeProject(result.data);
+    // const result = await homeProjectApi();
+    // setHomeProject(result.data);
   };
 
   console.log(homeProject);
@@ -27,8 +28,8 @@ function Home() {
   return (
     <>
       <div
-        className="container-fluid bg-success p-4 mb-4"
-        style={{ width: "100%", height: "100vh" }}
+        className="container-fluid bg-success p-4 logo-page"
+        style={{ width: "100%" }}
       >
         <Row className="mt-5">
           <Col
@@ -37,11 +38,9 @@ function Home() {
           >
             <div>
               <h1 className="text-light" style={{ fontSize: "76px" }}>
-                Project Fair
+                Note Creator
               </h1>
-              <h6>
-                One stop destination for all software development projects.
-              </h6>
+              <h6>One stop destination for your notes.</h6>
               {!token ? (
                 <Link to={"/login"}>
                   <button className="btn btn-outline-light my-4">
@@ -63,12 +62,10 @@ function Home() {
             md={6}
             className="d-flex flex-column justify-content-center align-items-center flex-column mt-5"
           >
-            <img src={proFairLogo} alt="" width={"80%"} />
+            <img src={noteCreatorLogo} alt="" height={"500px"} />
           </Col>
         </Row>
       </div>
-
-
     </>
   );
 }
