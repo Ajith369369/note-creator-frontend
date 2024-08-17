@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import loginImage from "../assets/images/note-creator-round-logo.png";
-// import { loginApi, registerApi } from "../services/allApi";
+import { loginApi, registerApi } from "../services/nc_allApi";
 
 function Auth({ register }) {
   const navigate = useNavigate();
