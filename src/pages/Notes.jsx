@@ -1,9 +1,12 @@
-import React from 'react'
+import Sidebar from "../components/Sidebar";
 
 function Notes() {
   return (
-    <div>Notes</div>
-  )
+    <>
+      <Sidebar />
+      Notes
+    </>
+  );
 }
 
-export default Notes
+export default Notes;

@@ -1,9 +1,13 @@
-import React from 'react'
+import AddNoteForm from "../components/AddNoteForm";
+import Sidebar from "../components/Sidebar";
 
 function AddNote() {
   return (
-    <div>AddNote</div>
-  )
+    <>
+      <Sidebar />
+      <AddNoteForm/>
+    </>
+  );
 }
 
-export default AddNote
+export default AddNote;

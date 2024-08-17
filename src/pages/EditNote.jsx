@@ -1,9 +1,12 @@
-import React from 'react'
+import Sidebar from "../components/Sidebar";
 
 function EditNote() {
   return (
-    <div>EditNote</div>
-  )
+    <>
+      <Sidebar />
+      EditNote
+    </>
+  );
 }
 
-export default EditNote
+export default EditNote;
