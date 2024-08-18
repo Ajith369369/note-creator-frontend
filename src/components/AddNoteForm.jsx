@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addNewNote } from '../redux/slices/noteSlice';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast} from 'react-toastify';
+import "./AddNoteForm.scss";
 
 const AddNoteForm = () => {
   const dispatch = useDispatch();

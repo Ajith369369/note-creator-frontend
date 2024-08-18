@@ -1,0 +1,9 @@
+.note-form-section {
+  // flex-grow: 1; /* This allows the form to take up the remaining space */
+  width: calc(100vw - 60px);
+  padding: 20px; /* Add some padding around the form */
+  height: 100vh;
+  @media screen and (min-width: 992px) {
+    width: calc(100vw - 240px);
+  }
+}

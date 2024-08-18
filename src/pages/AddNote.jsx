@@ -1,11 +1,14 @@
 import AddNoteForm from "../components/AddNoteForm";
 import Sidebar from "../components/Sidebar";
+import './AddNote.scss';
 
 function AddNote() {
   return (
     <>
-      <Sidebar />
-      <AddNoteForm/>
+      <div className="add-note-container">
+        <Sidebar />
+        <AddNoteForm/>
+      </div>
     </>
   );
 }

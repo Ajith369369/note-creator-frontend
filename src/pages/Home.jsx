@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import noteCreatorLogo from "../assets/images/note-creator-logo.jpeg";
+import noteCreatorLogo from "../assets/images/note-creator-square-logo.jpeg";
 import "./Home.css";
 
 function Home() {
@@ -52,7 +52,7 @@ function Home() {
             md={6}
             className="d-flex flex-column justify-content-center align-items-center flex-column mt-5"
           >
-            <img src={noteCreatorLogo} alt="" width={"100%"} />
+            <img src={noteCreatorLogo} alt="" height={"400px"} />
           </Col>
         </Row>
       </div>
