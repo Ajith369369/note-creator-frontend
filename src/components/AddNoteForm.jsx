@@ -60,7 +60,7 @@ const AddNoteForm = () => {
     }); */
   };
 
-  // Handle the upload of the default image if no image is selected.
+  /* // Handle the upload of the default image if no image is selected.
   // Convert default image to a file object
   // The fetchDefaultImageFile function essentially fetches a local image file, converts it into a format that can be uploaded or manipulated (a File object), and then returns that file. This allows you to treat the default image as if it were a file selected by a user.
   // const fetchDefaultImageFile = async () => { ... }: This line declares an asynchronous function named fetchDefaultImageFile that returns a Promise.
@@ -137,18 +137,18 @@ const AddNoteForm = () => {
       ...noteDetails,
       noteImage: data.filePath,
     });
-  };
+  }; */
 
   const handleFile = async (e) => {
-    /* console.log(e);
+    console.log(e);
     console.log(e.target.files);
     console.log(e.target.files[0]);
     setNoteDetails({
       ...noteDetails,
       noteImage: e.target.files[0],
-    }); */
+    });
 
-    let file;
+    /* let file;
 
     if (e.target.files[0]) {
       file = e.target.files[0];
@@ -164,7 +164,7 @@ const AddNoteForm = () => {
     setNoteDetails({
       ...noteDetails,
       noteImage: file,
-    });
+    }); */
   };
 
   const onSaveNoteClicked = async () => {
