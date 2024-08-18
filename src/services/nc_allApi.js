@@ -22,7 +22,7 @@ export const addNoteApi = async (reqBody, reqHeader) => {
   );
 };
 
-// get all notes from all users
+// get all notes of all users
 export const getAllNotesOfAllUsersApi = async () => {
   return await commonApi("GET", `${serverUrl}/notes/all`, "", "");
 };
