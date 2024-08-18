@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  resetNoteFormState,
-  updateNoteFormState,
-} from "../redux/slices/noteSlice";
+import defaultImage from "../assets/images/note-creator-square-logo.jpeg";
+import { updateNoteFormState } from "../redux/slices/noteSlice";
+import { addNoteOfAUserApi } from "../services/nc_allApi";
 import "./AddNoteForm.scss";
 
 const AddNoteForm = () => {
@@ -17,8 +16,16 @@ const AddNoteForm = () => {
   const [titleError, setTitleError] = useState(false);
   const [contentError, setContentError] = useState(false);
   const [canSave, setCanSave] = useState(false);
-
+  const [preview, setPreview] = useState("");
+  const [key, setKey] = useState(false);
   const noteFormState = useSelector((state) => state.noteDetails.noteFormState);
+  const [noteDetails, setNoteDetails] = useState({
+    noteTitle: "",
+    noteContent: "",
+    noteImage: "",
+    noteDate: "",
+  });
+  console.log("noteDetails: ", noteDetails);
 
   const onFormDataChange = (e) => {
     const { name, value } = e.target;
@@ -49,21 +56,30 @@ const AddNoteForm = () => {
       };
     }); */
   };
+  const handleFile = (e) => {
+    console.log(e);
+    console.log(e.target.files);
+    console.log(e.target.files[0]);
+    setNoteDetails({ ...noteDetails, noteImage: e.target.files[0] });
+  };
 
   const onSaveNoteClicked = async () => {
+    noteDetails.noteTitle = noteFormState.noteTitle;
+    noteDetails.noteContent = noteFormState.noteContent;
+    noteDetails.noteDate = noteFormState.noteDate;
+
     if (!titleError && !contentError) {
       // dispatch(addNewNote(formData));
       // Using object destructuring to extract the values for noteTitle, noteContent, noteImage, and noteDate from the noteDetails object.
-      const { noteTitle, noteContent, noteImage, noteDate } =
-        noteDetails;
+      const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
+      console.log("noteFormState: ", noteFormState);
 
       // if statement checks if any of the required fields (title, language, github, website, overview, noteImg) are empty. If any field is missing, it triggers an alert to inform the user to complete the form.
-      if (
-        !noteTitle ||
-        !noteContent ||
-        !noteImage ||
-        !noteDate
-      ) {
+      if (!noteTitle || !noteContent || !noteImage || !noteDate) {
+        console.log("noteTitle: ", noteTitle);
+        console.log("noteContent: ", noteContent);
+        console.log("noteImage: ", noteImage);
+        console.log("noteDate: ", noteDate);
         alert("Please fill the form completely.");
       } else {
         // A FormData object is created, which is used to construct a set of key/value pairs representing form fields and their values. This is particularly useful for sending data that includes files (like images) via HTTP requests.
@@ -94,28 +110,32 @@ const AddNoteForm = () => {
             Authorization: `Bearer ${token}`,
           };
 
-          // Calls the addProjectApi function, passing in the reqBody (form data) and reqHeader (headers).
-          const result = await addProjectApi(reqBody, reqHeader);
+          // Calls the addNoteOfAUserApi function, passing in the reqBody (form data) and reqHeader (headers).
+          const result = await addNoteOfAUserApi(reqBody, reqHeader);
           console.log(
-            "Result of the addProjectApi call to the console: ",
+            "Result of the addNoteOfAUserApi call to the console: ",
             result
           );
 
-          if (result.status == 200) {
-            alert("Project added successfully.");
+          /* if (result.status == 200) {
+            alert("Note added successfully.");
             handleClose();
           } else {
             alert("Something went wrong.");
             handleClose();
-          }
+          } */
         }
       }
 
       toast.success("New Note added successfully");
-      dispatch(resetNoteFormState);
+      // dispatch(resetNoteFormState());
     }
   };
-
+  useEffect(() => {
+    if (noteDetails.noteImage) {
+      setPreview(URL.createObjectURL(noteDetails.noteImage));
+    }
+  }, [noteDetails.noteImage]);
   return (
     <div>
       <section className="note-form-section">
@@ -137,6 +157,25 @@ const AddNoteForm = () => {
             <span className="form-error-text">
               {titleError ? "Title can't be empty!" : ""}
             </span>
+          </div>
+          <div className="form-element">
+            <label htmlFor="noteImg" className="form-label">
+              Image:
+            </label>
+            <label htmlFor="noteImg">
+              <input
+                type="file"
+                id="noteImg"
+                style={{ display: "none" }}
+                key={key}
+                onChange={(e) => handleFile(e)}
+              />
+              <img
+                src={preview ? preview : defaultImage}
+                alt=""
+                style={{ height: "100px" }}
+              />
+            </label>
           </div>
 
           <div className="form-element">
