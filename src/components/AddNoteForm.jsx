@@ -182,25 +182,24 @@ const AddNoteForm = () => {
       console.log("noteDate: ", noteDate);
 
       // if (noteDetails.noteImage): This checks if noteDetails.noteImage already has a value.
-      if (noteDetails.noteImage) {
-        console.log("noteImage: ", noteImage);
-      } else {
-        /* setNoteDetails({
+      /* setNoteDetails({
           ...noteDetails,
           noteImage: defaultImage,
         });
         console.log("noteImage: ", noteImage); */
-
+      /* if (noteDetails.noteImage) {
+        console.log("noteImage: ", noteImage);
+      } else {
         const updatedNoteDetails = {
           ...noteDetails,
           noteImage: defaultImage,
         };
         setNoteDetails(updatedNoteDetails);
         console.log("noteImage: ", updatedNoteDetails.noteImage);
-      }
+      } */
 
       // if statement checks if any of the required fields (title, language, github, website, overview, noteImg) are empty. If any field is missing, it triggers an alert to inform the user to complete the form.
-      if (!noteTitle || !noteContent || !noteImage || !noteDate) {
+      if (!noteTitle || !noteContent ||!noteImage ||!noteDate) {
         alert("Please fill the form completely.");
       } else {
         // A FormData object is created, which is used to construct a set of key/value pairs representing form fields and their values. This is particularly useful for sending data that includes files (like images) via HTTP requests.
@@ -241,16 +240,19 @@ const AddNoteForm = () => {
           if (result.status == 200) {
             toast.success("Note added successfully.");
             dispatch(resetNoteFormState());
+            setPreview("");
           } else {
             toast.error("Something went wrong.");
             dispatch(resetNoteFormState());
+            setPreview("");
           }
         }
       }
     }
   };
   useEffect(() => {
-    if (noteDetails.noteImage) {
+    console.log("noteDetails.noteImage: ", noteDetails.noteImage);
+    if (noteDetails.noteImage !== "") {
       setPreview(URL.createObjectURL(noteDetails.noteImage));
     }
   }, [noteDetails.noteImage]);
