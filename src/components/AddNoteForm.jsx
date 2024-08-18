@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import defaultImage from "../assets/images/note-creator-square-logo.jpeg";
-import { updateNoteFormState } from "../redux/slices/noteSlice";
+import {
+  resetNoteFormState,
+  updateNoteFormState,
+} from "../redux/slices/noteSlice";
 import { addNoteOfAUserApi } from "../services/nc_allApi";
 import "./AddNoteForm.scss";
 
@@ -56,11 +59,112 @@ const AddNoteForm = () => {
       };
     }); */
   };
-  const handleFile = (e) => {
-    console.log(e);
+
+  // Handle the upload of the default image if no image is selected.
+  // Convert default image to a file object
+  // The fetchDefaultImageFile function essentially fetches a local image file, converts it into a format that can be uploaded or manipulated (a File object), and then returns that file. This allows you to treat the default image as if it were a file selected by a user.
+  // const fetchDefaultImageFile = async () => { ... }: This line declares an asynchronous function named fetchDefaultImageFile that returns a Promise.
+  // Using async allows the use of await within the function to handle asynchronous operations in a more readable way.
+  const fetchDefaultImageFile = async () => {
+    // This line sends a request to fetch the default image file.
+    // fetch(defaultImage) makes an HTTP request to the location of defaultImage (which is the imported path to your image file).
+    // await is used to wait for the request to complete and for the response to be returned. This prevents the code from continuing until the image has been successfully fetched.
+    // response is the result of this fetch operation, which contains various properties and methods for handling the data, like json(), text(), or blob().
+    const response = await fetch(defaultImage);
+
+    // This line converts the response object into a Binary Large Object (Blob), which represents the image data.
+    // response.blob() is a method that reads the response body and returns it as a Blob object, which is useful for handling file-like data such as images or videos.
+    // await ensures that the code waits for this conversion to complete before proceeding.
+    const blob = await response.blob();
+
+    // This line creates a new File object from the Blob.
+    // new File([blob], "note-creator-square-logo.jpeg", { type: blob.type }) creates a file with the following parameters:
+    // [blob]: The content of the file, which in this case is the Blob object created in the previous line.
+    // "note-creator-square-logo.jpeg": The name of the file we're creating, which will be used when handling it in the backend.
+    // { type: blob.type }: The MIME type of the file, which is automatically set to match the type of the Blob (e.g., image/jpeg).
+    // This File object can now be treated like a file selected by a user in a file input field, making it possible to upload or manipulate it as needed.
+    const file = new File([blob], "note-creator-square-logo.jpeg", {
+      type: blob.type,
+    });
+
+    // This line returns the File object created from the Blob.
+    // When the fetchDefaultImageFile function is called, it will return a Promise that resolves to this File object.
+    // The returned File object can then be used wherever a file is needed, such as uploading it to a server or attaching it to a form.
+    return file;
+  };
+
+  // Uploading the file.
+  // The uploadFile function handles the process of uploading a file to the server.
+  // It packages the file into a FormData object, sends it to the server via a POST request, and then updates the component's state with the path to the uploaded file, as returned by the server.
+  // This function allows the user to upload an image and have its path stored in the noteDetails state.
+  // Sends the file to the backend, which would handle saving the image and returning the path.
+  // const uploadFile = async (file) => { ... }:
+  // This line declares an asynchronous function named uploadFile that takes a single parameter, file.
+  // The async keyword allows the use of await within the function to handle asynchronous operations.
+  const uploadFile = async (file) => {
+    // This line creates a new instance of the FormData object.
+    // FormData is a web API that provides a way to construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the fetch or XMLHttpRequest API.
+    // It is commonly used for sending files and other binary data in an HTTP request.
+    const formData = new FormData();
+
+    // This line appends a key-value pair to the FormData object.
+    // "noteImage" is the name of the field that will be sent to the server, and file is the value associated with this key. In this context, file is the image file that we want to upload.
+    // When the form data is sent to the server, it will include a field named "noteImage" containing the file data.
+    formData.append("noteImage", file);
+
+    // This line sends an HTTP POST request to the server using the fetch API.
+    // The await keyword is used to wait for the request to complete and for the response to be returned before moving on to the next line of code.
+    // "/api/upload" is the URL endpoint on the server where the file will be uploaded.
+    // The fetch function is configured with an options object:
+    // method: "POST": Specifies that the request will be a POST request, which is typically used for creating or uploading data.
+    // body: formData: The body of the request contains the formData object, which includes the file we want to upload.
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    // This line parses the response from the server as JSON.
+    // response.json() is a method that reads the response body and parses it as JSON.
+    // The await keyword ensures that the code waits for the parsing to complete before moving on.
+    // The parsed JSON data is stored in the data variable, which typically contains information returned by the server, such as the file path of the uploaded image.
+    const data = await response.json();
+
+    // This line updates the noteDetails state with the new image path returned from the server.
+    // ...noteDetails: This spreads the existing properties of the noteDetails object into the new object, ensuring that all other fields remain unchanged.
+    // noteImage: data.filePath: This updates the noteImage property of noteDetails with the file path returned by the server (stored in data.filePath).
+    // The setNoteDetails function is then called with the updated state, which causes React to re-render any components that depend on noteDetails.
+    setNoteDetails({
+      ...noteDetails,
+      noteImage: data.filePath,
+    });
+  };
+
+  const handleFile = async (e) => {
+    /* console.log(e);
     console.log(e.target.files);
     console.log(e.target.files[0]);
-    setNoteDetails({ ...noteDetails, noteImage: e.target.files[0] });
+    setNoteDetails({
+      ...noteDetails,
+      noteImage: e.target.files[0],
+    }); */
+
+    let file;
+
+    if (e.target.files[0]) {
+      file = e.target.files[0];
+
+      // If no file selected, use the default image file
+    } else {
+      file = await fetchDefaultImageFile();
+    }
+
+    // Assuming you have a function to handle the file upload
+    uploadFile(file);
+
+    setNoteDetails({
+      ...noteDetails,
+      noteImage: file,
+    });
   };
 
   const onSaveNoteClicked = async () => {
@@ -73,13 +177,30 @@ const AddNoteForm = () => {
       // Using object destructuring to extract the values for noteTitle, noteContent, noteImage, and noteDate from the noteDetails object.
       const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
       console.log("noteFormState: ", noteFormState);
+      console.log("noteTitle: ", noteTitle);
+      console.log("noteContent: ", noteContent);
+      console.log("noteDate: ", noteDate);
+
+      // if (noteDetails.noteImage): This checks if noteDetails.noteImage already has a value.
+      if (noteDetails.noteImage) {
+        console.log("noteImage: ", noteImage);
+      } else {
+        /* setNoteDetails({
+          ...noteDetails,
+          noteImage: defaultImage,
+        });
+        console.log("noteImage: ", noteImage); */
+
+        const updatedNoteDetails = {
+          ...noteDetails,
+          noteImage: defaultImage,
+        };
+        setNoteDetails(updatedNoteDetails);
+        console.log("noteImage: ", updatedNoteDetails.noteImage);
+      }
 
       // if statement checks if any of the required fields (title, language, github, website, overview, noteImg) are empty. If any field is missing, it triggers an alert to inform the user to complete the form.
       if (!noteTitle || !noteContent || !noteImage || !noteDate) {
-        console.log("noteTitle: ", noteTitle);
-        console.log("noteContent: ", noteContent);
-        console.log("noteImage: ", noteImage);
-        console.log("noteDate: ", noteDate);
         alert("Please fill the form completely.");
       } else {
         // A FormData object is created, which is used to construct a set of key/value pairs representing form fields and their values. This is particularly useful for sending data that includes files (like images) via HTTP requests.
@@ -117,18 +238,15 @@ const AddNoteForm = () => {
             result
           );
 
-          /* if (result.status == 200) {
-            alert("Note added successfully.");
-            handleClose();
+          if (result.status == 200) {
+            toast.success("Note added successfully.");
+            dispatch(resetNoteFormState());
           } else {
-            alert("Something went wrong.");
-            handleClose();
-          } */
+            toast.error("Something went wrong.");
+            dispatch(resetNoteFormState());
+          }
         }
       }
-
-      toast.success("New Note added successfully");
-      // dispatch(resetNoteFormState());
     }
   };
   useEffect(() => {
