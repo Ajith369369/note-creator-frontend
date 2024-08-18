@@ -18,14 +18,28 @@ const initialState = {
 };
 
 const noteSlice = createSlice({
-  name: "notes",
+  name: "noteDetails",
   initialState,
   reducers: {
+    updateNoteFormState(state, action) {
+
+      // state.noteFormState is spread into a new object { ...state.noteFormState }, which copies all existing properties.
+      // ...action.payload spreads the properties of the payload object into this new state, overriding any existing properties with the same name.
+      state.noteFormState = { ...state.noteFormState, ...action.payload };
+      const newState = state.noteFormState
+      newState.noteDate = new Date().toISOString();
+      state.noteFormState = newState;
+    },
+
+    resetNoteFormState(state) {
+      state.noteFormState = initialState.noteFormState;
+    },
+
     addNewNote(state, action) {
       const newState = { ...state.noteFormState, ...action.payload };
       newState.noteDate = new Date().toISOString();
       state.noteFormState = newState;
-      state.notes.push(newPost);
+      // state.notes.push(newPost);
     },
     /* addNewNote(state, action) {
       const { noteTitle, noteContent } = action.payload;
@@ -82,6 +96,6 @@ const noteSlice = createSlice({
   },
 });
 
-export const { addNewNote, removeNote, editNote } = noteSlice.actions;
+export const { updateNoteFormState, resetNoteFormState, addNewNote, removeNote, editNote } = noteSlice.actions;
 export const getAllNotes = (state) => state.notes.notes;
 export default noteSlice.reducer;
