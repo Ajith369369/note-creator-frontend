@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import "./Notes.scss";
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { editNote, getAllNotes } from './noteSlice';
+import { editNote, getAllNotes } from '../redux/slices/noteSlice';
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer, toast} from 'react-toastify';
 
