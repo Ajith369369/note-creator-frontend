@@ -1,15 +1,12 @@
-// Avoid using the default namespace 'App'.
-@use "../App.scss" as *;
-
 .add-note-container {
-  display: flex; /* This will align children (Sidebar and AddNoteForm) side by side */
+  display: flex; /* This will align children (Sidebar and EditNoteForm) side by side */
   height: 100vh; /* This makes sure the container takes full viewport height */
 
   .app-sidebar {
     width: 60px;
     flex-shrink: 0; /* Prevent the sidebar from shrinking */
     @media screen and (min-width: 992px) {
-      width: $sidebar-width;
+      width: 240px;
     }
   }
 

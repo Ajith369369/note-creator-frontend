@@ -10,7 +10,7 @@ import {
 import { addNoteOfAUserApi } from "../services/nc_allApi";
 import "./AddNoteForm.scss";
 
-const AddNoteForm = () => {
+function AddNoteForm() {
   const dispatch = useDispatch();
   /*   const [formData, setFormData] = useState({
     noteTitle: "",
@@ -199,7 +199,7 @@ const AddNoteForm = () => {
       } */
 
       // if statement checks if any of the required fields (title, language, github, website, overview, noteImg) are empty. If any field is missing, it triggers an alert to inform the user to complete the form.
-      if (!noteTitle || !noteContent ||!noteImage ||!noteDate) {
+      if (!noteTitle || !noteContent || !noteImage || !noteDate) {
         alert("Please fill the form completely.");
       } else {
         // A FormData object is created, which is used to construct a set of key/value pairs representing form fields and their values. This is particularly useful for sending data that includes files (like images) via HTTP requests.
@@ -257,82 +257,84 @@ const AddNoteForm = () => {
     }
   }, [noteDetails.noteImage]);
   return (
-    <div>
-      <section className="note-form-section">
-        <h2 className="my-4 fs-16">Add New Note</h2>
-        <form className="note-form">
-          <div className="form-element">
-            <label htmlFor="noteTitle" className="form-label">
-              Title:
-            </label>
-            <input
-              type="text"
-              id="noteTitle"
-              name="noteTitle"
-              placeholder="Note title here ..."
-              onChange={(e) => onFormDataChange(e)}
-              className="form-control"
-              value={noteFormState.noteTitle}
-            />
-            <span className="form-error-text">
-              {titleError ? "Title can't be empty!" : ""}
-            </span>
-          </div>
-          <div className="form-element">
-            <label htmlFor="noteImg" className="form-label">
-              Image:
-            </label>
-            <label htmlFor="noteImg">
+    <>
+      <div>
+        <section className="note-form-section">
+          <h2 className="my-4 fs-16">Add New Note</h2>
+          <form className="note-form">
+            <div className="form-element">
+              <label htmlFor="noteTitle" className="form-label">
+                Title:
+              </label>
               <input
-                type="file"
-                id="noteImg"
-                style={{ display: "none" }}
-                key={key}
-                onChange={(e) => handleFile(e)}
+                type="text"
+                id="noteTitle"
+                name="noteTitle"
+                placeholder="Note title here ..."
+                onChange={(e) => onFormDataChange(e)}
+                className="form-control"
+                value={noteFormState.noteTitle}
               />
-              <img
-                src={preview ? preview : defaultImage}
-                alt=""
-                style={{ height: "100px" }}
-              />
-            </label>
-          </div>
+              <span className="form-error-text">
+                {titleError ? "Title can't be empty!" : ""}
+              </span>
+            </div>
+            <div className="form-element">
+              <label htmlFor="noteImg" className="form-label">
+                Image:
+              </label>
+              <label htmlFor="noteImg">
+                <input
+                  type="file"
+                  id="noteImg"
+                  style={{ display: "none" }}
+                  key={key}
+                  onChange={(e) => handleFile(e)}
+                />
+                <img
+                  src={preview ? preview : defaultImage}
+                  alt=""
+                  style={{ height: "100px" }}
+                />
+              </label>
+            </div>
 
-          <div className="form-element">
-            <label htmlFor="noteContent" className="form-label">
-              Content:
-            </label>
-            <textarea
-              id="noteContent"
-              name="noteContent"
-              placeholder="Note content here ..."
-              onChange={(e) => onFormDataChange(e)}
-              className="form-control"
-              rows="10"
-              value={noteFormState.noteContent}
-            ></textarea>
-            <span className="form-error-text">
-              {contentError ? "Content can't be empty!" : ""}
-            </span>
-          </div>
+            <div className="form-element">
+              <label htmlFor="noteContent" className="form-label">
+                Content:
+              </label>
+              <textarea
+                id="noteContent"
+                name="noteContent"
+                placeholder="Note content here ..."
+                onChange={(e) => onFormDataChange(e)}
+                className="form-control"
+                rows="10"
+                value={noteFormState.noteContent}
+              ></textarea>
+              <span className="form-error-text">
+                {contentError ? "Content can't be empty!" : ""}
+              </span>
+            </div>
 
-          <button
-            type="button"
-            onClick={onSaveNoteClicked}
-            className="btn btn-default"
-            disabled={!canSave}
-          >
-            Save Note
-          </button>
-          <ToastContainer
-            position="top-center"
-            theme="colored"
-            autoclose={3000}
-          />
-        </form>
-      </section>
-    </div>
+            <button
+              type="button"
+              onClick={onSaveNoteClicked}
+              className="btn btn-default"
+              disabled={!canSave}
+            >
+              Save Note
+            </button>
+            <ToastContainer
+              position="top-center"
+              theme="colored"
+              autoclose={3000}
+            />
+          </form>
+        </section>
+      </div>
+    </>
   );
-};
+}
 
 export default AddNoteForm;

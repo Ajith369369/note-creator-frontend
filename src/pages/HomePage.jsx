@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import "./HomePage.scss";
 
@@ -54,7 +54,7 @@ function HomePage() {
               </div>
             </div>
           </header>
-          <div className="notes-wrapper py-4 px-4">{/* <Outlet /> */}</div>
+          <div className="notes-wrapper py-4 px-4"><Outlet /></div>
         </div>
       </div>
     </>

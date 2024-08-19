@@ -7,7 +7,8 @@
   transition: all 100ms ease-in-out;
   height: 100vh;
   @media screen and (min-width: 992px) {
-    width: 240px;
+    // width: 240px;
+    width: $sidebar-width;
   }
 
   .app-brand {

@@ -17,7 +17,8 @@ function App() {
         <Route path="/profile-home" element={<HomePage />} />
         <Route path="/home" element={<Notes />} />
         <Route path="/add" element={<AddNote />} />
-        <Route path="/edit" element={<EditNote />} />
+        <Route path="/edit/:id" element={<EditNote />} />
+        <Route path = "/note/:id" element = {<SingleNote />} />
       </Routes>
     </>
   );
