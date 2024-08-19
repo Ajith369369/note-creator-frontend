@@ -27,7 +27,7 @@ const Sidebar = () => {
 
           <ul className="links my-4">
             {/* This will dynamically highlight the active link based on the current URL.
-            Adds active-link class if the pathname is 'home'.
+            Adds active-link class if the pathname is 'profile-home'.
             className={`text-white flex justify-center align-center link-item ${
                 pathname === "home" ? "active-link" : ""
               }`}
@@ -35,7 +35,7 @@ const Sidebar = () => {
             <Link
               to="/profile-home"
               className={`text-white flex justify-center align-center link-item ${
-                pathname === "home" ? "active-link" : ""
+                pathname === "profile-home" ? "active-link" : ""
               }`}
             >
               <span className="flex align-center justify-center">
@@ -44,9 +44,9 @@ const Sidebar = () => {
               <span className="icon-text">Home</span>
             </Link>
             <Link
-              to="/add"
+              to="/profile-home/add"
               className={`text-white flex justify-center align-center link-item ${
-                pathname === "add" ? "active-link" : ""
+                pathname === "profile-home/add" ? "active-link" : ""
               }`}
             >
               <span className="flex align-center justify-center">

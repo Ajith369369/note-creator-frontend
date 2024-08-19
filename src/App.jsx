@@ -14,11 +14,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Auth register/>} />
         <Route path="/login" element={<Auth />} />
-        <Route path="/profile-home" element={<HomePage />} />
         <Route path="/home" element={<Notes />} />
-        <Route path="/add" element={<AddNote />} />
-        <Route path="/edit/:id" element={<EditNote />} />
-        <Route path = "/note/:id" element = {<SingleNote />} />
+        <Route path="/profile-home" element={<HomePage />} >
+          <Route path="/profile-home/add" element={<AddNote />} />
+          <Route path="/profile-home/edit/:id" element={<EditNote />} />
+          {/* <Route path = "/note/:id" element = {<SingleNote />} /> */}
+          </Route>
       </Routes>
     </>
   );
