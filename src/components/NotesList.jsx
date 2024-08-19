@@ -3,14 +3,14 @@ import {ImCancelCircle} from "react-icons/im";
 import {FiEdit} from "react-icons/fi";
 import { parseISO, formatDistanceToNow} from 'date-fns';
 import {Link} from "react-router-dom";
-import { removeNote } from '../../features/notes/noteSlice';
+import { removeNote } from '../redux/slices/noteSlice';
 import { useDispatch } from 'react-redux';
 
 function NotesList({notes}) {
   const dispatch = useDispatch();
 
   if(!notes || notes.length === 0){
-    return (<div className='not-found'>No any notes found</div>)
+    return (<div className='not-found'>No notes found</div>)
   }
   return (
     <>

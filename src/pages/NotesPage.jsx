@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector} from "react-redux";
-note
+import NotesList from "../components/NotesList";
 
 function NotesPage() {
   const notes = useSelector(getAllNotes);
