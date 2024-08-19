@@ -43,9 +43,11 @@
   }
 }
 .app-main {
-  width: 100%;
+  // width: 100%;
+  width: calc(100% - $sidebar-width);
   height: 100vh;
   overflow-y: scroll;
+  // overflow-x: hidden;
 }
 
 .header {

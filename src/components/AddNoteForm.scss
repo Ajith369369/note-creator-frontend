@@ -6,7 +6,7 @@
   padding: 20px; /* Add some padding around the form */
   height: 100vh;
   @media screen and (min-width: 992px) {
-    width: calc(100vw - $sidebar-width);
+    width: calc(100vw - $sidebar-width - 12px - 36px - 6px);
   }
 
   .btn {
