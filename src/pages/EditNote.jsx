@@ -1,11 +1,9 @@
-// import EditNoteForm from "../components/EditNoteForm";
-import Sidebar from "../components/Sidebar";
+import EditNoteForm from "../components/EditNoteForm";
 
 function EditNote() {
   return (
     <>
-      <Sidebar />
-      {/* <EditNoteForm/> */}
+      <EditNoteForm />
     </>
   );
 }
