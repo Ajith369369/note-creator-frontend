@@ -31,8 +31,11 @@ export const getAllNotesOfAllUsersApi = async () => {
 /* export const getAllNotesOfAUserApi = async (reqHeader) => {
   return await commonApi("GET", `${serverUrl}/notes/user/all`, "", reqHeader);
 }; */
-export const getAllNotesOfAUserApi = async (searchKey, reqHeader) => {
+/* export const getAllNotesOfAUserApi = async (searchKey, reqHeader) => {
   return await commonApi("GET", `${serverUrl}/notes/user/all?search=${searchKey}`, "", reqHeader);
+}; */
+export const getAllNotesOfAUserApi = async (searchKey) => {
+  return await commonApi("GET", `${serverUrl}/notes/user/all?search=${searchKey}`, "", "");
 };
 
 // edit note of a user
