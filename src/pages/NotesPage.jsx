@@ -8,7 +8,7 @@ function NotesPage() {
   const [searchKey, setSearchKey] = useState("");
   const [allnotes, setAllNotes] = useState([]);
 
-  const getAllNote = async () => {
+  const getAllNotesOfAUser = async () => {
     if (sessionStorage.getItem("token")) {
       const token = sessionStorage.getItem("token");
       const reqHeader = {
@@ -27,7 +27,7 @@ function NotesPage() {
   console.log(searchKey);
 
   useEffect(() => {
-    getAllNote();
+    getAllNotesOfAUser();
   }, [searchKey]);
   return (
     <>
@@ -52,7 +52,7 @@ function NotesPage() {
         </div>
         <div className="col-md-4"></div>
       </div>
-      <NotesList notes={notes} />
+      <NotesList notes={allnotes} />
     </>
   );
 }
