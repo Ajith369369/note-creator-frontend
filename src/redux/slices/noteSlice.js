@@ -8,7 +8,11 @@ const initialState = {
   // error: null,
   // count: 0,
 
-  notes: null,
+  notes: {
+        notes: [], // the array of notes
+        error: null,
+        count: 0
+    },
 
   noteFormState: {
     noteTitle: "",
