@@ -43,7 +43,6 @@ function NotesPage() {
     if (sessionStorage.getItem("token")) {
       setIsToken(sessionStorage.getItem("token"));
     }
-    getAllNotesOfAUser();
   }, []);
 
   return (
