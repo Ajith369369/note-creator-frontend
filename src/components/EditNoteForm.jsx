@@ -6,9 +6,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { editNote } from "../redux/slices/noteSlice";
 import "./Notes.scss";
 
-function EditNoteForm({ note }) {
+function EditNoteForm() {
 
   console.log('note: ', note)
+
+
   const dispatch = useDispatch();
   // const notes = useSelector(getAllNotes);
   // let tempNote = notes.filter(note => note.noteId === id);

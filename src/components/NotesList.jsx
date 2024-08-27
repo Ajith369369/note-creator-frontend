@@ -1,6 +1,6 @@
 import { ImCancelCircle } from "react-icons/im";
 import "./NotesList.scss";
-// import {FiEdit} from "react-icons/fi";
+import {FiEdit} from "react-icons/fi";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -39,9 +39,9 @@ function NotesList({ notes }) {
                       <ImCancelCircle />
                     </button>
                     {/* <EditNoteForm note={note} /> */}
-                    {/* <Link to = {`/profile-home/edit/${note?.noteId}`} className = "notes-item-btn">
+                    <Link to = {`/profile-home/edit/${note?._id}`} className = "notes-item-btn">
                       <FiEdit />
-                    </Link> */}
+                    </Link>
                   </div>
 
                   <Link
