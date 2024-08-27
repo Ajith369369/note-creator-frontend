@@ -6,6 +6,7 @@
 // #root > div
 #root > div.app-cont {
   width: 100%;
+  overflow-x: hidden;
 }
 
 // form
@@ -48,11 +49,17 @@
 }
 
 .app-main {
-  width: 100%;
+  // width: 100%;
+  width: calc(100% - 60px);
   // width: calc(100% - $sidebar-width);
   min-height: 100vh;
   overflow-y: scroll;
   // overflow-x: hidden;
+
+  @media (min-width: 992px) {
+    // width: 240px;
+    width: calc(100% - $sidebar-width);
+  }
 }
 
 .header {
@@ -78,4 +85,8 @@
   * {
     z-index: 5;
   }
+}
+
+#root > div > div.app-main > div.notes-wrapper {
+  min-height: 100vh;
 }

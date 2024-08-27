@@ -1,0 +1,31 @@
+// Avoid using the default namespace 'App'.
+@use "../App.scss" as *;
+
+.note-form-section {
+  // flex-grow: 1; This allows the form to take up the remaining space
+  width: calc(100vw - 60px);
+  padding: 20px;
+  min-height: 100vh;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 9px;
+  @media (min-width: 992px) {
+    width: calc(100vw - $sidebar-width - 12px - 36px - 6px);
+  }
+
+  .note-form {
+    max-width: 100%;
+  }
+
+  .form-error-text {
+    font-size: 13px;
+    color: $clr-red-salsa;
+    opacity: 0.9;
+  }
+
+  .btn {
+    background-color: $clr-red-salsa;
+    color: white;
+    border: 1px solid black;
+  }
+}
+

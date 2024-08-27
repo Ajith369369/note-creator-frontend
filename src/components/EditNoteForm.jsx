@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import "./Notes.scss";
+import "./NoteForm.scss";
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { editNote, getAllNotes } from '../redux/slices/noteSlice';
