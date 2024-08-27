@@ -1,23 +1,32 @@
-import {useState} from 'react';
-import "./NoteForm.scss";
-import { useParams } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
-import { editNote, getAllNotes } from '../redux/slices/noteSlice';
-import 'react-toastify/dist/ReactToastify.css';
-import {ToastContainer, toast} from 'react-toastify';
+import { useState } from "react";
+import { FiEdit } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { editNote } from "../redux/slices/noteSlice";
+import "./Notes.scss";
 
-function EditNoteForm() {
-  const { id } = useParams();
+function EditNoteForm({ note }) {
+
+  console.log('note: ', note)
   const dispatch = useDispatch();
-  const notes = useSelector(getAllNotes);
-  let tempNote = notes.filter(note => note.noteId === id);
+  // const notes = useSelector(getAllNotes);
+  // let tempNote = notes.filter(note => note.noteId === id);
 
-  const [formData, setFormData] = useState(tempNote[0]);
+  // const [formData, setFormData] = useState(tempNote[0]);
   const [titleError, setTitleError] = useState(false);
   const [contentError, setContentError] = useState(false);
   const [canSave, setCanSave] = useState(true);
+  const [preview, setPreview] = useState("");
+  const [key, setKey] = useState(false);
+  const [noteDetails, setNoteDetails] = useState({
+    title: note.noteTitle,
+    content: note.noteContent,
+    date: note.noteDate,
+    noteImg: "",
+  });
 
-  const onFormDataChange = (event) => {
+  /* const onFormDataChange = (event) => {
     event.preventDefault();
     if(event.target.name === 'noteTitle'){
       if(event.target.value.length === 0){
@@ -43,41 +52,83 @@ function EditNoteForm() {
         [event.target.name]: event.target.value
       }
     })
-  }
+  } */
 
   const onSaveNoteClicked = () => {
-    if(!titleError && !contentError){
+    if (!titleError && !contentError) {
       console.log(formData);
       dispatch(editNote(formData));
       toast("Note edited successfully");
-      setFormData({noteTitle: "", noteContent: ""});
+      setFormData({ noteTitle: "", noteContent: "" });
     }
-  }
+  };
   return (
     <>
-<div>
-      <section className='note-form-section'>
-        <h2 className='my-4 fs-16'>Add New Note</h2>
-        <form className='note-form'>
-          <div className='form-element'>
-            <label htmlFor='noteTitle' className='form-label'>Title:</label>
-            <input type = "text" id = "noteTitle" name = "noteTitle" placeholder='Note title here ...' onChange={onFormDataChange} className = "form-control" value = {formData.noteTitle} />
-            <span className='form-error-text'>{titleError ? "Title can't be empty!" : ""}</span>
-          </div>
+      <div>
+        <FiEdit />
+        <section className="note-form-section">
+          <h2 className="my-4 fs-16">Add New Note</h2>
+          <form className="note-form">
+            <div className="form-element">
+              <label htmlFor="noteTitle" className="form-label">
+                Title:
+              </label>
+              <input
+                type="text"
+                id="noteTitle"
+                name="noteTitle"
+                placeholder="Note title here ..."
+                onChange={(e) =>
+                  setNoteDetails({
+                    ...noteDetails,
+                    title: e.target.value,
+                  })
+                }
+                className="form-control"
+                value={noteDetails?.title}
+              />
+              <span className="form-error-text">
+                {titleError ? "Title can't be empty!" : ""}
+              </span>
+            </div>
 
-          <div className='form-element'>
-            <label htmlFor='noteContent' className='form-label'>Content:</label>
-            <textarea id = "noteContent" name = "noteContent" placeholder='Note content here ...' onChange={onFormDataChange} className = "form-control" rows = "10" value = {formData.noteContent}></textarea>
-            <span className='form-error-text'>{contentError ? "Content can't be empty!" : ""}</span>
-          </div>
+            <div className="form-element">
+              <label htmlFor="noteContent" className="form-label">
+                Content:
+              </label>
+              <textarea
+                id="noteContent"
+                name="noteContent"
+                placeholder="Note content here ..."
+                onChange={(e) =>
+                  setNoteDetails({
+                    ...noteDetails,
+                    content: e.target.value,
+                  })
+                }
+                className="form-control"
+                rows="10"
+                value={noteDetails?.content}
+              ></textarea>
+              <span className="form-error-text">
+                {contentError ? "Content can't be empty!" : ""}
+              </span>
+            </div>
 
-          <button type = "button" onClick={(onSaveNoteClicked)} className = "btn btn-default" disabled = {!canSave}>Save Note</button>
-          <ToastContainer />
-        </form>
-      </section>
-    </div>
+            <button
+              type="button"
+              onClick={onSaveNoteClicked}
+              className="btn btn-default"
+              disabled={!canSave}
+            >
+              Save Note
+            </button>
+            <ToastContainer />
+          </form>
+        </section>
+      </div>
     </>
-  )
+  );
 }
 
-export default EditNoteForm
+export default EditNoteForm;

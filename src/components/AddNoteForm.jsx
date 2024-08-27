@@ -8,7 +8,7 @@ import {
   updateNoteFormState,
 } from "../redux/slices/noteSlice";
 import { addNoteOfAUserApi } from "../services/nc_allApi";
-import "./NoteForm.scss";
+import "./AddNoteForm.scss";
 
 function AddNoteForm() {
   const dispatch = useDispatch();
