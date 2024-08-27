@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { FiEdit } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -13,7 +12,7 @@ function EditNoteForm() {
   // console.log('noteId: ', noteId)
   const location = useLocation();
   const selectedNote = location.state?.selectedNote;
-  console.log('selectedNote: ', selectedNote)
+  console.log("selectedNote: ", selectedNote);
 
   const dispatch = useDispatch();
   // const notes = useSelector(getAllNotes);
@@ -26,9 +25,9 @@ function EditNoteForm() {
   const [preview, setPreview] = useState("");
   const [key, setKey] = useState(false);
   const [noteDetails, setNoteDetails] = useState({
-    title: note.noteTitle,
-    content: note.noteContent,
-    date: note.noteDate,
+    title: "",
+    content: "",
+    date: "",
     noteImg: "",
   });
 
@@ -76,15 +75,14 @@ function EditNoteForm() {
   };
 
   useEffect(() => {
-    getANoteOfAUser(noteId);
+    getANoteOfAUser(selectedNote?.userId);
   }, []);
 
   return (
     <>
       <div>
-        <FiEdit />
         <section className="note-form-section">
-          <h2 className="my-4 fs-16">Add New Note</h2>
+          <h2 className="my-4 fs-16">Edit Note</h2>
           <form className="note-form">
             <div className="form-element">
               <label htmlFor="noteTitle" className="form-label">
@@ -102,7 +100,8 @@ function EditNoteForm() {
                   })
                 }
                 className="form-control"
-                value={noteDetails?.title}
+                // Keep your inputs consistently controlled by ensuring their value is always defined, even if it’s just an empty string.
+                value={noteDetails.title || ""}
               />
               <span className="form-error-text">
                 {titleError ? "Title can't be empty!" : ""}
@@ -125,7 +124,8 @@ function EditNoteForm() {
                 }
                 className="form-control"
                 rows="10"
-                value={noteDetails?.content}
+                // Keep your inputs consistently controlled by ensuring their value is always defined, even if it’s just an empty string.
+                value={noteDetails?.content || ""}
               ></textarea>
               <span className="form-error-text">
                 {contentError ? "Content can't be empty!" : ""}
