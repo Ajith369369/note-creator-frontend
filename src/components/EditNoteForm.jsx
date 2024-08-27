@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { editNote } from "../redux/slices/noteSlice";
-import "./Notes.scss";
-import { useParams } from 'react-router-dom';
 import { getANoteOfAUserApi } from "../services/nc_allApi";
+import "./Notes.scss";
 
 function EditNoteForm() {
-  const { noteId } = useParams();
-  console.log('noteId: ', noteId)
-
+  // const { noteId } = useParams();
+  // console.log('noteId: ', noteId)
+  const location = useLocation();
+  const selectedNote = location.state?.selectedNote;
+  console.log('selectedNote: ', selectedNote)
 
   const dispatch = useDispatch();
   // const notes = useSelector(getAllNotes);
@@ -73,9 +75,9 @@ function EditNoteForm() {
     }
   };
 
-useEffect(() => {
-  getANoteOfAUser(noteId)
-},[])
+  useEffect(() => {
+    getANoteOfAUser(noteId);
+  }, []);
 
   return (
     <>

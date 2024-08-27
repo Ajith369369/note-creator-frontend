@@ -1,18 +1,27 @@
-import { ImCancelCircle } from "react-icons/im";
-import "./NotesList.scss";
-import {FiEdit} from "react-icons/fi";
 import { formatDistanceToNow, parseISO } from "date-fns";
+import { FiEdit } from "react-icons/fi";
+import { ImCancelCircle } from "react-icons/im";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { removeNote } from "../redux/slices/noteSlice";
+import "./NotesList.scss";
 // import EditNoteForm from "./EditNoteForm";
+
 function NotesList({ notes }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log('notes in NotesList.jsx: ', notes)
+  console.log("notes in NotesList.jsx: ", notes);
   if (!notes || notes?.length === 0) {
     return <div className="not-found">No notes found</div>;
   }
+
+  const handleNavigate = (selected_note) => {
+    // Navigate with the selected note's data.
+    // { state: { selectedNote: selected_note } }: This is an object where the state key contains another object with a key selectedNote that holds the value, selected_note passed to the function. This effectively passes the selected_note data to the new route (/profile-home/edit).
+    navigate("/profile-home/edit", { state: { selectedNote: selected_note } });
+  };
+
   return (
     <>
       <div className="notes">
@@ -40,9 +49,16 @@ function NotesList({ notes }) {
                       <ImCancelCircle />
                     </button>
                     {/* <EditNoteForm note={note} /> */}
-                    <Link to = {`/profile-home/edit/${note?._id}`} className = "notes-item-btn">
+                    {/* <Link to = {`/profile-home/edit/${note?._id}`} className = "notes-item-btn">
                       <FiEdit />
-                    </Link>
+                    </Link> */}
+                    <button
+                      type="button"
+                      className="notes-item-btn"
+                      onClick={() => handleNavigate(note)}
+                    >
+                      <FiEdit />
+                    </button>
                   </div>
 
                   <Link
