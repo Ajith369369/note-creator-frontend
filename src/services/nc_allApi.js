@@ -38,6 +38,10 @@ export const getAllNotesOfAUserApi = async (searchKey) => {
   return await commonApi("GET", `${serverUrl}/notes/user/all?search=${searchKey}`, "", "");
 };
 
+export const getANoteOfAUserApi = async (noteId) => {
+  return await commonApi("GET", `${serverUrl}/notes/user/${noteId}`, "", "");
+};
+
 // edit note of a user
 export const editNoteOfAUserApi = async (noteId, reqBody, reqHeader) => {
   //id is passed as path parameter
