@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { editNote } from "../redux/slices/noteSlice";
 import "./Notes.scss";
+import { useParams } from 'react-router-dom';
+import { getANoteOfAUserApi } from "../services/nc_allApi";
 
 function EditNoteForm() {
-
-  console.log('note: ', note)
+  const { noteId } = useParams();
+  console.log('noteId: ', noteId)
 
 
   const dispatch = useDispatch();
@@ -28,6 +30,12 @@ function EditNoteForm() {
     noteImg: "",
   });
 
+  const getANoteOfAUser = async (noteId) => {
+    const result = await getANoteOfAUserApi(noteId);
+    setNoteDetails(result.data);
+  };
+
+  console.log("noteDetails: ", noteDetails);
   /* const onFormDataChange = (event) => {
     event.preventDefault();
     if(event.target.name === 'noteTitle'){
@@ -64,6 +72,11 @@ function EditNoteForm() {
       setFormData({ noteTitle: "", noteContent: "" });
     }
   };
+
+useEffect(() => {
+  getANoteOfAUser(noteId)
+},[])
+
   return (
     <>
       <div>
