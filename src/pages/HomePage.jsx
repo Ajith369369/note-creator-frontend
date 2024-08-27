@@ -39,7 +39,7 @@ function HomePage() {
 
   return (
     <>
-      <div className="app flex">
+      <div className="app-cont flex">
         <Sidebar />
         <div className="app-main">
           <header className="header w-100 flex align-center">

@@ -3,3 +3,8 @@
   padding: 0px;
   font-family: "Inter", sans-serif;
 }
+
+#root {
+  width: 100vw;
+  overflow-x: hidden;
+}

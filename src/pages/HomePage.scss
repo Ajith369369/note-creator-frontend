@@ -3,6 +3,10 @@
 // Avoid using the default namespace 'App'.
 @use "../App.scss" as *;
 
+// #root > div
+#root > div.app-cont {
+  width: 100%;
+}
 
 // form
 .form-control {
@@ -42,10 +46,11 @@
     color: $clr-red-salsa;
   }
 }
+
 .app-main {
-  // width: 100%;
-  width: calc(100% - $sidebar-width);
-  height: 100vh;
+  width: 100%;
+  // width: calc(100% - $sidebar-width);
+  min-height: 100vh;
   overflow-y: scroll;
   // overflow-x: hidden;
 }
