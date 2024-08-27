@@ -9,6 +9,16 @@
     width: calc(100vw - $sidebar-width - 12px - 36px - 6px);
   }
 
+  form.note-form {
+    max-width: 100%;
+  }
+
+  .form-error-text {
+    font-size: 13px;
+    color: $clr-red-salsa;
+    opacity: 0.9;
+  }
+
   .btn {
     background-color: $clr-red-salsa;
     color: white;
