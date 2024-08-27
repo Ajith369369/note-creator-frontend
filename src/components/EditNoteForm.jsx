@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { editNote } from "../redux/slices/noteSlice";
 import { getANoteOfAUserApi } from "../services/nc_allApi";
 import "./EditNoteForm.scss";
+import { serverUrl } from "../services/nc_serverUrl";
 
 function EditNoteForm() {
   // const { noteId } = useParams();
@@ -13,6 +14,8 @@ function EditNoteForm() {
   const location = useLocation();
   const selectedNote = location.state?.selectedNote;
   console.log("selectedNote: ", selectedNote);
+  console.log('selectedNote?.userId: ', selectedNote?.userId)
+  console.log('selectedNote?._id: ', selectedNote?._id)
 
   const dispatch = useDispatch();
   // const notes = useSelector(getAllNotes);
@@ -33,6 +36,7 @@ function EditNoteForm() {
 
   const getANoteOfAUser = async (noteId) => {
     const result = await getANoteOfAUserApi(noteId);
+    console.log('getANoteOfAUserApi() result: ', result)
     setNoteDetails(result.data);
   };
 
@@ -64,7 +68,7 @@ function EditNoteForm() {
       }
     })
   } */
- 
+
   const handleFile = async (e) => {
     console.log(e);
     console.log(e.target.files);
@@ -85,7 +89,7 @@ function EditNoteForm() {
   };
 
   useEffect(() => {
-    getANoteOfAUser(selectedNote?.userId);
+    getANoteOfAUser(selectedNote?._id);
   }, []);
 
   return (
@@ -111,7 +115,7 @@ function EditNoteForm() {
                 }
                 className="form-control"
                 // Keep your inputs consistently controlled by ensuring their value is always defined, even if it’s just an empty string.
-                value={noteDetails.title || ""}
+                value={selectedNote?.noteTitle || ""}
               />
               <span className="form-error-text">
                 {titleError ? "Title can't be empty!" : ""}
@@ -130,7 +134,7 @@ function EditNoteForm() {
                   onChange={(e) => handleFile(e)}
                 />
                 <img
-                  src={preview ? preview : defaultImage}
+                  src={preview ? preview : `${serverUrl}/uploads/${selectedNote?.noteImage}`}
                   alt=""
                   style={{ height: "100px" }}
                 />
@@ -153,7 +157,7 @@ function EditNoteForm() {
                 className="form-control"
                 rows="10"
                 // Keep your inputs consistently controlled by ensuring their value is always defined, even if it’s just an empty string.
-                value={noteDetails?.content || ""}
+                value={selectedNote?.noteContent || ""}
               ></textarea>
               <span className="form-error-text">
                 {contentError ? "Content can't be empty!" : ""}
