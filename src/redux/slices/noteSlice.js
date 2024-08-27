@@ -18,6 +18,8 @@ const initialState = {
     noteTitle: "",
     noteContent: "",
     noteDate: "",
+    noteImage:"",
+    noteUserId:""
   },
 };
 
