@@ -64,6 +64,16 @@ function EditNoteForm() {
       }
     })
   } */
+ 
+  const handleFile = async (e) => {
+    console.log(e);
+    console.log(e.target.files);
+    console.log(e.target.files[0]);
+    setNoteDetails({
+      ...noteDetails,
+      noteImage: e.target.files[0],
+    });
+  };
 
   const onSaveNoteClicked = () => {
     if (!titleError && !contentError) {
@@ -107,7 +117,25 @@ function EditNoteForm() {
                 {titleError ? "Title can't be empty!" : ""}
               </span>
             </div>
-
+            <div className="form-element">
+              <label htmlFor="noteImg" className="form-label">
+                Image:
+              </label>
+              <label htmlFor="noteImg">
+                <input
+                  type="file"
+                  id="noteImg"
+                  style={{ display: "none" }}
+                  key={key}
+                  onChange={(e) => handleFile(e)}
+                />
+                <img
+                  src={preview ? preview : defaultImage}
+                  alt=""
+                  style={{ height: "100px" }}
+                />
+              </label>
+            </div>
             <div className="form-element">
               <label htmlFor="noteContent" className="form-label">
                 Content:
