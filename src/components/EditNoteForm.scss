@@ -3,7 +3,7 @@
 
 .note-form-section {
   // flex-grow: 1; This allows the form to take up the remaining space
-  width: calc(100vw - 60px);
+  width: calc(100vw - 60px - 12px - 36px - 6px);
   padding: 20px;
   min-height: 100vh;
   border-radius: 4px;
@@ -12,7 +12,7 @@
     width: calc(100vw - $sidebar-width - 12px - 36px - 6px);
   }
 
-  .note-form {
+  form.note-form {
     max-width: 100%;
   }
 
@@ -28,4 +28,3 @@
     border: 1px solid black;
   }
 }
-

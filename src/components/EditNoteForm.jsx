@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { editNote } from "../redux/slices/noteSlice";
 import { getANoteOfAUserApi } from "../services/nc_allApi";
-import "./Notes.scss";
+import "./EditNoteForm.scss";
 
 function EditNoteForm() {
   // const { noteId } = useParams();
