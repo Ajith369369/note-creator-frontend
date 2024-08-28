@@ -88,7 +88,7 @@ function NotesPage() {
             </div>
             <div className="col-md-4"></div>
           </div>
-          <NotesList notes={allnotes} />
+          <NotesList notes={notesFromNoteSlice} />
         </div>
       ) : (
         <div className="row mt-5 w-100">
