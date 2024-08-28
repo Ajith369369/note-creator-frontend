@@ -17,7 +17,6 @@ function EditNoteForm() {
   console.log("selectedNote?._id: ", selectedNote?._id);
 
   const navigate = useNavigate()
-  const dispatch = useDispatch();
   // const notes = useSelector(getAllNotes);
   // let tempNote = notes.filter(note => note.noteId === id);
 
@@ -33,12 +32,6 @@ function EditNoteForm() {
     noteDate: selectedNote?.noteDate,
     noteImage: "",
   });
-
-  /* const getANoteOfAUser = async (noteId) => {
-    const result = await getANoteOfAUserApi(noteId);
-    console.log("getANoteOfAUserApi() result: ", result);
-    setNoteDetails(result.data);
-  }; */
 
   console.log("noteDetails: ", noteDetails);
   /* const onFormDataChange = (event) => {
