@@ -60,7 +60,7 @@ function AddNoteForm() {
     }); */
   };
 
-  /* // Handle the upload of the default image if no image is selected.
+  // Handle the upload of the default image if no image is selected.
   // Convert default image to a file object
   // The fetchDefaultImageFile function essentially fetches a local image file, converts it into a format that can be uploaded or manipulated (a File object), and then returns that file. This allows you to treat the default image as if it were a file selected by a user.
   // const fetchDefaultImageFile = async () => { ... }: This line declares an asynchronous function named fetchDefaultImageFile that returns a Promise.
@@ -93,7 +93,7 @@ function AddNoteForm() {
     return file;
   };
 
-  // Uploading the file.
+  /* // Uploading the file.
   // The uploadFile function handles the process of uploading a file to the server.
   // It packages the file into a FormData object, sends it to the server via a POST request, and then updates the component's state with the path to the uploaded file, as returned by the server.
   // This function allows the user to upload an image and have its path stored in the noteDetails state.
@@ -143,7 +143,7 @@ function AddNoteForm() {
     console.log(e);
     console.log(e.target.files);
     console.log(e.target.files[0]);
-    console.log('e.target.files[0]: ', e.target.files[0])
+    console.log("e.target.files[0]: ", e.target.files[0]);
     setNoteDetails({
       ...noteDetails,
       noteImage: e.target.files[0],
@@ -198,6 +198,22 @@ function AddNoteForm() {
         setNoteDetails(updatedNoteDetails);
         console.log("noteImage: ", updatedNoteDetails.noteImage);
       } */
+      if (noteDetails.noteImage) {
+        console.log("noteImage: ", noteImage);
+      } else {
+        const defaultImageFileObject = fetchDefaultImageFile();
+        console.log("defaultImageFileObject: ", defaultImageFileObject);
+
+        const updatedNoteDetails = {
+          ...noteDetails,
+          noteImage: defaultImageFileObject,
+        };
+        setNoteDetails(updatedNoteDetails);
+        console.log(
+          "updatedNoteDetails.noteImage: ",
+          updatedNoteDetails.noteImage
+        );
+      }
 
       // if statement checks if any of the required fields (noteTitle, noteContent, noteImage, noteDate) are empty. If any field is missing, it triggers an alert to inform the user to complete the form.
       if (!noteTitle || !noteContent || !noteImage || !noteDate) {
@@ -256,7 +272,10 @@ function AddNoteForm() {
     console.log("noteDetails.noteImage: ", noteDetails.noteImage);
     if (noteDetails.noteImage !== "") {
       setPreview(URL.createObjectURL(noteDetails.noteImage));
-      console.log('URL.createObjectURL(noteDetails.noteImage): ', URL.createObjectURL(noteDetails.noteImage))
+      console.log(
+        "URL.createObjectURL(noteDetails.noteImage): ",
+        URL.createObjectURL(noteDetails.noteImage)
+      );
     }
   }, [noteDetails.noteImage]);
 
