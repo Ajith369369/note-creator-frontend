@@ -257,7 +257,7 @@ function EditNoteForm() {
             >
               Save Note
             </button>
-            <ToastContainer position="top-center" theme="colored" autoclose={1500} />
+            <ToastContainer position="top-center" theme="colored" autoclose={1000} />
           </form>
         </section>
       </div>
