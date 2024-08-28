@@ -27,17 +27,17 @@ function EditNoteForm() {
   const [preview, setPreview] = useState("");
   const [key, setKey] = useState(false);
   const [noteDetails, setNoteDetails] = useState({
-    title: "",
-    content: "",
-    date: "",
-    noteImg: "",
+    noteTitle: selectedNote?.noteTitle,
+    noteContent: selectedNote?.noteContent,
+    noteDate: selectedNote?.noteDate,
+    noteImage: "",
   });
 
-  const getANoteOfAUser = async (noteId) => {
+  /* const getANoteOfAUser = async (noteId) => {
     const result = await getANoteOfAUserApi(noteId);
     console.log("getANoteOfAUserApi() result: ", result);
     setNoteDetails(result.data);
-  };
+  }; */
 
   console.log("noteDetails: ", noteDetails);
   /* const onFormDataChange = (event) => {
@@ -78,6 +78,12 @@ function EditNoteForm() {
     });
   };
 
+  useEffect(() => {
+    if (noteDetails.noteImage) {
+      setPreview(URL.createObjectURL(noteDetails.noteImage));
+    }
+  }, [noteDetails.noteImage]);
+
   const onSaveNoteClicked = async () => {
     /* if (!titleError && !contentError) {
       console.log(formData);
@@ -85,7 +91,7 @@ function EditNoteForm() {
       toast("Note edited successfully");
       setFormData({ noteTitle: "", noteContent: "" });
     } */
-    const { noteTitle, noteContent, noteImage, noteDate } = selectedNote;
+    const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
     if (!noteTitle || !noteContent || !noteImage || !noteDate) {
       toast.info("Please fill the form completely.");
     } else {
@@ -160,9 +166,9 @@ function EditNoteForm() {
     }
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     getANoteOfAUser(selectedNote?._id);
-  }, []);
+  }, []); */
 
   return (
     <>
@@ -182,12 +188,12 @@ function EditNoteForm() {
                 onChange={(e) =>
                   setNoteDetails({
                     ...noteDetails,
-                    title: e.target.value,
+                    noteTitle: e.target.value,
                   })
                 }
                 className="form-control"
                 // Keep your inputs consistently controlled by ensuring their value is always defined, even if it’s just an empty string.
-                value={selectedNote?.noteTitle || ""}
+                value={noteDetails.noteTitle || ""}
               />
               <span className="form-error-text">
                 {titleError ? "Title can't be empty!" : ""}
@@ -227,13 +233,13 @@ function EditNoteForm() {
                 onChange={(e) =>
                   setNoteDetails({
                     ...noteDetails,
-                    content: e.target.value,
+                    noteContent: e.target.value,
                   })
                 }
                 className="form-control"
                 rows="10"
                 // Keep your inputs consistently controlled by ensuring their value is always defined, even if it’s just an empty string.
-                value={selectedNote?.noteContent || ""}
+                value={noteDetails.noteContent || ""}
               ></textarea>
               <span className="form-error-text">
                 {contentError ? "Content can't be empty!" : ""}
