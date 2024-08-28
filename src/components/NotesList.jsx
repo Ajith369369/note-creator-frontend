@@ -4,6 +4,8 @@ import { ImCancelCircle } from "react-icons/im";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import "./NotesList.scss";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { deleteNoteOfAUserApi } from "../services/nc_allApi";
 // import EditNoteForm from "./EditNoteForm";
 
@@ -81,6 +83,7 @@ function NotesList({ notes }) {
           })}
         </div>
       </div>
+      <ToastContainer position="top-center" theme="colored" autoclose={1000} />
     </>
   );
 }
