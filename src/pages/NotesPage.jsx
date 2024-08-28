@@ -5,11 +5,16 @@ import { Link } from "react-router-dom";
 import noteCreatorLogo from "../assets/images/note-creator-square-logo.jpeg";
 import NotesList from "../components/NotesList";
 import { getAllNotesOfAUserApi } from "../services/nc_allApi";
+import { updateNotes } from "../redux/slices/noteSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function NotesPage() {
   const [isToken, setIsToken] = useState("");
   const [searchKey, setSearchKey] = useState("");
   const [allnotes, setAllNotes] = useState([]);
+
+  const dispatch = useDispatch()
+  const notesFromNoteSlice = useSelector((state) => state.noteDetails.notes);
 
   const getAllNotesOfAUser = async (searchKey) => {
     const token = sessionStorage.getItem("token");
@@ -24,8 +29,10 @@ function NotesPage() {
       };
       const result = await getAllNotesOfAUserApi(searchKey, reqHeader);
       setAllNotes(result.data);
+      dispatch(updateNotes(result.data))
     }
 
+    
     /* if (sessionStorage.getItem("token")) {
       const token = sessionStorage.getItem("token");
       const reqHeader = {
@@ -41,9 +48,10 @@ function NotesPage() {
       }
     } */
   };
-
+  
   console.log("searchKey: ", searchKey);
   console.log("allnotes: ", allnotes);
+  console.log('notesFromNoteSlice: ', notesFromNoteSlice)
 
   useEffect(() => {
     getAllNotesOfAUser(searchKey);

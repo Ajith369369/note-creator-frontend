@@ -17,23 +17,6 @@ function NotesList({ notes }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const getAllNotesOfAUser = async (searchKey) => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      const reqHeader = {
-        // "Content-Type": "application/json" is used to send requests without uploaded content.
-        // Select form-data in body section in Postman.
-        // Bearer - No other certificate is required to verify this token.
-        // iat : Time atwhich token is generated.
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
-      const result = await getAllNotesOfAUser(searchKey, reqHeader);
-      // setAllNotes(result.data);
-      notes = result.data
-    }
-  };
-
   console.log("notes in NotesList.jsx: ", notes);
   if (!notes || notes?.length === 0) {
     return <div className="not-found">No notes found</div>;
@@ -57,11 +40,6 @@ function NotesList({ notes }) {
       }
     }
   };
-
-  useEffect(() => {
-    getAllNotesOfAUser();
-    setDeleteStatus(false);
-  }, [deleteStatus]);
 
   const handleNavigate = (selected_note) => {
     // Navigate with the selected note's data.
