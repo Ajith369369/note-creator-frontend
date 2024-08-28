@@ -17,8 +17,19 @@ function NotesList({ notes }) {
   const dispatch = useDispatch();
 
   const getAllNotesOfAUser = async (searchKey) => {
-    const result = await getAllNotesOfAUserApi(searchKey);
-    setAllNotes(result.data);
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const reqHeader = {
+        // "Content-Type": "application/json" is used to send requests without uploaded content.
+        // Select form-data in body section in Postman.
+        // Bearer - No other certificate is required to verify this token.
+        // iat : Time atwhich token is generated.
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+      const result = await getAllNotesOfAUser(searchKey, reqHeader);
+      setAllNotes(result.data);
+    }
   };
 
   console.log("notes in NotesList.jsx: ", notes);
