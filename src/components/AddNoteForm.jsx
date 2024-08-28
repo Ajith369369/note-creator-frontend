@@ -201,14 +201,14 @@ function AddNoteForm() {
       if (noteDetails.noteImage) {
         console.log("noteImage: ", noteImage);
       } else {
-        const defaultImageFileObject = fetchDefaultImageFile();
+        const defaultImageFileObject = await fetchDefaultImageFile();
         console.log("defaultImageFileObject: ", defaultImageFileObject);
 
         const updatedNoteDetails = {
           ...noteDetails,
           noteImage: defaultImageFileObject,
         };
-        setNoteDetails(updatedNoteDetails);
+        await setNoteDetails(updatedNoteDetails);
         console.log(
           "updatedNoteDetails.noteImage: ",
           updatedNoteDetails.noteImage
