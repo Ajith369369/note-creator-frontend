@@ -34,10 +34,9 @@ export const getAllNotesOfAllUsersApi = async () => {
 /* export const getAllNotesOfAUserApi = async (searchKey, reqHeader) => {
   return await commonApi("GET", `${serverUrl}/notes/user/all?search=${searchKey}`, "", reqHeader);
 }; */
-export const getAllNotesOfAUserApi = async (searchKey) => {
-  console.log("Inside getAllNotesOfAUserApi()");
-  
-  return await commonApi("GET", `${serverUrl}/notes/user/all?search=${searchKey}`, "", "");
+export const getAllNotesOfAUserApi = async (searchKey, reqHeader) => {
+  // console.log("Inside getAllNotesOfAUserApi()");
+  return await commonApi("GET", `${serverUrl}/notes/user/all?search=${searchKey}`, "", reqHeader);
 };
 
 export const getANoteOfAUserApi = async (noteId) => {

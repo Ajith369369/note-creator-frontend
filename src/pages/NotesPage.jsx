@@ -1,10 +1,10 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import NotesList from "../components/NotesList";
-import { getAllNotesOfAUserApi } from "../services/nc_allApi";
 import { Link } from "react-router-dom";
 import noteCreatorLogo from "../assets/images/note-creator-square-logo.jpeg";
+import NotesList from "../components/NotesList";
+import { getAllNotesOfAUserApi } from "../services/nc_allApi";
 
 function NotesPage() {
   const [isToken, setIsToken] = useState("");
@@ -12,9 +12,19 @@ function NotesPage() {
   const [allnotes, setAllNotes] = useState([]);
 
   const getAllNotesOfAUser = async (searchKey) => {
-
-    const result = await getAllNotesOfAUserApi(searchKey);
-    setAllNotes(result.data);
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const reqHeader = {
+        // "Content-Type": "application/json" is used to send requests without uploaded content.
+        // Select form-data in body section in Postman.
+        // Bearer - No other certificate is required to verify this token.
+        // iat : Time atwhich token is generated.
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+      const result = await getAllNotesOfAUserApi(searchKey, reqHeader);
+      setAllNotes(result.data);
+    }
 
     /* if (sessionStorage.getItem("token")) {
       const token = sessionStorage.getItem("token");
@@ -31,9 +41,9 @@ function NotesPage() {
       }
     } */
   };
-  
-  console.log('searchKey: ', searchKey)
-  console.log('allnotes: ', allnotes)
+
+  console.log("searchKey: ", searchKey);
+  console.log("allnotes: ", allnotes);
 
   useEffect(() => {
     getAllNotesOfAUser(searchKey);
@@ -47,45 +57,47 @@ function NotesPage() {
 
   return (
     <>
-      {isToken ?
-      <div>
-        <div className="row my-4">
+      {isToken ? (
+        <div>
+          <div className="row my-4">
+            <div className="col-md-4"></div>
+            <div className="col-md-4 d-flex">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Note Title"
+                onChange={(e) => setSearchKey(e.target.value)}
+              />
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                rotation={90}
+                style={{
+                  marginTop: "12px",
+                  marginLeft: "-30px",
+                  color: "grey",
+                }}
+              />
+            </div>
+            <div className="col-md-4"></div>
+          </div>
+          <NotesList notes={allnotes} />
+        </div>
+      ) : (
+        <div className="row mt-5 w-100">
           <div className="col-md-4"></div>
-          <div className="col-md-4 d-flex">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Note Title"
-              onChange={(e) => setSearchKey(e.target.value)}
-            />
-            <FontAwesomeIcon
-              icon={faMagnifyingGlass}
-              rotation={90}
-              style={{
-                marginTop: "12px",
-                marginLeft: "-30px",
-                color: "grey",
-              }}
-            />
+          <div className="col-md-4 p-4 d-flex flex-column justify-content-center align-items-center">
+            <img src={noteCreatorLogo} alt="" width={"70%"} height={"300px"} />
+            <h4 className="mt-5 text-center">
+              Please{" "}
+              <Link to={"/login"} className="text-danger">
+                Login
+              </Link>{" "}
+              to see the notes.
+            </h4>
           </div>
           <div className="col-md-4"></div>
         </div>
-        <NotesList notes={allnotes} />
-      </div>
-      :<div className="row mt-5 w-100">
-            <div className="col-md-4"></div>
-            <div className="col-md-4 p-4 d-flex flex-column justify-content-center align-items-center">
-              <img src={noteCreatorLogo} alt="" width={"70%"} height={"300px"} />
-              <h4 className="mt-5 text-center">
-                Please{" "}
-                <Link to={"/login"} className="text-danger">
-                  Login
-                </Link>{" "}
-                to see the notes.
-              </h4>
-            </div>
-            <div className="col-md-4"></div>
-          </div>}
+      )}
     </>
   );
 }

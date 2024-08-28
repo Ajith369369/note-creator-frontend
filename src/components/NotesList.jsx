@@ -1,17 +1,25 @@
 import { formatDistanceToNow, parseISO } from "date-fns";
+import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { deleteNoteOfAUserApi } from "../services/nc_allApi";
 import "./NotesList.scss";
 // import EditNoteForm from "./EditNoteForm";
 
 function NotesList({ notes }) {
+  const [allnotes, setAllNotes] = useState([]);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const getAllNotesOfAUser = async (searchKey) => {
+    const result = await getAllNotesOfAUserApi(searchKey);
+    setAllNotes(result.data);
+  };
 
   console.log("notes in NotesList.jsx: ", notes);
   if (!notes || notes?.length === 0) {
@@ -19,9 +27,20 @@ function NotesList({ notes }) {
   }
 
   const handleDelete = async (id) => {
-    const result = await deleteNoteOfAUserApi(id);
-    if (result.status == 200) {
-      toast.success("Note deleted successfully.");
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const reqHeader = {
+        // "Content-Type": "application/json" is used to send requests without uploaded content.
+        // Select form-data in body section in Postman.
+        // Bearer - No other certificate is required to verify this token.
+        // iat : Time atwhich token is generated.
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+      const result = await deleteNoteOfAUserApi(id, reqHeader);
+      if (result.status == 200) {
+        // toast.success("Note deleted successfully.", {onClose:()=>});
+      }
     }
   };
 
