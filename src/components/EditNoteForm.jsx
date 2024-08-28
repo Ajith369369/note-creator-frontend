@@ -3,10 +3,9 @@ import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { editNote } from "../redux/slices/noteSlice";
-import { getANoteOfAUserApi } from "../services/nc_allApi";
-import "./EditNoteForm.scss";
+import { editNoteOfAUserApi, getANoteOfAUserApi } from "../services/nc_allApi";
 import { serverUrl } from "../services/nc_serverUrl";
+import "./EditNoteForm.scss";
 
 function EditNoteForm() {
   // const { noteId } = useParams();
@@ -14,8 +13,8 @@ function EditNoteForm() {
   const location = useLocation();
   const selectedNote = location.state?.selectedNote;
   console.log("selectedNote: ", selectedNote);
-  console.log('selectedNote?.userId: ', selectedNote?.userId)
-  console.log('selectedNote?._id: ', selectedNote?._id)
+  console.log("selectedNote?.userId: ", selectedNote?.userId);
+  console.log("selectedNote?._id: ", selectedNote?._id);
 
   const dispatch = useDispatch();
   // const notes = useSelector(getAllNotes);
@@ -36,7 +35,7 @@ function EditNoteForm() {
 
   const getANoteOfAUser = async (noteId) => {
     const result = await getANoteOfAUserApi(noteId);
-    console.log('getANoteOfAUserApi() result: ', result)
+    console.log("getANoteOfAUserApi() result: ", result);
     setNoteDetails(result.data);
   };
 
@@ -79,12 +78,85 @@ function EditNoteForm() {
     });
   };
 
-  const onSaveNoteClicked = () => {
-    if (!titleError && !contentError) {
+  const onSaveNoteClicked = async () => {
+    /* if (!titleError && !contentError) {
       console.log(formData);
       dispatch(editNote(formData));
       toast("Note edited successfully");
       setFormData({ noteTitle: "", noteContent: "" });
+    } */
+    const { noteTitle, noteContent, noteImage, noteDate } = selectedNote;
+    if (!noteTitle || !noteContent || !noteImage || !noteDate) {
+      toast.info("Please fill the form completely.");
+    } else {
+      // A FormData object is created, which is used to construct a set of key/value pairs representing form fields and their values. This is particularly useful for sending data that includes files (like images) via HTTP requests.
+      const reqBody = new FormData();
+
+      // append() - add data to the object
+      // Each line appends a piece of data to the FormData object. This includes the form field names (title, language, etc.) and their corresponding values.
+      // The append() method adds key-value pairs to the FormData object, where the key is the form field name and the value is the content of the field.
+      reqBody.append("noteTitle", noteTitle); // Postman Body > form-data
+      reqBody.append("noteContent", noteContent); // Postman Body > form-data
+      reqBody.append("noteDate", noteDate); // Postman Body > form-data
+      preview
+        ? reqBody.append("noteImage", noteImage)
+        : reqBody.append("noteImage", selectedNote?.noteImage); // Postman Body > form-data
+
+      // Retrieves a token from the browser's sessionStorage.
+      // The token is used for authentication, verifying that the user is allowed to perform the action (adding a project).
+      const token = sessionStorage.getItem("token");
+
+      // This checks whether the token was successfully retrieved from sessionStorage.
+      // If the token exists, it proceeds to set the request headers and send the data.
+      if (token) {
+        if (preview) {
+          const reqHeader = {
+            // "Content-Type": "multipart/form-data" is used to send requests with uploaded content.
+            // Select form-data in body section in Postman.
+            // Bearer - No other certificate is required to verify this token.
+            // iat : Time atwhich token is generated.
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          };
+          const result = await editNoteOfAUserApi(
+            selectedNote?._id,
+            reqBody,
+            reqHeader
+          );
+          console.log(
+            "Result of the editUserProjectApi call to the console: ",
+            result
+          );
+          if (result.status == 200) {
+            toast.success("Note updated successfully.");
+          } else {
+            toast.error("Something went wrong.");
+          }
+        } else {
+          const reqHeader = {
+            // "Content-Type": "multipart/form-data" is used to send requests with uploaded content.
+            // Select form-data in body section in Postman.
+            // Bearer - No other certificate is required to verify this token.
+            // iat : Time atwhich token is generated.
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          };
+          const result = await editNoteOfAUserApi(
+            selectedNote?._id,
+            reqBody,
+            reqHeader
+          );
+          console.log(
+            "Result of the editUserProjectApi call to the console: ",
+            result
+          );
+          if (result.status == 200) {
+            toast.success("Note updated successfully.");
+          } else {
+            toast.error("Something went wrong.");
+          }
+        }
+      }
     }
   };
 
@@ -134,7 +206,11 @@ function EditNoteForm() {
                   onChange={(e) => handleFile(e)}
                 />
                 <img
-                  src={preview ? preview : `${serverUrl}/uploads/${selectedNote?.noteImage}`}
+                  src={
+                    preview
+                      ? preview
+                      : `${serverUrl}/uploads/${selectedNote?.noteImage}`
+                  }
                   alt=""
                   style={{ height: "100px" }}
                 />

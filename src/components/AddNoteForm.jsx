@@ -198,7 +198,7 @@ function AddNoteForm() {
         console.log("noteImage: ", updatedNoteDetails.noteImage);
       } */
 
-      // if statement checks if any of the required fields (title, language, github, website, overview, noteImg) are empty. If any field is missing, it triggers an alert to inform the user to complete the form.
+      // if statement checks if any of the required fields (noteTitle, noteContent, noteImage, noteDate) are empty. If any field is missing, it triggers an alert to inform the user to complete the form.
       if (!noteTitle || !noteContent || !noteImage || !noteDate) {
         alert("Please fill the form completely.");
       } else {
