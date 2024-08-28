@@ -143,6 +143,7 @@ function AddNoteForm() {
     console.log(e);
     console.log(e.target.files);
     console.log(e.target.files[0]);
+    console.log('e.target.files[0]: ', e.target.files[0])
     setNoteDetails({
       ...noteDetails,
       noteImage: e.target.files[0],
@@ -250,12 +251,15 @@ function AddNoteForm() {
       }
     }
   };
+
   useEffect(() => {
     console.log("noteDetails.noteImage: ", noteDetails.noteImage);
     if (noteDetails.noteImage !== "") {
       setPreview(URL.createObjectURL(noteDetails.noteImage));
+      console.log('URL.createObjectURL(noteDetails.noteImage): ', URL.createObjectURL(noteDetails.noteImage))
     }
   }, [noteDetails.noteImage]);
+
   return (
     <>
       <div>
