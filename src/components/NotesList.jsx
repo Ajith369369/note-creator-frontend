@@ -21,7 +21,7 @@ function NotesList({ notes }) {
   const handleDelete = async(id) => {
     const result = await deleteNoteOfAUserApi(id);
     if (result.status == 200) {
-      toast.success("Note updated successfully.")
+      toast.success("Note deleted successfully.")
     }
   };
 
