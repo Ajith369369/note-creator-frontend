@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { editNoteOfAUserApi, getANoteOfAUserApi } from "../services/nc_allApi";
@@ -16,6 +16,7 @@ function EditNoteForm() {
   console.log("selectedNote?.userId: ", selectedNote?.userId);
   console.log("selectedNote?._id: ", selectedNote?._id);
 
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   // const notes = useSelector(getAllNotes);
   // let tempNote = notes.filter(note => note.noteId === id);
@@ -92,7 +93,7 @@ function EditNoteForm() {
       setFormData({ noteTitle: "", noteContent: "" });
     } */
     const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
-    if (!noteTitle || !noteContent || !noteImage || !noteDate) {
+    if (!noteTitle || !noteContent || !noteDate) {
       toast.info("Please fill the form completely.");
     } else {
       // A FormData object is created, which is used to construct a set of key/value pairs representing form fields and their values. This is particularly useful for sending data that includes files (like images) via HTTP requests.
@@ -134,7 +135,8 @@ function EditNoteForm() {
             result
           );
           if (result.status == 200) {
-            toast.success("Note updated successfully.");
+            toast.success("Note updated successfully.", {
+              onClose: () => navigate('/profile-home/notes')});
           } else {
             toast.error("Something went wrong.");
           }
@@ -157,7 +159,8 @@ function EditNoteForm() {
             result
           );
           if (result.status == 200) {
-            toast.success("Note updated successfully.");
+            toast.success("Note updated successfully.", {
+              onClose: () => navigate('/profile-home/notes')});
           } else {
             toast.error("Something went wrong.");
           }
