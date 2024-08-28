@@ -1,5 +1,5 @@
 import { formatDistanceToNow, parseISO } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { useDispatch } from "react-redux";
@@ -11,8 +11,9 @@ import "./NotesList.scss";
 // import EditNoteForm from "./EditNoteForm";
 
 function NotesList({ notes }) {
+  console.log("notes props received from NotesPage.jsx: ", notes);
   const [allnotes, setAllNotes] = useState([]);
-
+  const [deleteStatus, setDeleteStatus] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,7 +29,8 @@ function NotesList({ notes }) {
         Authorization: `Bearer ${token}`,
       };
       const result = await getAllNotesOfAUser(searchKey, reqHeader);
-      setAllNotes(result.data);
+      // setAllNotes(result.data);
+      notes = result.data
     }
   };
 
@@ -50,10 +52,16 @@ function NotesList({ notes }) {
       };
       const result = await deleteNoteOfAUserApi(id, reqHeader);
       if (result.status == 200) {
-        // toast.success("Note deleted successfully.", {onClose:()=>});
+        toast.success("Note deleted successfully.");
+        setDeleteStatus(true);
       }
     }
   };
+
+  useEffect(() => {
+    getAllNotesOfAUser();
+    setDeleteStatus(false);
+  }, [deleteStatus]);
 
   const handleNavigate = (selected_note) => {
     // Navigate with the selected note's data.
