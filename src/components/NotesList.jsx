@@ -3,10 +3,10 @@ import { FiEdit } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import "./NotesList.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { deleteNoteOfAUserApi } from "../services/nc_allApi";
+import "./NotesList.scss";
 // import EditNoteForm from "./EditNoteForm";
 
 function NotesList({ notes }) {
@@ -18,10 +18,10 @@ function NotesList({ notes }) {
     return <div className="not-found">No notes found</div>;
   }
 
-  const handleDelete = async(id) => {
+  const handleDelete = async (id) => {
     const result = await deleteNoteOfAUserApi(id);
     if (result.status == 200) {
-      toast.success("Note deleted successfully.")
+      toast.success("Note deleted successfully.");
     }
   };
 
