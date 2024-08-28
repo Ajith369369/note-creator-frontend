@@ -4,7 +4,7 @@ import { FiEdit } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { updateNotes } from "../redux/slices/noteSlice";
 import {
@@ -62,7 +62,7 @@ function NotesList({ notes }) {
 
   useEffect(() => {
     getAllNotesOfAUser(searchKey);
-    setDeleteStatus(false)
+    setDeleteStatus(false);
   }, [deleteStatus]);
 
   const handleNavigate = (selected_note) => {
