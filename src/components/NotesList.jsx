@@ -3,8 +3,8 @@ import { FiEdit } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { removeNote } from "../redux/slices/noteSlice";
 import "./NotesList.scss";
+import { deleteNoteOfAUserApi } from "../services/nc_allApi";
 // import EditNoteForm from "./EditNoteForm";
 
 function NotesList({ notes }) {
@@ -15,6 +15,13 @@ function NotesList({ notes }) {
   if (!notes || notes?.length === 0) {
     return <div className="not-found">No notes found</div>;
   }
+
+  const handleDelete = async(id) => {
+    const result = await deleteNoteOfAUserApi(id);
+    if (result.status == 200) {
+      toast.success("Note updated successfully.")
+    }
+  };
 
   const handleNavigate = (selected_note) => {
     // Navigate with the selected note's data.
@@ -44,7 +51,8 @@ function NotesList({ notes }) {
                     <button
                       type="button"
                       className="notes-item-btn"
-                      onClick={() => dispatch(removeNote(note?._id))}
+                      // onClick={() => dispatch(removeNote(note?._id))}
+                      onClick={() => handleDelete(note?._id)}
                     >
                       <ImCancelCircle />
                     </button>
