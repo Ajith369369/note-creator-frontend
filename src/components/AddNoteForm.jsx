@@ -174,7 +174,7 @@ function AddNoteForm() {
     noteDetails.noteDate = noteFormState.noteDate;
 
     if (!titleError && !contentError) {
-      // dispatch(addNewNote(formData));
+
       // Using object destructuring to extract the values for noteTitle, noteContent, noteImage, and noteDate from the noteDetails object.
       const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
       console.log("noteFormState: ", noteFormState);
@@ -204,15 +204,13 @@ function AddNoteForm() {
         const defaultImageFileObject = await fetchDefaultImageFile();
         console.log("defaultImageFileObject: ", defaultImageFileObject);
 
-        const updatedNoteDetails = {
-          ...noteDetails,
+        await setNoteDetails((prevNoteDetails) => ({
+          ...prevNoteDetails,
           noteImage: defaultImageFileObject,
-        };
-        await setNoteDetails(updatedNoteDetails);
-        console.log(
-          "updatedNoteDetails.noteImage: ",
-          updatedNoteDetails.noteImage
-        );
+        }));
+        // Accessing the updated state after awaiting setNoteDetails
+        const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
+        console.log("noteDetails.noteImage before IF check: ", noteImage);
       }
 
       // if statement checks if any of the required fields (noteTitle, noteContent, noteImage, noteDate) are empty. If any field is missing, it triggers an alert to inform the user to complete the form.
