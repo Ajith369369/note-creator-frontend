@@ -41,11 +41,6 @@ function NotesList({ notes }) {
     }
   };
 
-  console.log("notes in NotesList.jsx: ", notes);
-  if (!notes || notes?.length === 0) {
-    return <div className="not-found">No notes found</div>;
-  }
-
   const handleDelete = async (id) => {
     const token = sessionStorage.getItem("token");
     if (token) {
@@ -75,6 +70,11 @@ function NotesList({ notes }) {
     // { state: { selectedNote: selected_note } }: This is an object where the state key contains another object with a key selectedNote that holds the value, selected_note passed to the function. This effectively passes the selected_note data to the new route (/profile-home/edit).
     navigate("/profile-home/edit", { state: { selectedNote: selected_note } });
   };
+
+  console.log("notes in NotesList.jsx: ", notes);
+  if (!notes || notes?.length === 0) {
+    return <div className="not-found">No notes found</div>;
+  }
 
   return (
     <>
