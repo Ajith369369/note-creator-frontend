@@ -14,13 +14,13 @@ const SingleNotePage = () => {
   return (
     <section className="note-single-section px-4">
       <div className="note-single-title">
-        <h2 className="my-2 fs-20">{selectedNote?.noteTitle}</h2>
+        <h1 className="my-2 fs-20">{selectedNote?.noteTitle}</h1>
       </div>
       <div className="py-4">
         <img src={`${serverUrl}/uploads/${selectedNote?.noteImage}`} alt="" />
       </div>
       <div className="py-4">
-        <p>{selectedNote?.noteContent}</p>
+        <h4>{selectedNote?.noteContent}</h4>
       </div>
     </section>
   );

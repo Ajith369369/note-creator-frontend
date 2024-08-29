@@ -247,7 +247,7 @@ function EditNoteForm() {
               className="btn btn-default"
               disabled={!canSave}
             >
-              Save Note
+              Update Note
             </button>
             <ToastContainer position="top-center" theme="colored" autoclose={1000} />
           </form>
