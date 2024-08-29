@@ -30,6 +30,11 @@ function AddNoteForm() {
   });
   console.log("noteDetails: ", noteDetails);
 
+  // Initialize a state to track when the image has been set
+  // imageSet is a state variable that tracks when the image is properly set in noteDetails. Once the image is set, the useEffect hook will run, checking all fields, including noteImage, to ensure they are populated before proceeding.
+  // This ensures that the form validation and submission logic only runs after noteImage is properly stored in the noteDetails state.
+  const [imageSet, setImageSet] = useState(false);
+
   const onFormDataChange = (e) => {
     const { name, value } = e.target;
     e.preventDefault();
@@ -174,7 +179,6 @@ function AddNoteForm() {
     noteDetails.noteDate = noteFormState.noteDate;
 
     if (!titleError && !contentError) {
-
       // Using object destructuring to extract the values for noteTitle, noteContent, noteImage, and noteDate from the noteDetails object.
       const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
       console.log("noteFormState: ", noteFormState);
@@ -208,59 +212,63 @@ function AddNoteForm() {
           ...prevNoteDetails,
           noteImage: defaultImageFileObject,
         }));
-        // Accessing the updated state after awaiting setNoteDetails
-        const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
-        console.log("noteDetails.noteImage before IF check: ", noteImage);
+        setImageSet(true);
       }
+    }
+  };
 
-      // if statement checks if any of the required fields (noteTitle, noteContent, noteImage, noteDate) are empty. If any field is missing, it triggers an alert to inform the user to complete the form.
-      if (!noteTitle || !noteContent || !noteImage || !noteDate) {
-        alert("Please fill the form completely.");
-      } else {
-        // A FormData object is created, which is used to construct a set of key/value pairs representing form fields and their values. This is particularly useful for sending data that includes files (like images) via HTTP requests.
-        const reqBody = new FormData();
+  const onSaveNoteClicked_2 = async () => {
+    // Accessing the updated state after awaiting setNoteDetails
+    const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
+    console.log("noteDetails.noteImage before IF check: ", noteImage);
 
-        // append() - add data to the object
-        // Each line appends a piece of data to the FormData object. This includes the form field names (noteTitle, noteContent, etc.) and their corresponding values.
-        // The append() method adds key-value pairs to the FormData object, where the key is the form field name and the value is the content of the field.
-        reqBody.append("noteTitle", noteTitle); // Postman Body > form-data
-        reqBody.append("noteContent", noteContent); // Postman Body > form-data
-        reqBody.append("noteImage", noteImage); // Postman Body > form-data
-        reqBody.append("noteDate", noteDate); // Postman Body > form-data
+    // if statement checks if any of the required fields (noteTitle, noteContent, noteImage, noteDate) are empty. If any field is missing, it triggers an alert to inform the user to complete the form.
+    if (!noteTitle || !noteContent || !noteImage || !noteDate) {
+      alert("Please fill the form completely.");
+    } else {
+      // A FormData object is created, which is used to construct a set of key/value pairs representing form fields and their values. This is particularly useful for sending data that includes files (like images) via HTTP requests.
+      const reqBody = new FormData();
 
-        // Retrieves a token from the browser's sessionStorage.
-        // The token is used for authentication, verifying that the user is allowed to perform the action (adding a note).
-        const token = sessionStorage.getItem("token");
+      // append() - add data to the object
+      // Each line appends a piece of data to the FormData object. This includes the form field names (noteTitle, noteContent, etc.) and their corresponding values.
+      // The append() method adds key-value pairs to the FormData object, where the key is the form field name and the value is the content of the field.
+      reqBody.append("noteTitle", noteTitle); // Postman Body > form-data
+      reqBody.append("noteContent", noteContent); // Postman Body > form-data
+      reqBody.append("noteImage", noteImage); // Postman Body > form-data
+      reqBody.append("noteDate", noteDate); // Postman Body > form-data
 
-        // This checks whether the token was successfully retrieved from sessionStorage.
-        // If the token exists, it proceeds to set the request headers and send the data.
-        if (token) {
-          // This defines the headers for the HTTP request
-          const reqHeader = {
-            // "Content-Type": "multipart/form-data" is used to send requests with uploaded content.
-            // Select form-data in body section in Postman.
-            // Bearer - No other certificate is required to verify this token.
-            // iat : Time atwhich token is generated.
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          };
+      // Retrieves a token from the browser's sessionStorage.
+      // The token is used for authentication, verifying that the user is allowed to perform the action (adding a note).
+      const token = sessionStorage.getItem("token");
 
-          // Calls the addNoteOfAUserApi function, passing in the reqBody (form data) and reqHeader (headers).
-          const result = await addNoteOfAUserApi(reqBody, reqHeader);
-          console.log(
-            "Result of the addNoteOfAUserApi call to the console: ",
-            result
-          );
+      // This checks whether the token was successfully retrieved from sessionStorage.
+      // If the token exists, it proceeds to set the request headers and send the data.
+      if (token) {
+        // This defines the headers for the HTTP request
+        const reqHeader = {
+          // "Content-Type": "multipart/form-data" is used to send requests with uploaded content.
+          // Select form-data in body section in Postman.
+          // Bearer - No other certificate is required to verify this token.
+          // iat : Time atwhich token is generated.
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        };
 
-          if (result.status == 200) {
-            toast.success("Note added successfully.");
-            dispatch(resetNoteFormState());
-            setPreview("");
-          } else {
-            toast.error("Something went wrong.");
-            dispatch(resetNoteFormState());
-            setPreview("");
-          }
+        // Calls the addNoteOfAUserApi function, passing in the reqBody (form data) and reqHeader (headers).
+        const result = await addNoteOfAUserApi(reqBody, reqHeader);
+        console.log(
+          "Result of the addNoteOfAUserApi call to the console: ",
+          result
+        );
+
+        if (result.status == 200) {
+          toast.success("Note added successfully.");
+          dispatch(resetNoteFormState());
+          setPreview("");
+        } else {
+          toast.error("Something went wrong.");
+          dispatch(resetNoteFormState());
+          setPreview("");
         }
       }
     }
@@ -276,6 +284,12 @@ function AddNoteForm() {
       );
     }
   }, [noteDetails.noteImage]);
+
+  useEffect(() => {
+    if (imageSet) {
+      onSaveNoteClicked_2();
+    }
+  }, [imageSet]);
 
   return (
     <>
