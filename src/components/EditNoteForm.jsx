@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { editNoteOfAUserApi, getANoteOfAUserApi } from "../services/nc_allApi";
+import { editNoteOfAUserApi } from "../services/nc_allApi";
 import { serverUrl } from "../services/nc_serverUrl";
 import "./EditNoteForm.scss";
 

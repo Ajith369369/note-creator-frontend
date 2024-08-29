@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { updateNotes } from "../redux/slices/noteSlice";
@@ -71,6 +71,12 @@ function NotesList({ notes }) {
     navigate("/profile-home/edit", { state: { selectedNote: selected_note } });
   };
 
+  const handleNavigate_2 = (selected_note) => {
+    // Navigate with the selected note's data.
+    // { state: { selectedNote: selected_note } }: This is an object where the state key contains another object with a key selectedNote that holds the value, selected_note passed to the function. This effectively passes the selected_note data to the new route (/profile-home/note).
+    navigate("/profile-home/note", { state: { selectedNote: selected_note } });
+  };
+
   console.log("notes in NotesList.jsx: ", notes);
   if (!notes || notes?.length === 0) {
     return <div className="not-found">No notes found</div>;
@@ -116,12 +122,19 @@ function NotesList({ notes }) {
                     </button>
                   </div>
 
-                  <Link
+                  <button
+                    type="button"
+                    onClick={() => handleNavigate_2(note)}
+                    className="read-more-btn fs-14"
+                  >
+                    Read More
+                  </button>
+                  {/* <Link
                     to={`/note/${note?._id}`}
                     className="read-more-btn fs-14"
                   >
                     Read More
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             );

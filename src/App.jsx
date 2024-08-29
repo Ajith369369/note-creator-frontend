@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import SingleNote from "../components/SingleNote";
+import SingleNote from "./components/SingleNote";
 import "./App.scss";
 import AddNote from "./pages/AddNote";
 import Auth from "./pages/Auth";
