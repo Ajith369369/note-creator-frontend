@@ -186,22 +186,6 @@ function AddNoteForm() {
       console.log("noteContent: ", noteContent);
       console.log("noteDate: ", noteDate);
 
-      // if (noteDetails.noteImage): This checks if noteDetails.noteImage already has a value.
-      /* setNoteDetails({
-          ...noteDetails,
-          noteImage: defaultImage,
-        });
-        console.log("noteImage: ", noteImage); */
-      /* if (noteDetails.noteImage) {
-        console.log("noteImage: ", noteImage);
-      } else {
-        const updatedNoteDetails = {
-          ...noteDetails,
-          noteImage: defaultImage,
-        };
-        setNoteDetails(updatedNoteDetails);
-        console.log("noteImage: ", updatedNoteDetails.noteImage);
-      } */
       if (noteDetails.noteImage) {
         console.log("noteImage: ", noteImage);
       } else {
