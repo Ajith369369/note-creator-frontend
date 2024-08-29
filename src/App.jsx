@@ -8,6 +8,7 @@ import Notes from "./pages/Notes";
 import Auth from "./pages/Auth";
 import NotesPage from "./pages/NotesPage";
 
+
 function App() {
   return (
     <>
@@ -20,7 +21,7 @@ function App() {
           <Route path="/profile-home/notes" element={<NotesPage />} />
           <Route path="/profile-home/add" element={<AddNote />} />
           <Route path="/profile-home/edit" element={<EditNote />} />
-          {/* <Route path = "/note/:id" element = {<SingleNote />} /> */}
+          <Route path = "/profile-home/note" element = {<SingleNote />} />
           </Route>
       </Routes>
     </>
