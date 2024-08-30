@@ -14,6 +14,7 @@ export const loginApi = async (reqBody) => {
 // add note of a user
 // uploaded content requests need header.
 export const addNoteOfAUserApi = async (reqBody, reqHeader) => {
+  console.log("Inside addNoteOfAUserApi()");
   return await commonApi(
     "POST",
     `${serverUrl}/notes/user/add`,
