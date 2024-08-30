@@ -33,9 +33,9 @@ const Sidebar = () => {
               }`}
              */}
             <Link
-              to="/profile-home/notes"
+              to="/profile-home/introduction"
               className={`text-white flex justify-center align-center link-item ${
-                pathname === "profile-home/notes" ? "active-link" : ""
+                pathname === "profile-home/introduction" ? "active-link" : ""
               }`}
             >
               <span className="flex align-center justify-center">
