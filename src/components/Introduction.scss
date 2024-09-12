@@ -35,9 +35,12 @@
 
     h4 {
       text-transform: none;
+      text-align: justify;
 
       span {
         font-size: 18px;
+        text-align: start;
+        white-space: nowrap;
       }
     }
     
