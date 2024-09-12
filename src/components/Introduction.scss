@@ -1,0 +1,16 @@
+// Avoid using the default namespace 'App'.
+@use "../App.scss" as *;
+
+.btn {
+  background-color: $clr-red-salsa;
+  color: white;
+  border: 1px solid black;
+  text-decoration: none;
+}
+
+#root > div > div.app-main > div > div > a {
+  text-decoration: none;
+  .btn {
+    
+  }
+}
