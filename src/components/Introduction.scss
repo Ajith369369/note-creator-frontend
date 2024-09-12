@@ -27,10 +27,9 @@
   .grid-item {
     padding: 10px;
     background-color: #f0f0f0;
-    max-height: 120px;
+    min-height: 120px;
 
     svg {
-      // flex: 1;
       min-width: 60px;
       min-height: 60px;
     }
