@@ -29,16 +29,18 @@ function Introduction() {
         </Link>
       </div>
 
-      <div className="row w-100 m-0 my-5 grid">
-        <div className="grid-item">
-          <LuStickyNote />
-          Tackle any project with your notes, all in one place.
+      <div className="w-100 m-0 my-5 grid">
+        <div className="grid-item d-flex justify-content-start align-items-center">
+          <div className="h-100 d-flex justify-content-center align-items-center"><LuStickyNote /></div>
+          <h5 className="ms-3">Tackle any project with your notes, all in one place.</h5>
         </div>
         <div className="grid-item">
           <BsPinAngle />
-          Remember everything. Capture thoughts and inspiration anywhere, at any
-          time—your important notes, and images are safe and right at your
-          fingertips. Make notes more useful by adding both text and images.
+          <h5>
+            Remember everything. Capture thoughts and inspiration anywhere, at any
+            time—your important notes, and images are safe and right at your
+            fingertips. Make notes more useful by adding both text and images.
+          </h5>
         </div>
         <div className="grid-item">
           <FaSearch />
@@ -83,6 +85,20 @@ function Introduction() {
           need it? Evernote automatically saves notes online and syncs them to
           all your devices.
         </div>
+      </div>
+
+      <div className="row w-100 m-0 my-5">
+        <Link
+          to={"/profile-home/add"}
+          className="flex justify-center align-center"
+        >
+          <button
+            type="button"
+            className="btn btn-default p-3 px-5 rounded-pill justify-center align-center"
+          >
+            <h3>Create A Note</h3>
+          </button>
+        </Link>
       </div>
     </>
   );

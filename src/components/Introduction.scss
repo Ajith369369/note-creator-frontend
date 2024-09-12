@@ -17,13 +17,28 @@
     color: white;
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 10px;
-  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
 
   .grid-item {
-    padding: 10px;;
+    padding: 10px;
+    background-color: #f0f0f0;
+    max-height: 120px;
+
+    svg {
+      // flex: 1;
+      min-width: 60px;
+      min-height: 60px;
+    }
+
+    p {
+      flex: 1;
+    }
   }
+  
 }
+
