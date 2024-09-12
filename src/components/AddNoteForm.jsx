@@ -255,6 +255,7 @@ function AddNoteForm() {
           } else {
             setKey(false);
           }
+          setImageSet(false);
           setTitleError(false)
           setContentError(false)
         } else {
@@ -266,6 +267,7 @@ function AddNoteForm() {
           } else {
             setKey(false);
           }
+          setImageSet(false)
           setTitleError(false)
           setContentError(false)
         }
