@@ -10,8 +10,20 @@
 
 #root > div > div.app-main > div > div > a {
   text-decoration: none;
+
   .btn {
+    display: flex;
     background-color: $clr-red-salsa;
     color: white;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
+  }
+
+  .grid-item {
+    padding: 10px;;
   }
 }
