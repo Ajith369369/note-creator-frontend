@@ -11,6 +11,7 @@
 #root > div > div.app-main > div > div > a {
   text-decoration: none;
   .btn {
-    
+    background-color: $clr-red-salsa;
+    color: white;
   }
 }
