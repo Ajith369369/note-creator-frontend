@@ -250,10 +250,20 @@ function AddNoteForm() {
           toast.success("Note added successfully.");
           dispatch(resetNoteFormState());
           setPreview("");
+          if (key == false) {
+            setKey(true);
+          } else {
+            setKey(false);
+          }
         } else {
           toast.error("Something went wrong.");
           dispatch(resetNoteFormState());
           setPreview("");
+          if (key == false) {
+            setKey(true);
+          } else {
+            setKey(false);
+          }
         }
       }
     }
