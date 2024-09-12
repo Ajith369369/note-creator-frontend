@@ -10,14 +10,14 @@ function Introduction() {
 
       <div className="row w-100 m-0 my-5">
         <Link to={"/profile-home/add"} className="flex justify-center align-center">
-          <button type="button" className="btn btn-default p-4 rounded-pill">
+          <button type="button" className="btn btn-default p-3 px-5 rounded-pill">
             <h3>Create A Note</h3>
           </button>
         </Link>
       </div>
 
       <div className="row w-100 m-0 my-5">
-        
+
       </div>
     </>
   );
