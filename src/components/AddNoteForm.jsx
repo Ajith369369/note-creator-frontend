@@ -255,6 +255,8 @@ function AddNoteForm() {
           } else {
             setKey(false);
           }
+          setTitleError(false)
+          setContentError(false)
         } else {
           toast.error("Something went wrong.");
           dispatch(resetNoteFormState());
@@ -264,6 +266,8 @@ function AddNoteForm() {
           } else {
             setKey(false);
           }
+          setTitleError(false)
+          setContentError(false)
         }
       }
     }
