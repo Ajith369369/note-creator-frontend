@@ -115,7 +115,7 @@ function Introduction() {
           </div>
           <h4 className="ms-3">
           <span className="me-2 fw-bold">Safe and Synced</span>Tired of not having the right info handy when you
-            need it? Evernote automatically saves notes online and syncs them to
+            need it? Note Creator saves notes online and syncs them to
             all your devices.
           </h4>
         </div>
