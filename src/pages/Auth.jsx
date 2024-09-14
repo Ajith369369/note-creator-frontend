@@ -75,7 +75,7 @@ function Auth({ register }) {
   return (
     <>
       <div
-        className="d-flex justify-content-center align-items-center"
+        className="d-flex justify-content-center align-items-center bg-success"
         style={{ width: "100%", height: "100vh" }}
       >
         <div className="container w-75">
