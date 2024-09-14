@@ -14,7 +14,7 @@ const SingleNotePage = () => {
   return (
     <section className="note-single-section px-4">
       <div className="note-single-title">
-        <h1 className="my-2 fs-20">{selectedNote?.noteTitle}</h1>
+        <h1 className="fw-bold text-center my-2">{selectedNote?.noteTitle}</h1>
       </div>
       <div className="py-4">
         <img src={`${serverUrl}/uploads/${selectedNote?.noteImage}`} alt="" />

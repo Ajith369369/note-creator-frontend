@@ -6,7 +6,12 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 
-  img {
-    max-width: 100%;
+  div:nth-child(2) > img {
+    max-height: 500px;
+    width: 100%;
+  }
+
+  div:nth-child(3) > h4 {
+    text-align: justify;
   }
 }
