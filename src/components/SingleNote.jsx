@@ -16,7 +16,7 @@ const SingleNotePage = () => {
       <div className="note-single-title">
         <h1 className="fw-bold text-center my-2">{selectedNote?.noteTitle}</h1>
       </div>
-      <div className="py-4">
+      <div className="py-4 d-flex justify-content-center align-items-center">
         <img src={`${serverUrl}/uploads/${selectedNote?.noteImage}`} alt="" />
       </div>
       <div className="py-4">
