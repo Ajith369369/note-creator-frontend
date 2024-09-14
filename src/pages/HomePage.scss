@@ -50,6 +50,7 @@
 
 .app-main {
   // width: 100%;
+  margin-left: 60px;
   width: calc(100% - 60px);
   // width: calc(100% - $sidebar-width);
   min-height: 100vh;
@@ -58,6 +59,7 @@
 
   @media (min-width: 992px) {
     // width: 240px;
+    margin-left: $sidebar-width;
     width: calc(100% - $sidebar-width);
   }
 }
