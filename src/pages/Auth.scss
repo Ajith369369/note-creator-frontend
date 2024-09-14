@@ -1,0 +1,29 @@
+// Importing App.scss without namespace conflicts.
+@use "../App.scss" as *;
+
+#root > div {
+  .container.w-75 {
+    a > h4 {
+      font-size: 16px;
+    }
+  }
+
+  .p-5.d-flex.flex-column.justify-content-center.text-light.col-md-6 {
+    form.w-100 {
+      font-size: 16px;
+      
+      h4 {
+        font-size: 20px;
+      }
+
+      h5 {
+        font-size: 17px;
+      }
+
+      div > input, button {
+        font-size: 16px;
+      }
+
+    }
+  }
+}

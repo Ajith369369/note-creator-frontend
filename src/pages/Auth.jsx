@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import loginImage from "../assets/images/note-creator-round-logo.png";
 import { loginApi, registerApi } from "../services/nc_allApi";
+import "./Auth.scss";
 
 function Auth({ register }) {
   const navigate = useNavigate();
@@ -79,16 +80,13 @@ function Auth({ register }) {
         style={{ width: "100%", height: "100vh" }}
       >
         <div className="container w-75">
-          <Link
-            to={"/"}
-            className="text-dark"
-            style={{ textDecoration: "none" }}
-          >
-            <h4 className="text-dark">
+          <Link to={"/"} style={{ textDecoration: "none" }}>
+            <h4 className="btn btn-outline-light m-0 p-2">
               <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
               Back Home
             </h4>
           </Link>
+
           <div className="bg-success p-3">
             <Row>
               <Col
