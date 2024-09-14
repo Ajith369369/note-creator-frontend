@@ -57,11 +57,14 @@ const Sidebar = () => {
             <Link
               to="/profile-home/notes"
               className={`text-white flex justify-center align-center link-item ${
-                pathname === "profile-home/notes" ? "active-link" : ""
+                pathname === "profile-home/notes" ||
+                pathname === "profile-home/note"
+                  ? "active-link"
+                  : ""
               }`}
             >
               <span className="flex align-center justify-center">
-              <MdNoteAlt size={17} />
+                <MdNoteAlt size={17} />
               </span>
               <span className="icon-text">Notes</span>
             </Link>
