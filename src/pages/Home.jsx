@@ -18,10 +18,10 @@ function Home() {
   return (
     <>
       <div
-        className="container-fluid bg-success p-4 logo-page"
+        className="container-fluid bg-success p-4 logo-page d-flex justify-content-center align-items-center"
         style={{ width: "100%" }}
       >
-        <Row className="mt-5">
+        <Row>
           <Col
             md={6}
             className="d-flex flex-column justify-content-center align-items-center"
@@ -30,7 +30,7 @@ function Home() {
               <h1 className="text-light" style={{ fontSize: "76px" }}>
                 Note Creator
               </h1>
-              <h4>One stop destination for your notes.</h4>
+              <h4>One stop destination for your notes</h4>
               {!token ? (
                 <Link to={"/login"}>
                   <button className="btn btn-outline-light my-4">
@@ -50,7 +50,7 @@ function Home() {
           </Col>
           <Col
             md={6}
-            className="d-flex flex-column justify-content-center align-items-center flex-column mt-5"
+            className="d-flex flex-column justify-content-center align-items-center flex-column"
           >
             <img src={noteCreatorLogo} alt="" height={"400px"} />
           </Col>
