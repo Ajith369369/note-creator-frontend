@@ -100,7 +100,7 @@ function Introduction() {
           <h4 className="ms-3">
             <span className="me-2 fw-bold">
               Tame Your Work, Organize Your Life
-            </span>
+            </span><br />
             Remember everything and tackle any project with your notes, all in
             one place.
           </h4>
@@ -120,7 +120,7 @@ function Introduction() {
             <FaSyncAlt />
           </div>
           <h4 className="ms-3">
-            <span className="me-2 fw-bold">Safe and Synced</span>Tired of not
+            <span className="me-2 fw-bold">Safe And Synced</span>Tired of not
             having the right info handy when you need it? Note Creator saves
             notes online and syncs them to all your devices.
           </h4>
