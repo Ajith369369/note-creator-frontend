@@ -95,7 +95,7 @@ function HomePage() {
                     {token && (
                       <button
                         onClick={handleLogout}
-                        className="btn btn-warning rounded-0"
+                        className="btn btn-warning rounded-pill mx-3"
                       >
                         <FontAwesomeIcon icon={faPowerOff} className="me-2" />
                         Log Out
