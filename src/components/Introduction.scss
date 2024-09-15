@@ -46,3 +46,13 @@
     }
   }
 }
+
+@media (max-width: 576px) {
+  // CSS rules for Small screens.
+
+  .grid {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 10px;
+  }
+}
