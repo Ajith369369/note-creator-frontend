@@ -66,22 +66,74 @@
 
 .header {
   height: 60px;
-  background-image: url('../assets/images/header_img.jpg');
+  background-image: url("/src/assets/images/header_img.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
+  // This will make both the background and any text or other content inside the element transparent.
+  // opacity: 0.5;
+
+  /* The CSS property box-shadow adds a subtle shadow to an element. Each part of box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 4px; means:
+
+    rgba(0, 0, 0, 0.20): This defines the shadow color in RGBA format. It represents black (rgb(0, 0, 0)) with an alpha transparency value of 0.20, which makes the shadow slightly transparent.
+      In CSS, the rgba color format allows you to define colors using the Red, Green, and Blue (RGB) values, along with an Alpha (A) value for transparency. The alpha value controls the opacity of the color, with values ranging from 0 (completely transparent) to 1 (completely opaque).
+
+      Here, rgba(0, 0, 0, 0.20):
+
+      R (red): 0 (no red)
+      G (green): 0 (no green)
+      B (blue): 0 (no blue)
+      This results in black (rgb(0, 0, 0)).
+
+      A (alpha): 0.20
+      The alpha value of 0.20 means the color is 20% opaque and 80% transparent. This makes the shadow very subtle and soft because it allows the background or other elements behind the shadow to show through it slightly.
+
+      This level of transparency gives a shadow a lighter, less intense appearance compared to a fully opaque black shadow, making the design look more polished and less harsh.
+
+    0px: The horizontal offset of the shadow. Since it's 0px, the shadow will not move to the left or right.
+
+    1px: The vertical offset of the shadow. The shadow will appear 1 pixel below the element.
+
+    4px: The blur radius. A higher value will make the shadow blurrier and spread out more.
+
+  Effect:
+    This will create a small, slightly blurred shadow that appears below the element, giving it a lifted appearance. The shadow is subtle because of the transparency (0.20 alpha) and the small size of the offsets and blur. */
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;
+
+  // ::after pseudo-element is used to add a transparent color overlay on top of the background image, giving it a faded look.
   &::after {
     position: absolute;
     content: "";
+
+    // White overlay with 5% transparency
     background-color: rgba(255, 255, 255, 0.05);
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     backdrop-filter: blur(5px);
+  }
+
+  .outlined-text {
+    color: white; /* Text color */
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
+      1px 1px 0 black; /* Creates a black outline around the text */
+    font-weight: bold; /* Optional: Set the font weight */
+  }
+
+  .date {
+    span {
+      font-size: 14px;
+    }
+  }
+
+  .logout {
+    button {
+      font-size: 14px;
+      font-weight: 600;
+    }
   }
 
   * {

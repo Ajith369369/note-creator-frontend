@@ -1,14 +1,24 @@
+import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import "./HomePage.scss";
 
 function HomePage() {
   // State Initialization: This initializes state variables with empty string "".
+  const [token, setToken] = useState("");
   const [greetText, setGreetText] = useState("");
   const [date, setDate] = useState("");
   const [username, setUsername] = useState("");
   const [addUser, setAddUser] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      setToken(sessionStorage.getItem("token"));
+    }
+  }, []);
 
   useEffect(() => {
     // Both key and value are strings in sessionStorage
@@ -19,7 +29,7 @@ function HomePage() {
     // After the JSON string is parsed into an object, .username accesses the username property of that object.
     if (sessionStorage.getItem("existingUser")) {
       setUsername(JSON.parse(sessionStorage.getItem("existingUser")).username);
-      setAddUser(true)
+      setAddUser(true);
       // JSON.stringify() is a method in JavaScript that converts a JavaScript object into a JSON string.
       // JSON.parse() is a method in JavaScript that converts a JSON string into a JavaScript object.
     }
@@ -27,8 +37,8 @@ function HomePage() {
 
   // useEffect() will run the provided function when the component mounts.
   useEffect(() => {
-    console.log('username: ', username)
-    
+    console.log("username: ", username);
+
     // Creates a new Date object representing the current date and time.
     const currentDate = new Date();
 
@@ -57,6 +67,15 @@ function HomePage() {
     else setGreetText("Good Night, " + username + "!");
   }, [addUser]);
 
+  const handleLogout = () => {
+    //Remove existing user details from session storage.
+    sessionStorage.removeItem("existingUser");
+    sessionStorage.removeItem("token");
+    // setIsLoginStatus(false);
+    //navigate to home
+    navigate("/");
+  };
+
   return (
     <>
       <div className="app-cont">
@@ -66,10 +85,23 @@ function HomePage() {
             <div className="container w-100">
               <div className="header-content flex align-center justify-between text-white py-3">
                 <div className="greetings">
-                  <h3 className="fw-6">{greetText}</h3>
+                  <h3 className="fw-6 outlined-text">{greetText}</h3>
                 </div>
-                <div className="date">
-                  <span className="text-uppercase fs-13 fw-4">{date}</span>
+                <div className="d-flex flex-wrap justify-content-center align-items-center">
+                  <div className="date me-3">
+                    <span className="text-uppercase outlined-text fw-6">{date}</span>
+                  </div>
+                  <div className="logout">
+                    {token && (
+                      <button
+                        onClick={handleLogout}
+                        className="btn btn-warning rounded-0"
+                      >
+                        <FontAwesomeIcon icon={faPowerOff} className="me-2" />
+                        Log Out
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
