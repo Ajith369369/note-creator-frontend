@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import pageNotFound from "/src/assets/images/PNF_Octocat.gif";
+import pageNotFound from "/src/assets/images/pnf-octocat.gif";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
