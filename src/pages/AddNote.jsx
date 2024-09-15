@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import AddNoteForm from "../components/AddNoteForm";
-import "./AddNote.scss";
 
 function AddNote() {
 
