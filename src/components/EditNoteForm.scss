@@ -12,6 +12,10 @@
     width: calc(100vw - $sidebar-width - 12px - 36px - 6px);
   }
 
+  h2 {
+    font-size: 20px;
+  }
+  
   form.note-form {
     max-width: 100%;
   }
@@ -22,9 +26,21 @@
     opacity: 0.9;
   }
 
+  .form-element {
+    label {
+      font-size: 18px;
+    }
+
+    input,
+    textarea {
+      font-size: 16px;
+    }
+  }
+
   .btn {
     background-color: $clr-red-salsa;
     color: white;
     border: 1px solid black;
+    font-size: 16px;
   }
 }
