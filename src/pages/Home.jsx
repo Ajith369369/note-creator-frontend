@@ -27,25 +27,27 @@ function Home() {
             className="d-flex flex-column justify-content-center align-items-center"
           >
             <div className="ms-3">
-              <h1 className="text-light" style={{ fontSize: "76px" }}>
+              <h1 className="text-center text-light" style={{ fontSize: "76px" }}>
                 Note Creator
               </h1>
-              <h4>One stop destination for your notes</h4>
-              {!token ? (
-                <Link to={"/login"}>
-                  <button className="btn btn-outline-light my-4">
-                    Get Started
-                    <FontAwesomeIcon icon={faArrowRight} className="ms-2" />
-                  </button>
-                </Link>
-              ) : (
-                <Link to={"/profile-home/introduction"}>
-                  <button className="btn btn-outline-light my-4">
-                    Manage Project
-                    <FontAwesomeIcon icon={faArrowRight} className="ms-2" />
-                  </button>
-                </Link>
-              )}
+              <h4 className="text-center">One stop destination for your notes</h4>
+              <div className="d-flex justify-content-center align-items-center">
+                {!token ? (
+                  <Link to={"/login"}>
+                    <button className="btn btn-outline-light my-4">
+                      Get Started
+                      <FontAwesomeIcon icon={faArrowRight} className="ms-2" />
+                    </button>
+                  </Link>
+                ) : (
+                  <Link to={"/profile-home/introduction"}>
+                    <button className="btn btn-outline-light my-4">
+                      Manage Project
+                      <FontAwesomeIcon icon={faArrowRight} className="ms-2" />
+                    </button>
+                  </Link>
+                )}
+              </div>
             </div>
           </Col>
           <Col

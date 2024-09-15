@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import HomePage from "./pages/HomePage";
 import NotesPage from "./pages/NotesPage";
 import Introduction from "./components/Introduction";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/profile-home/edit" element={<EditNote />} />
           <Route path="/profile-home/note" element={<SingleNote />} />
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
   );
