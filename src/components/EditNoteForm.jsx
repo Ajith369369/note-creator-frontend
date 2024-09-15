@@ -167,7 +167,7 @@ function EditNoteForm() {
 
   return (
     <>
-      <div>
+      <div className="d-flex justify-content-center align-items-center">
         <section className="note-form-section">
           <h2 className="my-4 fs-16">Edit Note</h2>
           <form className="note-form">
