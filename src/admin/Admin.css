@@ -1,0 +1,50 @@
+.admin-container {
+  min-height: 100vh;
+  background-image: url('/src/assets/car_bg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.dash-home {
+  height: fit-content;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+#root > div > div.row.w-100 > div.col-sm-12.col-md-10.table-container.mx-2.my-2 > table {
+  margin-bottom: 0px;
+  max-width: 340px;
+}
+
+td {
+  white-space: nowrap;
+}
+
+@media (min-width: 456px) {
+  .dash {
+    margin-left: 48px;
+  }
+
+  .home {
+    margin-right: 48px;
+  }
+}
+
+@media (max-width: 455px) {
+  .dash-home {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+
+  .dash {
+    margin: 5px auto;
+  }
+
+  .home {
+    margin: 5px auto 10px auto;
+  }
+
+}
