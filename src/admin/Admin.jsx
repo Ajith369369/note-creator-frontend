@@ -1,9 +1,9 @@
 import { faHouse, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { updateAdminFormState } from "../redux/slices/noteSlice";
 import "./Admin.css";
 
 function Admin() {
@@ -33,7 +33,7 @@ function Admin() {
   };
 
   // Add default data to the database (db.json)
-  const addDefaultDataToDatabase = async () => {
+  /* const addDefaultDataToDatabase = async () => {
     // Starts a try block to catch any errors that might occur during the execution of the code inside it.
     try {
       // Use map to create an array of promises.
@@ -61,10 +61,10 @@ function Admin() {
       // Logs an error message to the console if an error occurs.
       console.error("Error adding default data to the database:", error);
     }
-  };
+  }; */
 
   // Load default booking details from db.json
-  const loadDefaultBookingDetails = async () => {
+  /* const loadDefaultBookingDetails = async () => {
     // Starts a try block to catch any errors that might occur during the execution of the code inside it.
     try {
       // Calls getDefaultBookingDetailsApi to fetch default booking details and waits for the response.
@@ -83,7 +83,7 @@ function Admin() {
       // Logs an error message to the console if an error occurs.
       console.error("Error loading default booking details:", error);
     }
-  };
+  }; */
 
   const dateFormatter = (isoString) => {
     const date = new Date(isoString);
@@ -97,10 +97,10 @@ function Admin() {
     return formattedDate;
   };
 
-  const handleDeleteUser = async (id) => {
+  /* const handleDeleteUser = async (id) => {
     await deleteBookingDetailsOfAUserApi(id);
     getBookingDetails();
-  };
+  }; */
 
   // The function call inside the useEffect hook triggers the getBookingDetails function as soon as the component (the specific React component in which the useEffect is defined, i.e., <Admin/>) is mounted (rendered for the first time).
   // The empty array [] as the second argument means that this effect will only run once when the component first mounts.
@@ -119,7 +119,7 @@ function Admin() {
               style={{ textDecoration: "none", color: "white" }}
               onClick={() => {
                 localStorage.removeItem("currentUser");
-                dispatch(updateLoginButtonState(true));
+                dispatch(updateAdminFormState({ loginAdmin: false }));
               }}
             >
               <FontAwesomeIcon icon={faHouse} className="me-2" />
@@ -134,14 +134,10 @@ function Admin() {
               <thead className="text-center align-middle">
                 <tr>
                   <th>Sl. No.</th>
+                  <th>User ID</th>
                   <th>Email</th>
-                  <th>Mobile No.</th>
-                  <th>Car Make</th>
-                  <th>Car Model</th>
-                  <th>Registration No.</th>
-                  <th>Service Type</th>
-                  <th>Driver</th>
-                  <th>Pick-Up Date</th>
+                  <th>Number 0f Notes</th>
+                  <th>Last Active Date</th>
                   <th>Delete</th>
                 </tr>
               </thead>
@@ -150,15 +146,11 @@ function Admin() {
                   {allUsers?.map((item, index) => (
                     <tr key={item.id}>
                       <td className="text-center">{index + 1}</td>
+                      <td>{item.userId}</td>
                       <td>{item.email}</td>
-                      <td>{item.mobile_number}</td>
-                      <td>{item.car_make}</td>
-                      <td>{item.car_model}</td>
-                      <td>{item.reg_number}</td>
-                      <td>{item.service_type}</td>
-                      <td>{item.driver_name}</td>
+                      <td>{item.notes_number}</td>
                       <td className="text-center">
-                        {dateFormatter(item.pickup_date)}
+                        {dateFormatter(item.last_active_date)}
                       </td>
                       <td className="text-center">
                         <button
@@ -178,14 +170,14 @@ function Admin() {
                 <p className="text-danger text-center fs-3 fw-bolder w-100">
                   No Booking Details
                 </p>
-                <Button
+                {/* <Button
                   onClick={loadDefaultBookingDetails}
                   variant="light"
                   className="px-4"
                   style={{ backgroundColor: "white", width: "150px" }}
                 >
                   Load Default Data
-                </Button>
+                </Button> */}
               </div>
             )}
           </div>

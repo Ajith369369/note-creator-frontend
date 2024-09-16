@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import notes_icon from "../assets/images/notes_icon.png";
 import "./Sidebar.scss";
-useDispatch
+useDispatch;
 
-const Sidebar = () => {
+function Sidebar() {
   const dispatch = useDispatch();
   const adminFormState = useSelector(
     (state) => state.noteDetails.adminFormState
@@ -39,7 +39,7 @@ const Sidebar = () => {
                 pathname === "profile-home/admin" ? "active-link" : ""
               }`}
              */}
-             <Link
+            <Link
               to="/profile-home/admin"
               className={`text-white flex justify-center align-center link-item ${
                 pathname === "profile-home/admin" ? "active-link" : ""
@@ -91,6 +91,6 @@ const Sidebar = () => {
       </div>
     )
   );
-};
+}
 
 export default Sidebar;

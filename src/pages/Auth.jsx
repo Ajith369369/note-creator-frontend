@@ -5,6 +5,7 @@ import { Col, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ADMIN_USER } from "../admin/constants";
 import loginImage from "../assets/images/note-creator-round-logo.png";
 import { loginApi, registerApi } from "../services/nc_allApi";
 import "./Auth.scss";
@@ -56,16 +57,31 @@ function Auth({ register }) {
       console.log(result);
 
       if (result.status == 200) {
-        toast.success("Login successful!");
-        setUserDetails({ username: "", email: "", password: "" });
-        sessionStorage.setItem(
-          "existingUser",
-          JSON.stringify(result.data.existingUser)
-        );
+        if (email == ADMIN_USER.email && password == ADMIN_USER.password) {
+          setUserDetails({ username: "", email: "", password: "" });
+          sessionStorage.setItem(
+            "existingUser",
+            JSON.stringify(result.data.existingUser)
+          );
 
-        // token was already a string when received.
-        sessionStorage.setItem("token", result.data.token);
-        navigate("/");
+          // Token was already a string when received.
+          sessionStorage.setItem("token", result.data.token);
+          toast.success("Administrator Login successful", {
+            onClose: () => navigate("/profile-home/admin"),
+          });
+        } else {
+          setUserDetails({ username: "", email: "", password: "" });
+          sessionStorage.setItem(
+            "existingUser",
+            JSON.stringify(result.data.existingUser)
+          );
+
+          // Token was already a string when received.
+          sessionStorage.setItem("token", result.data.token);
+          toast.success("User Login successful", {
+            onClose: () => navigate("/"),
+          });
+        }
       } else {
         toast.error("Something went wrong.");
         setUserDetails({ username: "", email: "", password: "" });
