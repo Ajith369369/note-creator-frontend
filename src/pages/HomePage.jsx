@@ -88,7 +88,7 @@ function HomePage() {
                   <h3 className="fw-6 outlined-text">{greetText}</h3>
                 </div>
                 <div className="d-flex flex-wrap justify-content-center align-items-center">
-                  <div className="date me-3">
+                  <div className="date me-3 text-center">
                     <span className="text-uppercase outlined-text fw-6">{date}</span>
                   </div>
                   <div className="logout">
