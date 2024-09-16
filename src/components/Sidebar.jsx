@@ -1,14 +1,13 @@
 import { AiFillHome } from "react-icons/ai";
 import { BsPlusLg } from "react-icons/bs";
 import { MdNoteAlt } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import notes_icon from "../assets/images/notes_icon.png";
 import { RiAdminFill } from "react-icons/ri";
 import "./Sidebar.scss";
 
 function Sidebar() {
-  const dispatch = useDispatch();
   const adminFormState = useSelector(
     (state) => state.noteDetails.adminFormState
   );

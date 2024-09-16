@@ -76,7 +76,7 @@ function HomePage() {
     sessionStorage.removeItem("token");
     dispatch(updateAdminFormState({ loginAdmin: false }));
     // setIsLoginStatus(false);
-    //navigate to home
+    // navigate to home
     navigate("/");
   };
 
