@@ -39,7 +39,7 @@ function Sidebar() {
                 pathname === "profile-home/admin" ? "active-link" : ""
               }`}
              */}
-            <Link
+            {adminFormState.loginAdmin && <Link
               to="/profile-home/admin"
               className={`text-white flex justify-center align-center link-item ${
                 pathname === "profile-home/admin" ? "active-link" : ""
@@ -49,7 +49,7 @@ function Sidebar() {
                 <RiAdminFill size={17} />
               </span>
               <span className="icon-text">Admin</span>
-            </Link>
+            </Link>}
             <Link
               to="/profile-home/introduction"
               className={`text-white flex justify-center align-center link-item ${

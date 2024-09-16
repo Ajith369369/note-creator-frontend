@@ -1,18 +1,11 @@
-import { faHouse, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { updateAdminFormState } from "../redux/slices/noteSlice";
+import { useState } from "react";
 import "./Admin.css";
 
 function Admin() {
   // useDispatch() is a hook provided by React-Redux. It returns a reference to the dispatch function from the Redux store.
   // By calling useDispatch(), we can dispatch actions from within our React component.
-  const dispatch = useDispatch();
-  const adminFormState = useSelector(
-    (state) => state.noteDetails.adminFormState
-  );
 
   // Initializes the state variable allUsers with an empty array. This state will hold the booking details of all users fetched from the API.
   const [allUsers, setAllUsers] = useState([]);
@@ -21,7 +14,7 @@ function Admin() {
   const [defaultUsers, setDefaultUsers] = useState([]);
 
   // Get the booking details of all users
-  const getBookingDetails = async () => {
+  /* const getBookingDetails = async () => {
     // Calls the API function getBookingDetailsOfAllUsersApi to fetch booking details and waits for the response. The await keyword pauses execution until the promise resolves.
     const result = await getBookingDetailsOfAllUsersApi();
     console.log("result: ", result);
@@ -30,7 +23,7 @@ function Admin() {
       // Updates the allUsers state with the data fetched from the API.
       setAllUsers(result.data);
     }
-  };
+  }; */
 
   // Add default data to the database (db.json)
   /* const addDefaultDataToDatabase = async () => {
@@ -104,28 +97,15 @@ function Admin() {
 
   // The function call inside the useEffect hook triggers the getBookingDetails function as soon as the component (the specific React component in which the useEffect is defined, i.e., <Admin/>) is mounted (rendered for the first time).
   // The empty array [] as the second argument means that this effect will only run once when the component first mounts.
-  useEffect(() => {
+  /* useEffect(() => {
     getBookingDetails();
-  }, []);
+  }, []); */
 
   return (
     <>
       <div className="admin-container row w-100 my-5 d-flex flex-column justify-content-start align-items-center">
-        <div className="dash-home d-flex justify-content-between p-md-5">
-          <h1 className="text-light dash">Dashboard</h1>
-          <h5 className="mt-1 home d-flex justify-content-center align-items-center">
-            <Link
-              to={"/"}
-              style={{ textDecoration: "none", color: "white" }}
-              onClick={() => {
-                localStorage.removeItem("currentUser");
-                dispatch(updateAdminFormState({ loginAdmin: false }));
-              }}
-            >
-              <FontAwesomeIcon icon={faHouse} className="me-2" />
-              <span className="hide">Back Home</span>
-            </Link>
-          </h5>
+        <div className="dash-home d-flex justify-content-center align-items-center p-md-5">
+          <h1 className="text-dark dash fw-bold">DASHBOARD</h1>
         </div>
         <div className="row w-100">
           <div className="col-sm-0 col-md-1"></div>

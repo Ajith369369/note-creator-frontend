@@ -6,7 +6,7 @@ const initialState = {
 
   // Manages the state associated with the Administator.
   adminFormState: {
-    loginUser: false,
+    // loginUser: false,
     loginAdmin: false,
   },
 
@@ -21,13 +21,15 @@ const initialState = {
 };
 
 const noteSlice = createSlice({
+
+  // Name of slice.
   name: "noteDetails",
   initialState,
   reducers: {
     updateAdminFormState(state, action) {
       state.adminFormState = { ...state.adminFormState, ...action.payload };
     },
-
+    
     updateNoteFormState(state, action) {
       // state.noteFormState is spread into a new object { ...state.noteFormState }, which copies all existing properties.
       // ...action.payload spreads the properties of the payload object into this new state, overriding any existing properties with the same name.

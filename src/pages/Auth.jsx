@@ -2,6 +2,7 @@ import { faArrowLeft, faBookOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,9 +10,11 @@ import { ADMIN_USER } from "../admin/constants";
 import loginImage from "../assets/images/note-creator-round-logo.png";
 import { loginApi, registerApi } from "../services/nc_allApi";
 import "./Auth.scss";
+import { updateAdminFormState } from "../redux/slices/noteSlice";
 
 function Auth({ register }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [userDetails, setUserDetails] = useState({
     username: "",
@@ -66,6 +69,7 @@ function Auth({ register }) {
 
           // Token was already a string when received.
           sessionStorage.setItem("token", result.data.token);
+          dispatch(updateAdminFormState({ loginAdmin: true }));
           toast.success("Administrator Login successful", {
             onClose: () => navigate("/profile-home/admin"),
           });

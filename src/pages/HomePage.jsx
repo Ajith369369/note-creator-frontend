@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import "./HomePage.scss";
+import { updateAdminFormState } from "../redux/slices/noteSlice";
+import { useDispatch } from "react-redux";
 
 function HomePage() {
   // State Initialization: This initializes state variables with empty string "".
@@ -13,6 +15,7 @@ function HomePage() {
   const [username, setUsername] = useState("");
   const [addUser, setAddUser] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
@@ -71,6 +74,7 @@ function HomePage() {
     //Remove existing user details from session storage.
     sessionStorage.removeItem("existingUser");
     sessionStorage.removeItem("token");
+    dispatch(updateAdminFormState({ loginAdmin: false }));
     // setIsLoginStatus(false);
     //navigate to home
     navigate("/");
