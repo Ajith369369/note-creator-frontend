@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import NotesPage from "./pages/NotesPage";
 import Introduction from "./components/Introduction";
 import PageNotFound from "./pages/PageNotFound";
+import Admin from "./admin/Admin";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<Auth register />} />
         <Route path="/login" element={<Auth />} />
         <Route path="/profile-home" element={<HomePage />}>
+          <Route path="/profile-home/admin" element={<Admin />} />
           <Route path="/profile-home/introduction" element={<Introduction />} />
           <Route path="/profile-home/notes" element={<NotesPage />} />
           <Route path="/profile-home/add" element={<AddNote />} />

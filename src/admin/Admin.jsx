@@ -2,19 +2,17 @@ import { faHouse, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { updateLoginButtonState } from "../redux/slices/hirerDetailsSlice";
-import {
-  addBookingDetailsOfAUserApi,
-  deleteBookingDetailsOfAUserApi,
-  getBookingDetailsOfAllUsersApi,
-  getDefaultBookingDetailsApi,
-} from "../services/pro_allApi";
 import "./Admin.css";
 
 function Admin() {
+  // useDispatch() is a hook provided by React-Redux. It returns a reference to the dispatch function from the Redux store.
+  // By calling useDispatch(), we can dispatch actions from within our React component.
   const dispatch = useDispatch();
+  const adminFormState = useSelector(
+    (state) => state.noteDetails.adminFormState
+  );
 
   // Initializes the state variable allUsers with an empty array. This state will hold the booking details of all users fetched from the API.
   const [allUsers, setAllUsers] = useState([]);

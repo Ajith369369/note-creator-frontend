@@ -3,17 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 // import {storeInLocalStorage, fetchFromLocalStorage} from "../../utils/helpers";
 
 const initialState = {
-  // notes: fetchFromLocalStorage('notes'),
-  // notes: null,
-  // error: null,
-  // count: 0,
-  notes: [],
-  /* notes: {
-        notes: [], // the array of notes
-        error: null,
-        count: 0
-    }, */
 
+  // Manages the state associated with the Administator.
+  adminFormState: {
+    loginUser: false,
+    loginAdmin: false,
+  },
+
+  notes: [],
   noteFormState: {
     noteTitle: "",
     noteContent: "",
@@ -27,6 +24,10 @@ const noteSlice = createSlice({
   name: "noteDetails",
   initialState,
   reducers: {
+    updateAdminFormState(state, action) {
+      state.adminFormState = { ...state.adminFormState, ...action.payload };
+    },
+
     updateNoteFormState(state, action) {
       // state.noteFormState is spread into a new object { ...state.noteFormState }, which copies all existing properties.
       // ...action.payload spreads the properties of the payload object into this new state, overriding any existing properties with the same name.
@@ -106,6 +107,7 @@ const noteSlice = createSlice({
 });
 
 export const {
+  updateAdminFormState,
   updateNoteFormState,
   resetNoteFormState,
   updateNotes,

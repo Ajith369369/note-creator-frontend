@@ -1,11 +1,18 @@
 import { AiFillHome } from "react-icons/ai";
 import { BsPlusLg } from "react-icons/bs";
 import { MdNoteAlt } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import notes_icon from "../assets/images/notes_icon.png";
 import "./Sidebar.scss";
+useDispatch
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const adminFormState = useSelector(
+    (state) => state.noteDetails.adminFormState
+  );
+
   // Uses the useLocation hook to get the current location object. This object contains information about the current URL, which is useful for determining the active link.
   const location = useLocation();
 
@@ -29,9 +36,20 @@ const Sidebar = () => {
             {/* This will dynamically highlight the active link based on the current URL.
             Adds active-link class if the pathname is 'profile-home'.
             className={`text-white flex justify-center align-center link-item ${
-                pathname === "home" ? "active-link" : ""
+                pathname === "profile-home/admin" ? "active-link" : ""
               }`}
              */}
+             <Link
+              to="/profile-home/admin"
+              className={`text-white flex justify-center align-center link-item ${
+                pathname === "profile-home/admin" ? "active-link" : ""
+              }`}
+            >
+              <span className="flex align-center justify-center">
+                <AiFillHome size={17} />
+              </span>
+              <span className="icon-text">Home</span>
+            </Link>
             <Link
               to="/profile-home/introduction"
               className={`text-white flex justify-center align-center link-item ${
