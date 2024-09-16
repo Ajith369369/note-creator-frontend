@@ -4,8 +4,8 @@ import { MdNoteAlt } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import notes_icon from "../assets/images/notes_icon.png";
+import { RiAdminFill } from "react-icons/ri";
 import "./Sidebar.scss";
-useDispatch;
 
 function Sidebar() {
   const dispatch = useDispatch();
@@ -46,9 +46,9 @@ function Sidebar() {
               }`}
             >
               <span className="flex align-center justify-center">
-                <AiFillHome size={17} />
+                <RiAdminFill size={17} />
               </span>
-              <span className="icon-text">Home</span>
+              <span className="icon-text">Admin</span>
             </Link>
             <Link
               to="/profile-home/introduction"
