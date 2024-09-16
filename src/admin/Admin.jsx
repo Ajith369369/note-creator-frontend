@@ -1,7 +1,8 @@
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Admin.css";
+import { adminDataApi } from "../services/nc_allApi";
 
 function Admin() {
   // useDispatch() is a hook provided by React-Redux. It returns a reference to the dispatch function from the Redux store.
@@ -11,19 +12,19 @@ function Admin() {
   const [allUsers, setAllUsers] = useState([]);
 
   // Initializes the state variable defaultUsers with an empty array. This state will hold the default booking details fetched from the API.
-  const [defaultUsers, setDefaultUsers] = useState([]);
+  // const [defaultUsers, setDefaultUsers] = useState([]);
 
-  // Get the booking details of all users
-  /* const getBookingDetails = async () => {
-    // Calls the API function getBookingDetailsOfAllUsersApi to fetch booking details and waits for the response. The await keyword pauses execution until the promise resolves.
-    const result = await getBookingDetailsOfAllUsersApi();
+  // Get the admin dashboard data
+  const getAdminDashboardData = async () => {
+    // Calls the API function adminDataApi to fetch booking details and waits for the response. The await keyword pauses execution until the promise resolves.
+    const result = await adminDataApi();
     console.log("result: ", result);
 
     if (result.status >= 200 && result.status < 300) {
       // Updates the allUsers state with the data fetched from the API.
       setAllUsers(result.data);
     }
-  }; */
+  };
 
   // Add default data to the database (db.json)
   /* const addDefaultDataToDatabase = async () => {
@@ -46,8 +47,8 @@ function Admin() {
       console.log("All default data has been added to the database.");
 
       // Get the updated booking details
-      // Calls getBookingDetails to fetch the updated list of booking details from the API, reflecting the newly added data.
-      getBookingDetails();
+      // Calls getAdminDashboardData to fetch the updated list of booking details from the API, reflecting the newly added data.
+      getAdminDashboardData();
 
       // Catches any errors that occur during the try block execution.
     } catch (error) {
@@ -92,14 +93,14 @@ function Admin() {
 
   /* const handleDeleteUser = async (id) => {
     await deleteBookingDetailsOfAUserApi(id);
-    getBookingDetails();
+    getAdminDashboardData();
   }; */
 
-  // The function call inside the useEffect hook triggers the getBookingDetails function as soon as the component (the specific React component in which the useEffect is defined, i.e., <Admin/>) is mounted (rendered for the first time).
+  // The function call inside the useEffect hook triggers the getAdminDashboardData function as soon as the component (the specific React component in which the useEffect is defined, i.e., <Admin/>) is mounted (rendered for the first time).
   // The empty array [] as the second argument means that this effect will only run once when the component first mounts.
-  /* useEffect(() => {
-    getBookingDetails();
-  }, []); */
+  useEffect(() => {
+    getAdminDashboardData();
+  }, []);
 
   return (
     <>
