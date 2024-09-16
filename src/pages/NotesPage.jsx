@@ -72,6 +72,7 @@ function NotesPage() {
             <div className="col-md-4 d-flex">
               <input
                 type="text"
+                style={{fontSize:'16px'}}
                 className="form-control"
                 placeholder="Note Title"
                 onChange={(e) => setSearchKey(e.target.value)}
@@ -80,8 +81,8 @@ function NotesPage() {
                 icon={faMagnifyingGlass}
                 rotation={90}
                 style={{
-                  marginTop: "12px",
-                  marginLeft: "-30px",
+                  marginTop: "8px",
+                  marginLeft: "-25px",
                   color: "grey",
                 }}
               />
