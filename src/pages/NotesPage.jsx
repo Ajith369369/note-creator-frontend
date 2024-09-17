@@ -1,19 +1,23 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import noteCreatorLogo from "../assets/images/note-creator-square-logo.jpeg";
 import NotesList from "../components/NotesList";
-import { getAllNotesOfAUserApi } from "../services/nc_allApi";
 import { updateNotes } from "../redux/slices/noteSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { getAllNotesOfAUserApi } from "../services/nc_allApi";
+import useAuthGuard from "./useAuthGuard";
 
 function NotesPage() {
+  // Check if user is authenticated
+  useAuthGuard();
+
   const [isToken, setIsToken] = useState("");
   const [searchKey, setSearchKey] = useState("");
   const [allnotes, setAllNotes] = useState([]);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const notesFromNoteSlice = useSelector((state) => state.noteDetails.notes);
 
   const getAllNotesOfAUser = async (searchKey) => {
@@ -29,10 +33,9 @@ function NotesPage() {
       };
       const result = await getAllNotesOfAUserApi(searchKey, reqHeader);
       setAllNotes(result.data);
-      dispatch(updateNotes(result.data))
+      dispatch(updateNotes(result.data));
     }
 
-    
     /* if (sessionStorage.getItem("token")) {
       const token = sessionStorage.getItem("token");
       const reqHeader = {
@@ -48,10 +51,10 @@ function NotesPage() {
       }
     } */
   };
-  
+
   console.log("searchKey: ", searchKey);
   console.log("allnotes: ", allnotes);
-  console.log('notesFromNoteSlice: ', notesFromNoteSlice)
+  console.log("notesFromNoteSlice: ", notesFromNoteSlice);
 
   useEffect(() => {
     getAllNotesOfAUser(searchKey);
@@ -72,7 +75,7 @@ function NotesPage() {
             <div className="col-md-4 d-flex">
               <input
                 type="text"
-                style={{fontSize:'16px'}}
+                style={{ fontSize: "16px" }}
                 className="form-control"
                 placeholder="Note Title"
                 onChange={(e) => setSearchKey(e.target.value)}

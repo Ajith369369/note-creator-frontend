@@ -1,14 +1,17 @@
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import "./HomePage.scss";
-import { updateAdminFormState } from "../redux/slices/noteSlice";
-import { useDispatch } from "react-redux";
 import { logout } from "../redux/slices/authSlice";
+import "./HomePage.scss";
+import useAuthGuard from "./useAuthGuard";
 
 function HomePage() {
+  // Check if user is authenticated
+  useAuthGuard();
+
   // State Initialization: This initializes state variables with empty string "".
   const [token, setToken] = useState("");
   const [greetText, setGreetText] = useState("");
@@ -16,7 +19,7 @@ function HomePage() {
   const [username, setUsername] = useState("");
   const [addUser, setAddUser] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
@@ -97,7 +100,9 @@ function HomePage() {
                 </div>
                 <div className="d-flex flex-wrap justify-content-center align-items-center">
                   <div className="date me-3 text-center">
-                    <span className="text-uppercase outlined-text fw-6">{date}</span>
+                    <span className="text-uppercase outlined-text fw-6">
+                      {date}
+                    </span>
                   </div>
                   <div className="logout">
                     {token && (
