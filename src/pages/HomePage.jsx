@@ -6,6 +6,7 @@ import Sidebar from "../components/Sidebar";
 import "./HomePage.scss";
 import { updateAdminFormState } from "../redux/slices/noteSlice";
 import { useDispatch } from "react-redux";
+import { logout } from "../redux/slices/authSlice";
 
 function HomePage() {
   // State Initialization: This initializes state variables with empty string "".
@@ -74,7 +75,10 @@ function HomePage() {
     //Remove existing user details from session storage.
     sessionStorage.removeItem("existingUser");
     sessionStorage.removeItem("token");
-    dispatch(updateAdminFormState({ loginAdmin: false }));
+
+    // Reset the authentication state
+    dispatch(logout());
+    // dispatch(updateAdminFormState({ loginAdmin: false }));
     // setIsLoginStatus(false);
     // navigate to home
     navigate("/");

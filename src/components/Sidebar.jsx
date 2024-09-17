@@ -8,9 +8,7 @@ import notes_icon from "../assets/images/notes_icon.png";
 import "./Sidebar.scss";
 
 function Sidebar() {
-  const adminFormState = useSelector(
-    (state) => state.noteDetails.adminFormState
-  );
+  const authFormState = useSelector((state) => state.auth);
 
   // Uses the useLocation hook to get the current location object. This object contains information about the current URL, which is useful for determining the active link.
   const location = useLocation();
@@ -38,7 +36,7 @@ function Sidebar() {
                 pathname === "profile-home/admin" ? "active-link" : ""
               }`}
              */}
-            {adminFormState.loginAdmin && (
+            {authFormState.isAuthenticated && (
               <Link
                 to="/profile-home/admin"
                 className={`text-white flex justify-center align-center link-item ${
