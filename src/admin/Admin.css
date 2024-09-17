@@ -22,6 +22,10 @@ td {
   white-space: nowrap;
 }
 
+#root > div > div.app-main > div > div > div.row.w-100 > div.col-sm-12.col-md-10.d-flex.flex-column.justify-content-center.table-container.mx-2.my-2 > table > tbody > tr > td:nth-child(6) {
+  text-transform: capitalize;
+}
+
 @media (min-width: 456px) {
   .dash {
     margin-left: 48px;

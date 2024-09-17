@@ -1,13 +1,14 @@
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { formatDistanceToNow, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
+import useAuthGuard from "../pages/useAuthGuard";
 import { adminDataApi } from "../services/nc_allApi";
-import useAuthGuard from '../pages/useAuthGuard';
 import "./Admin.css";
 
 function Admin() {
   // Check if user is authenticated
-  useAuthGuard(); 
+  useAuthGuard();
 
   // useDispatch() is a hook provided by React-Redux. It returns a reference to the dispatch function from the Redux store.
   // By calling useDispatch(), we can dispatch actions from within our React component.
@@ -25,7 +26,6 @@ function Admin() {
     const token = sessionStorage.getItem("token");
 
     if (token) {
-
       // This defines the headers for the HTTP request
       const reqHeader = {
         // "Content-Type": "multipart/form-data" is used to send requests with uploaded content.
@@ -39,7 +39,10 @@ function Admin() {
       // Calls the API function adminDataApi to fetch data and waits for the response. The await keyword pauses execution until the promise resolves.
       const result = await adminDataApi(reqHeader);
       console.log("result: ", result);
-      console.log("result.data.usersWithLastNoteDate: ", result.data.usersWithLastNoteDate);
+      console.log(
+        "result.data.usersWithLastNoteDate: ",
+        result.data.usersWithLastNoteDate
+      );
 
       if (result.status >= 200 && result.status < 300) {
         // Updates the allUsers state with the data fetched from the API.
@@ -141,6 +144,7 @@ function Admin() {
                   <th>Email</th>
                   <th>Number 0f Notes</th>
                   <th>Last Active Date</th>
+                  <th>Last Active</th>
                   <th>Delete</th>
                 </tr>
               </thead>
@@ -154,6 +158,9 @@ function Admin() {
                       <td className="text-center">{item?.notes_number}</td>
                       <td className="text-center">
                         {dateFormatter(item?.last_active_date)}
+                      </td>
+                      <td className="text-center">
+                        {formatDistanceToNow(parseISO(item?.last_active_date))}
                       </td>
                       <td className="text-center">
                         <button

@@ -96,6 +96,11 @@ function NotesList({ notes }) {
                 <div className="notes-item-body">
                   {note?.noteContent.substring(0, 150) + "..."}
                 </div>
+                {/* formatDistanceToNow(parseISO(note?.noteDate)): It is used to format a date (in this case, note?.noteDate) into a human-readable relative time, showing how long ago that date was compared to the current time. It's a combination of two functions from the date-fns library.
+                
+                parseISO(note?.noteDate): This function parses a string in ISO 8601 format (e.g., "2023-09-12T08:00:00Z") into a JavaScript Date object.
+                
+                formatDistanceToNow(date): This function takes a JavaScript Date object and calculates the relative distance from that date to the current time. It returns a string like "5 minutes ago", "3 days ago", "1 month ago", etc., depending on how far the noteDate is from the current time. */}
                 <div className="notes-item-date text-capitalize">
                   {formatDistanceToNow(parseISO(note?.noteDate))}
                 </div>
