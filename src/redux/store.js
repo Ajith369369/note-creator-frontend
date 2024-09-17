@@ -7,6 +7,33 @@
 import { configureStore } from "@reduxjs/toolkit";
 import noteReducer from "./slices/noteSlice";
 
+// Load state from sessionStorage
+const loadState = () => {
+  try {
+    const serializedState = sessionStorage.getItem("reduxState");
+
+    // If no state is found, return undefined so Redux uses the initial state
+    if (serializedState === null) {
+      return undefined; 
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    console.error("Could not load state", err);
+    return undefined;
+  }
+};
+
+// Save state to sessionStorage
+const saveState = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    sessionStorage.setItem("reduxState", serializedState);
+  } catch (err) {
+    console.error("Could not save state", err);
+  }
+};
+
+// Configure your store
 const store = configureStore({
 
   // The root reducer combines various slices into a single state tree.
@@ -52,5 +79,10 @@ const store = configureStore({
 // If you want to configure Redux Toolkit to allow non-serializable values in specific cases, you can disable the middleware warning for non-serializable values. However, it's generally best practice to avoid storing non-serializable values in Redux state to maintain consistency and avoid potential issues.
 // To configure Redux Toolkit to ignore serialization checks for specific actions or paths, we'll need to provide the actual action types and state paths we want to ignore.
 // Ensuring that our Redux state and actions are serializable is crucial for maintaining a robust and maintainable application. It allows us to take full advantage of Redux's tooling and ensures that our application's state can be safely persisted, logged, and debugged.
+
+// Subscribe to store changes and save to sessionStorage
+store.subscribe(() => {
+  saveState(store.getState());
+});
 
 export default store;
