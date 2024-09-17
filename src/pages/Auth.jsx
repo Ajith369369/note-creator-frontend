@@ -8,10 +8,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ADMIN_USER } from "../admin/constants";
 import loginImage from "../assets/images/note-creator-round-logo.png";
+import { loginAdmin, loginUser } from "../redux/slices/authSlice";
 import { loginApi, registerApi } from "../services/nc_allApi";
 import "./Auth.scss";
-import { updateAdminFormState } from "../redux/slices/noteSlice";
-import { login } from "../redux/slices/authSlice";
 
 function Auth({ register }) {
   const navigate = useNavigate();
@@ -71,7 +70,7 @@ function Auth({ register }) {
           // Token was already a string when received.
           sessionStorage.setItem("token", result.data.token);
           // dispatch(updateAdminFormState({ loginAdmin: true }));
-          dispatch(login());
+          dispatch(loginAdmin());
           toast.success("Administrator Login successful", {
             onClose: () => navigate("/profile-home/admin"),
           });
@@ -84,7 +83,7 @@ function Auth({ register }) {
 
           // Token was already a string when received.
           sessionStorage.setItem("token", result.data.token);
-          dispatch(login());
+          dispatch(loginUser());
           toast.success("User Login successful", {
             onClose: () => navigate("/"),
           });

@@ -36,7 +36,7 @@ function Sidebar() {
                 pathname === "profile-home/admin" ? "active-link" : ""
               }`}
              */}
-            {authFormState.isAuthenticated && (
+            {authFormState.isAdminAuthenticated && (
               <Link
                 to="/profile-home/admin"
                 className={`text-white flex justify-center align-center link-item ${
