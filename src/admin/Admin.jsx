@@ -151,7 +151,7 @@ function Admin() {
                       <td className="text-center">{index + 1}</td>
                       <td>{item.username}</td>
                       <td>{item.email}</td>
-                      <td>{item.notes_number}</td>
+                      <td className="text-center">{item.notes_number}</td>
                       <td className="text-center">
                         {dateFormatter(item.last_active_date)}
                       </td>
