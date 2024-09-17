@@ -1,8 +1,8 @@
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import "./Admin.css";
 import { adminDataApi } from "../services/nc_allApi";
+import "./Admin.css";
 
 function Admin() {
   // useDispatch() is a hook provided by React-Redux. It returns a reference to the dispatch function from the Redux store.
@@ -16,13 +16,31 @@ function Admin() {
 
   // Get the admin dashboard data
   const getAdminDashboardData = async () => {
-    // Calls the API function adminDataApi to fetch booking details and waits for the response. The await keyword pauses execution until the promise resolves.
-    const result = await adminDataApi();
-    console.log("result: ", result);
+    // Retrieves a token from the browser's sessionStorage.
+    // The token is used for authentication, verifying that the user is allowed to perform the action (adding a project).
+    const token = sessionStorage.getItem("token");
 
-    if (result.status >= 200 && result.status < 300) {
-      // Updates the allUsers state with the data fetched from the API.
-      setAllUsers(result.data);
+    if (token) {
+
+      // This defines the headers for the HTTP request
+      const reqHeader = {
+        // "Content-Type": "multipart/form-data" is used to send requests with uploaded content.
+        // Select form-data in body section in Postman.
+        // Bearer - No other certificate is required to verify this token.
+        // iat : Time atwhich token is generated.
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+
+      // Calls the API function adminDataApi to fetch data and waits for the response. The await keyword pauses execution until the promise resolves.
+      const result = await adminDataApi(reqHeader);
+      console.log("result: ", result);
+      console.log("result.data.allUsers: ", result.data.allUsers);
+
+      if (result.status >= 200 && result.status < 300) {
+        // Updates the allUsers state with the data fetched from the API.
+        setAllUsers(result.data.allUsers);
+      }
     }
   };
 
@@ -115,7 +133,7 @@ function Admin() {
               <thead className="text-center align-middle">
                 <tr>
                   <th>Sl. No.</th>
-                  <th>User ID</th>
+                  <th>Username</th>
                   <th>Email</th>
                   <th>Number 0f Notes</th>
                   <th>Last Active Date</th>
@@ -125,9 +143,9 @@ function Admin() {
               {allUsers.length > 0 && (
                 <tbody className="table-group-divider">
                   {allUsers?.map((item, index) => (
-                    <tr key={item.id}>
+                    <tr key={item._id}>
                       <td className="text-center">{index + 1}</td>
-                      <td>{item.userId}</td>
+                      <td>{item.username}</td>
                       <td>{item.email}</td>
                       <td>{item.notes_number}</td>
                       <td className="text-center">

@@ -69,6 +69,7 @@ export const deleteNoteOfAUserApi = async (noteId, reqHeader) => {
 };
 
 // get data for admin dashboard
-export const adminDataApi = async () => {
-  return await commonApi("GET", `${serverUrl}/profile-home/admin`, "", "");
+export const adminDataApi = async (reqHeader) => {
+  console.log("Inside adminDataApi.");
+  return await commonApi("GET", `${serverUrl}/profile-home/admin`, "", reqHeader);
 };

@@ -1,10 +1,10 @@
 import { AiFillHome } from "react-icons/ai";
 import { BsPlusLg } from "react-icons/bs";
 import { MdNoteAlt } from "react-icons/md";
+import { RiAdminFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import notes_icon from "../assets/images/notes_icon.png";
-import { RiAdminFill } from "react-icons/ri";
 import "./Sidebar.scss";
 
 function Sidebar() {
@@ -38,17 +38,19 @@ function Sidebar() {
                 pathname === "profile-home/admin" ? "active-link" : ""
               }`}
              */}
-            {adminFormState.loginAdmin && <Link
-              to="/profile-home/admin"
-              className={`text-white flex justify-center align-center link-item ${
-                pathname === "profile-home/admin" ? "active-link" : ""
-              }`}
-            >
-              <span className="flex align-center justify-center">
-                <RiAdminFill size={17} />
-              </span>
-              <span className="icon-text">Admin</span>
-            </Link>}
+            {adminFormState.loginAdmin && (
+              <Link
+                to="/profile-home/admin"
+                className={`text-white flex justify-center align-center link-item ${
+                  pathname === "profile-home/admin" ? "active-link" : ""
+                }`}
+              >
+                <span className="flex align-center justify-center">
+                  <RiAdminFill size={17} />
+                </span>
+                <span className="icon-text">Admin</span>
+              </Link>
+            )}
             <Link
               to="/profile-home/introduction"
               className={`text-white flex justify-center align-center link-item ${
