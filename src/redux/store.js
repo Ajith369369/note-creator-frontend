@@ -14,7 +14,7 @@ const loadState = () => {
 
     // If no state is found, return undefined so Redux uses the initial state
     if (serializedState === null) {
-      return undefined; 
+      return undefined;
     }
     return JSON.parse(serializedState);
   } catch (err) {
@@ -35,14 +35,12 @@ const saveState = (state) => {
 
 // Configure your store
 const store = configureStore({
-
   // The root reducer combines various slices into a single state tree.
   // The reducer property in the configureStore function is where we specify the root reducer for our Redux store. The root reducer is essentially an object that combines all of our individual slice reducers into one. Each slice reducer is responsible for managing a specific part of the state.
   // reducer: This key contains all the reducers responsible for managing different parts of the application state.
   // The reducer key in configureStore specifies the root reducer, which combines multiple slice reducers.
   // This setup organizes your state into logical sections, each managed by its own reducer.
   reducer: {
-
     // The line noteDetails: noteReducer tells Redux to manage the noteDetails slice of the state using the noteReducer.
     // Here, noteReducer is handling the state slice named noteDetails.
     // Key (noteDetails): This is the name of the slice of state that will be managed by the noteReducer. This means that all state managed by noteReducer will be stored under state.noteDetails in the Redux store.
@@ -63,13 +61,16 @@ const store = configureStore({
         ignoredPaths: ['noteDetails.bookingFormState.pickup_date'], // Add any state paths you want to ignore
       },
     }), */
+
+  // Load the state from sessionStorage when the store is created
+  preloadedState: loadState(),
 });
 
 // The Redux state should consist of serializable data structures (plain objects, arrays, primitives) and actions should contain serializable data as their payloads.
 // Serializable values are values that can be converted into a format that can be easily stored, transmitted, and reconstructed later. In Redux, it's generally recommended that all state and actions be serializable, meaning that they can be easily converted to and from JSON. This is because many of Redux's features, such as time travel debugging, state persistence, and logging, rely on the ability to serialize and deserialize the state and actions.
-  // Time Travel Debugging: It allows you to move back and forth in the history of your application's state changes, helping in identifying and fixing bugs. Time travel debugging relies on the ability to record and replay actions. This requires that actions and state can be serialized into JSON format, which is why they must consist of serializable data (like objects, arrays, strings, numbers, and booleans).
-  // State Persistence: In some applications, you might want to save the Redux state to local storage or a server and reload it later. For this to work, the state must be serializable, as only serializable data can be reliably saved and restored.
-  // Logging: For logging purposes, serializable actions and states can be easily printed or stored in logs. Non-serializable values might cause issues when trying to log them. Logging keeps track of all actions and state changes, providing insights into what your application is doing.
+// Time Travel Debugging: It allows you to move back and forth in the history of your application's state changes, helping in identifying and fixing bugs. Time travel debugging relies on the ability to record and replay actions. This requires that actions and state can be serialized into JSON format, which is why they must consist of serializable data (like objects, arrays, strings, numbers, and booleans).
+// State Persistence: In some applications, you might want to save the Redux state to local storage or a server and reload it later. For this to work, the state must be serializable, as only serializable data can be reliably saved and restored.
+// Logging: For logging purposes, serializable actions and states can be easily printed or stored in logs. Non-serializable values might cause issues when trying to log them. Logging keeps track of all actions and state changes, providing insights into what your application is doing.
 
 // Serializable Values: Plain JavaScript objects, arrays, and primitives (like strings, numbers, and booleans).
 // Non-Serializable Values: Date objects, functions, class instances, and DOM elements.
