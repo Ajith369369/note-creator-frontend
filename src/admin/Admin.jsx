@@ -149,11 +149,11 @@ function Admin() {
                   {allUsers?.map((item, index) => (
                     <tr key={item._id}>
                       <td className="text-center">{index + 1}</td>
-                      <td>{item.username}</td>
-                      <td>{item.email}</td>
-                      <td className="text-center">{item.notes_number}</td>
+                      <td>{item?.username}</td>
+                      <td>{item?.email}</td>
+                      <td className="text-center">{item?.notes_number}</td>
                       <td className="text-center">
-                        {dateFormatter(item.last_active_date)}
+                        {dateFormatter(item?.last_active_date)}
                       </td>
                       <td className="text-center">
                         <button
