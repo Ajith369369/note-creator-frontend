@@ -35,11 +35,11 @@ function Admin() {
       // Calls the API function adminDataApi to fetch data and waits for the response. The await keyword pauses execution until the promise resolves.
       const result = await adminDataApi(reqHeader);
       console.log("result: ", result);
-      console.log("result.data.allUsers: ", result.data.allUsers);
+      console.log("result.data.usersWithLastNoteDate: ", result.data.usersWithLastNoteDate);
 
       if (result.status >= 200 && result.status < 300) {
         // Updates the allUsers state with the data fetched from the API.
-        setAllUsers(result.data.allUsers);
+        setAllUsers(result.data.usersWithLastNoteDate);
       }
     }
   };
