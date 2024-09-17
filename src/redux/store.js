@@ -6,6 +6,7 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import noteReducer from "./slices/noteSlice";
+import authReducer from "./slices/authSlice";
 
 // Load state from sessionStorage
 const loadState = () => {
@@ -48,6 +49,7 @@ const store = configureStore({
     // By defining noteDetails: noteReducer, we're telling Redux that, a part of our global state should be managed by the noteReducer, and this part of the state should be accessible under the "noteDetails" key.
     // If you dispatch an action handled by noteReducer, Redux will update the noteDetails slice of the state accordingly.
     noteDetails: noteReducer,
+    auth: authReducer
   },
 
   // Redux Toolkit comes with a middleware that warns you if you attempt to include non-serializable data in your actions or state. You can customize this middleware to ignore specific paths or actions if necessary.
