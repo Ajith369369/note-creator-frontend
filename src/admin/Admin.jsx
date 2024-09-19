@@ -116,10 +116,12 @@ function Admin() {
     return formattedDate;
   };
 
-  /* const handleDeleteUser = async (id) => {
-    await deleteBookingDetailsOfAUserApi(id);
-    getAdminDashboardData();
-  }; */
+  const handleDeleteUser = async (id) => {
+    // await deleteBookingDetailsOfAUserApi(id);
+    // getAdminDashboardData();
+    console.log('Hello');
+    
+  };
 
   // The function call inside the useEffect hook triggers the getAdminDashboardData function as soon as the component (the specific React component in which the useEffect is defined, i.e., <Admin/>) is mounted (rendered for the first time).
   // The empty array [] as the second argument means that this effect will only run once when the component first mounts.
@@ -160,7 +162,7 @@ function Admin() {
                         {dateFormatter(item?.last_active_date)}
                       </td>
                       <td className="text-center">
-                        {formatDistanceToNow(parseISO(item?.last_active_date))}
+                        {item?.last_active_date && formatDistanceToNow(parseISO(item?.last_active_date))}
                       </td>
                       <td className="text-center">
                         <button

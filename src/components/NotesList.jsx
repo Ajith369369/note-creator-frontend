@@ -54,6 +54,7 @@ function NotesList({ notes }) {
       };
       const result = await deleteNoteOfAUserApi(id, reqHeader);
       if (result.status == 200) {
+        console.log('Result of Delete operation: ', result)
         toast.success("Note deleted successfully.");
         setDeleteStatus(true);
       }
