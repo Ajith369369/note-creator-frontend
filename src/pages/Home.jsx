@@ -42,7 +42,7 @@ function Home() {
                 ) : (
                   <Link to={"/profile-home/introduction"}>
                     <button className="btn btn-outline-light my-4">
-                      Manage Project
+                      Manage Notes
                       <FontAwesomeIcon icon={faArrowRight} className="ms-2" />
                     </button>
                   </Link>
