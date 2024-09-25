@@ -119,8 +119,7 @@ function Admin() {
   const handleDeleteUser = async (id) => {
     // await deleteBookingDetailsOfAUserApi(id);
     // getAdminDashboardData();
-    console.log('Hello');
-    
+    console.log("Hello");
   };
 
   // The function call inside the useEffect hook triggers the getAdminDashboardData function as soon as the component (the specific React component in which the useEffect is defined, i.e., <Admin/>) is mounted (rendered for the first time).
@@ -162,15 +161,18 @@ function Admin() {
                         {dateFormatter(item?.last_active_date)}
                       </td>
                       <td className="text-center">
-                        {item?.last_active_date && formatDistanceToNow(parseISO(item?.last_active_date))}
+                        {item?.last_active_date &&
+                          formatDistanceToNow(parseISO(item?.last_active_date))}
                       </td>
                       <td className="text-center">
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => handleDeleteUser(item.id)}
-                        >
-                          <FontAwesomeIcon icon={faTrashCan} />
-                        </button>
+                        {item?.username !== "admin" && (
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => handleDeleteUser(item.id)}
+                          >
+                            <FontAwesomeIcon icon={faTrashCan} />
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}
