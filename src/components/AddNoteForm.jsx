@@ -69,7 +69,6 @@ function AddNoteForm() {
     }); */
   };
 
-
   // #region Multi-line Comment
   /**
    * Handle the upload of the default image if no image is selected.
@@ -80,7 +79,6 @@ function AddNoteForm() {
    */
   // #endregion
   const fetchDefaultImageFile = async () => {
-
     // #region Multi-line Comment
     /**
      * This line sends a request to fetch the default image file.
@@ -104,7 +102,7 @@ function AddNoteForm() {
     /**
      * This line creates a new File object from the Blob.
      * new File([blob], "note-creator-square-logo.jpeg", { type: blob.type }) creates a file with the following parameters:
-     * 
+     *
      * [blob]: The content of the file, which in this case is the Blob object created in the previous line.
      * "note-creator-square-logo.jpeg": The name of the file we're creating, which will be used when handling it in the backend.
      * { type: blob.type }: The MIME type of the file, which is automatically set to match the type of the Blob (e.g., image/jpeg).
@@ -139,59 +137,59 @@ function AddNoteForm() {
   // #endregion
   // const uploadFile = async (file) => {
 
-    // #region Multi-line Comment
-    /**
-     * This line creates a new instance of the FormData object.
-     * FormData is a web API that provides a way to construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the fetch or XMLHttpRequest API.
-     * It is commonly used for sending files and other binary data in an HTTP request.
-     */
-    // #endregion
-    // const formData = new FormData();
+  // #region Multi-line Comment
+  /**
+   * This line creates a new instance of the FormData object.
+   * FormData is a web API that provides a way to construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the fetch or XMLHttpRequest API.
+   * It is commonly used for sending files and other binary data in an HTTP request.
+   */
+  // #endregion
+  // const formData = new FormData();
 
-    // #region Multi-line Comment
-    /**
-     * This line appends a key-value pair to the FormData object.
-     * "noteImage" is the name of the field that will be sent to the server, and file is the value associated with this key. In this context, file is the image file that we want to upload.
-     * When the form data is sent to the server, it will include a field named "noteImage" containing the file data.
-     */
-    // #endregion
-    // formData.append("noteImage", file);
+  // #region Multi-line Comment
+  /**
+   * This line appends a key-value pair to the FormData object.
+   * "noteImage" is the name of the field that will be sent to the server, and file is the value associated with this key. In this context, file is the image file that we want to upload.
+   * When the form data is sent to the server, it will include a field named "noteImage" containing the file data.
+   */
+  // #endregion
+  // formData.append("noteImage", file);
 
-    // #region Multi-line Comment
-    /**
-     * This line sends an HTTP POST request to the server using the fetch API.
-     * The await keyword is used to wait for the request to complete and for the response to be returned before moving on to the next line of code.
-     * "/api/upload" is the URL endpoint on the server where the file will be uploaded.
-     * 
-     * The fetch function is configured with an options object:
-     * method: "POST": Specifies that the request will be a POST request, which is typically used for creating or uploading data.
-     * body: formData: The body of the request contains the formData object, which includes the file we want to upload.
-     */
-    // #endregion
-    /* const response = await fetch("/api/upload", {
+  // #region Multi-line Comment
+  /**
+   * This line sends an HTTP POST request to the server using the fetch API.
+   * The await keyword is used to wait for the request to complete and for the response to be returned before moving on to the next line of code.
+   * "/api/upload" is the URL endpoint on the server where the file will be uploaded.
+   *
+   * The fetch function is configured with an options object:
+   * method: "POST": Specifies that the request will be a POST request, which is typically used for creating or uploading data.
+   * body: formData: The body of the request contains the formData object, which includes the file we want to upload.
+   */
+  // #endregion
+  /* const response = await fetch("/api/upload", {
       method: "POST",
       body: formData,
     }); */
 
-    // #region Multi-line Comment
-    /**
-     * This line parses the response from the server as JSON.
-     * response.json() is a method that reads the response body and parses it as JSON.
-     * The await keyword ensures that the code waits for the parsing to complete before moving on.
-     * The parsed JSON data is stored in the data variable, which typically contains information returned by the server, such as the file path of the uploaded image.
-     */
-    // #endregion
-    // const data = await response.json();
+  // #region Multi-line Comment
+  /**
+   * This line parses the response from the server as JSON.
+   * response.json() is a method that reads the response body and parses it as JSON.
+   * The await keyword ensures that the code waits for the parsing to complete before moving on.
+   * The parsed JSON data is stored in the data variable, which typically contains information returned by the server, such as the file path of the uploaded image.
+   */
+  // #endregion
+  // const data = await response.json();
 
-    // #region Multi-line Comment
-    /**
-     * This line updates the noteDetails state with the new image path returned from the server.
-     * ...noteDetails: This spreads the existing properties of the noteDetails object into the new object, ensuring that all other fields remain unchanged.
-     * noteImage: data.filePath: This updates the noteImage property of noteDetails with the file path returned by the server (stored in data.filePath).
-     * The setNoteDetails function is then called with the updated state, which causes React to re-render any components that depend on noteDetails.
-     */
-    // #endregion
-    /* setNoteDetails({
+  // #region Multi-line Comment
+  /**
+   * This line updates the noteDetails state with the new image path returned from the server.
+   * ...noteDetails: This spreads the existing properties of the noteDetails object into the new object, ensuring that all other fields remain unchanged.
+   * noteImage: data.filePath: This updates the noteImage property of noteDetails with the file path returned by the server (stored in data.filePath).
+   * The setNoteDetails function is then called with the updated state, which causes React to re-render any components that depend on noteDetails.
+   */
+  // #endregion
+  /* setNoteDetails({
       ...noteDetails,
       noteImage: data.filePath,
     });
@@ -226,7 +224,7 @@ function AddNoteForm() {
       ...noteDetails,
       noteImage: file,
     }); */
-    // #endregion 
+    // #endregion
   };
 
   const onSaveNoteClicked = async () => {
@@ -235,7 +233,6 @@ function AddNoteForm() {
     noteDetails.noteDate = noteFormState.noteDate;
 
     if (!titleError && !contentError) {
-
       // #region Multi-line Comment
       /**
        * Using object destructuring to extract the values for noteTitle, noteContent, noteImage, and noteDate from the noteDetails object.
@@ -264,7 +261,6 @@ function AddNoteForm() {
   };
 
   const onSaveNoteClicked_2 = async () => {
-    
     // #region Multi-line Comment
     /**
      * Accessing the updated state after awaiting setNoteDetails.
@@ -282,7 +278,6 @@ function AddNoteForm() {
     if (!noteTitle || !noteContent || !noteImage || !noteDate) {
       alert("Please fill the form completely.");
     } else {
-      
       // #region Multi-line Comment
       /**
        * A FormData object is created, which is used to construct a set of key/value pairs representing form fields and their values.
@@ -318,7 +313,6 @@ function AddNoteForm() {
        */
       // #endregion
       if (token) {
-
         // #region Multi-line Comment
         /**
          * This defines the headers for the HTTP request.
@@ -333,7 +327,7 @@ function AddNoteForm() {
           Authorization: `Bearer ${token}`,
         };
 
-        console.log('key, before note was added: ', key)
+        console.log("key, before note was added: ", key);
 
         // #region Multi-line Comment
         /**
@@ -349,28 +343,30 @@ function AddNoteForm() {
         if (result.status == 200) {
           toast.success("Note added successfully.");
           dispatch(resetNoteFormState());
-          setPreview("");          
-          if (key == false) {
-            setKey(true);
-          } else {
-            setKey(false);
-          }
-          console.log('key, after note was added: ', key)
-          setImageSet(false);
-          setTitleError(false)
-          setContentError(false)
-        } else {
-          toast.error("Something went wrong.");
-          dispatch(resetNoteFormState());
+          noteDetails.noteImage = "";
           setPreview("");
           if (key == false) {
             setKey(true);
           } else {
             setKey(false);
           }
-          setImageSet(false)
-          setTitleError(false)
-          setContentError(false)
+          console.log("key, after note was added: ", key);
+          setImageSet(false);
+          setTitleError(false);
+          setContentError(false);
+        } else {
+          toast.error("Something went wrong.");
+          dispatch(resetNoteFormState());
+          noteDetails.noteImage = "";
+          setPreview("");
+          if (key == false) {
+            setKey(true);
+          } else {
+            setKey(false);
+          }
+          setImageSet(false);
+          setTitleError(false);
+          setContentError(false);
         }
       }
     }
