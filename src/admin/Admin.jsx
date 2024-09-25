@@ -116,8 +116,8 @@ function Admin() {
     return formattedDate;
   };
 
-  const handleDeleteUser = async (id) => {
-    // await deleteBookingDetailsOfAUserApi(id);
+  const handleDeleteUser = async (user_id) => {
+    // await deleteUserAndNotesApi(user_id);
     // getAdminDashboardData();
     console.log("Hello");
   };
