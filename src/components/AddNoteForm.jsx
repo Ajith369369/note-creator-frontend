@@ -233,7 +233,12 @@ function AddNoteForm() {
     noteDetails.noteDate = noteFormState.noteDate;
 
     if (!titleError && !contentError) {
-      // Using object destructuring to extract the values for noteTitle, noteContent, noteImage, and noteDate from the noteDetails object.
+
+      // #region Multi-line Comment
+      /**
+       * Using object destructuring to extract the values for noteTitle, noteContent, noteImage, and noteDate from the noteDetails object.
+       */
+      // #endregion
       const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
       console.log("noteFormState: ", noteFormState);
       console.log("noteTitle: ", noteTitle);
@@ -257,43 +262,82 @@ function AddNoteForm() {
   };
 
   const onSaveNoteClicked_2 = async () => {
-    // Accessing the updated state after awaiting setNoteDetails
+    
+    // #region Multi-line Comment
+    /**
+     * Accessing the updated state after awaiting setNoteDetails.
+     */
+    // #endregion
     const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
     console.log("noteDetails.noteImage before IF check: ", noteImage);
 
-    // if statement checks if any of the required fields (noteTitle, noteContent, noteImage, noteDate) are empty. If any field is missing, it triggers an alert to inform the user to complete the form.
+    // #region Multi-line Comment
+    /**
+     * If statement checks if any of the required fields (noteTitle, noteContent, noteImage, noteDate) are empty.
+     * If any field is missing, it triggers an alert to inform the user to complete the form.
+     */
+    // #endregion
     if (!noteTitle || !noteContent || !noteImage || !noteDate) {
       alert("Please fill the form completely.");
     } else {
-      // A FormData object is created, which is used to construct a set of key/value pairs representing form fields and their values. This is particularly useful for sending data that includes files (like images) via HTTP requests.
+      
+      // #region Multi-line Comment
+      /**
+       * A FormData object is created, which is used to construct a set of key/value pairs representing form fields and their values.
+       * This is particularly useful for sending data that includes files (like images) via HTTP requests.
+       */
+      // #endregion
       const reqBody = new FormData();
 
-      // append() - add data to the object
-      // Each line appends a piece of data to the FormData object. This includes the form field names (noteTitle, noteContent, etc.) and their corresponding values.
-      // The append() method adds key-value pairs to the FormData object, where the key is the form field name and the value is the content of the field.
+      // #region Multi-line Comment
+      /**
+       * append() - adds data to the object.
+       * Each line appends a piece of data to the FormData object. This includes the form field names (noteTitle, noteContent, etc.) and their corresponding values.
+       * The append() method adds key-value pairs to the FormData object, where the key is the form field name and the value is the content of the field.
+       */
+      // #endregion
       reqBody.append("noteTitle", noteTitle); // Postman Body > form-data
       reqBody.append("noteContent", noteContent); // Postman Body > form-data
       reqBody.append("noteImage", noteImage); // Postman Body > form-data
       reqBody.append("noteDate", noteDate); // Postman Body > form-data
 
-      // Retrieves a token from the browser's sessionStorage.
-      // The token is used for authentication, verifying that the user is allowed to perform the action (adding a note).
+      // #region Multi-line Comment
+      /**
+       * Retrieves a token from the browser's sessionStorage.
+       * The token is used for authentication, verifying that the user is allowed to perform the action (adding a note).
+       */
+      // #endregion
       const token = sessionStorage.getItem("token");
 
-      // This checks whether the token was successfully retrieved from sessionStorage.
-      // If the token exists, it proceeds to set the request headers and send the data.
+      // #region Multi-line Comment
+      /**
+       * This checks whether the token was successfully retrieved from sessionStorage.
+       * If the token exists, it proceeds to set the request headers and send the data.
+       */
+      // #endregion
       if (token) {
-        // This defines the headers for the HTTP request
+
+        // #region Multi-line Comment
+        /**
+         * This defines the headers for the HTTP request.
+         * "Content-Type": "multipart/form-data" is used to send requests with uploaded content.
+         * Select form-data in body section in Postman.
+         * Bearer - No other certificate is required to verify this token.
+         * iat : Time at which token is generated.
+         */
+        // #endregion
         const reqHeader = {
-          // "Content-Type": "multipart/form-data" is used to send requests with uploaded content.
-          // Select form-data in body section in Postman.
-          // Bearer - No other certificate is required to verify this token.
-          // iat : Time atwhich token is generated.
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         };
 
-        // Calls the addNoteOfAUserApi function, passing in the reqBody (form data) and reqHeader (headers).
+        console.log('key, before note was added: ', key)
+
+        // #region Multi-line Comment
+        /**
+         * Calls the addNoteOfAUserApi(), passing in the reqBody (form data) and reqHeader (headers).
+         */
+        // #endregion
         const result = await addNoteOfAUserApi(reqBody, reqHeader);
         console.log(
           "Result of the addNoteOfAUserApi call to the console: ",
@@ -303,12 +347,13 @@ function AddNoteForm() {
         if (result.status == 200) {
           toast.success("Note added successfully.");
           dispatch(resetNoteFormState());
-          setPreview("");
+          setPreview("");          
           if (key == false) {
             setKey(true);
           } else {
             setKey(false);
           }
+          console.log('key, after note was added: ', key)
           setImageSet(false);
           setTitleError(false)
           setContentError(false)
