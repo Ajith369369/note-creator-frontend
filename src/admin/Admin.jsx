@@ -2,8 +2,10 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import useAuthGuard from "../pages/useAuthGuard";
-import { adminDataApi } from "../services/nc_allApi";
+import { adminDataApi, deleteUserAndNotesApi } from "../services/nc_allApi";
 import "./Admin.css";
 
 function Admin() {
@@ -15,6 +17,8 @@ function Admin() {
 
   // Initializes the state variable allUsers with an empty array. This state will hold the booking details of all users fetched from the API.
   const [allUsers, setAllUsers] = useState([]);
+
+  const [deleteStatus, setDeleteStatus] = useState("");
 
   // Initializes the state variable defaultUsers with an empty array. This state will hold the default booking details fetched from the API.
   // const [defaultUsers, setDefaultUsers] = useState([]);
@@ -117,16 +121,32 @@ function Admin() {
   };
 
   const handleDeleteUser = async (user_id) => {
-    // await deleteUserAndNotesApi(user_id);
-    // getAdminDashboardData();
-    console.log("Hello");
+    const token = sessionStorage.getItem("token");
+
+    if (token) {
+      // This defines the headers for the HTTP request
+      const reqHeader = {
+        // "Content-Type": "multipart/form-data" is used to send requests with uploaded content.
+        // Select form-data in body section in Postman.
+        // Bearer - No other certificate is required to verify this token.
+        // iat : Time atwhich token is generated.
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+      const result = await deleteUserAndNotesApi(user_id, reqHeader);
+      if (result.status == 200) {
+        console.log("Result of Delete operation: ", result);
+        toast.success("Note deleted successfully.");
+        setDeleteStatus(true);
+      }
+    }
   };
 
   // The function call inside the useEffect hook triggers the getAdminDashboardData function as soon as the component (the specific React component in which the useEffect is defined, i.e., <Admin/>) is mounted (rendered for the first time).
   // The empty array [] as the second argument means that this effect will only run once when the component first mounts.
   useEffect(() => {
     getAdminDashboardData();
-  }, []);
+  }, [deleteStatus]);
 
   return (
     <>
@@ -168,7 +188,7 @@ function Admin() {
                         {item?.username !== "admin" && (
                           <button
                             className="btn btn-danger"
-                            onClick={() => handleDeleteUser(item.id)}
+                            onClick={() => handleDeleteUser(item._id)}
                           >
                             <FontAwesomeIcon icon={faTrashCan} />
                           </button>
@@ -198,6 +218,7 @@ function Admin() {
           <div className="col-sm-0 col-md-1"></div>
         </div>
       </div>
+      <ToastContainer position="top-center" theme="colored" autoclose={1000} />
     </>
   );
 }

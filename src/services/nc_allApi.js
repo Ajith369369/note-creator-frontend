@@ -88,5 +88,5 @@ export const adminDataApi = async (reqHeader) => {
 // #endregion
 export const deleteUserAndNotesApi = async (userId, reqHeader) => {
   console.log("Inside deleteUserAndNotesApi().");
-  return await commonApi("DELETE", `${serverUrl}/user/delete/${userId}`, {}, reqHeader);
+  return await commonApi("DELETE", `${serverUrl}/profile-home/admin/user/delete/${userId}`, {}, reqHeader);
 };
