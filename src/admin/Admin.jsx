@@ -136,7 +136,7 @@ function Admin() {
       const result = await deleteUserAndNotesApi(user_id, reqHeader);
       if (result.status == 200) {
         console.log("Result of Delete operation: ", result);
-        toast.success("Note deleted successfully.");
+        toast.success("User and his notes were deleted successfully.");
         setDeleteStatus(true);
       }
     }
