@@ -208,6 +208,7 @@ function AddNoteForm() {
       noteImage: e.target.files[0],
     });
 
+    // #region fetchDefaultImageFile() file upload section
     /* let file;
 
     if (e.target.files[0]) {
@@ -225,6 +226,7 @@ function AddNoteForm() {
       ...noteDetails,
       noteImage: file,
     }); */
+    // #endregion 
   };
 
   const onSaveNoteClicked = async () => {
