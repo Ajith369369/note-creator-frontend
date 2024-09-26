@@ -16,29 +16,121 @@ function Auth({ register }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const validateData = (e) => {
-    const { name, value } = e.target;
-    console.log('name, value: ', name, value)
-
-    if (name === "Username") {
-      if (value === "") {
-        // If the input is empty, reset the validation to true
-        handleChange("is_passenger_name", true);
-      } else if (!/^[A-Za-z]+$/.test(value)) {
-        // If the input contains invalid characters, set validation to false
-        handleChange("is_passenger_name", false);
-      } else {
-        // If the input is valid, set validation to true
-        handleChange("is_passenger_name", true);
-      }
-    
-  };
-
   const [userDetails, setUserDetails] = useState({
     username: "",
     email: "",
     password: "",
+    is_username: true,
+    is_email: true,
+    is_password: true,
   });
+
+  // #region Multi-line Comment
+  /**
+   * handleChange Function: This function updates the state based on the name and value parameters.
+   * When you use ...prevState in the context of updating state in React, it is typically used to preserve the existing state values while updating or adding new values.
+   * ...prevState ensures that all previous state properties are included in the new state object.
+   * [name]: value updates or adds the property corresponding to name with the new value.
+   */
+  // #endregion
+  const handleChange = (name, value) => {
+    setUserDetails((prevState) => ({
+      // Copy all the existing state properties
+      ...prevState,
+
+      // #region Multi-line Comment
+      /**
+       * Update the specific property.
+       * The name parameter is used as a dynamic key to update the corresponding property in the state.
+       * This is possible due to the square bracket notation [name], which allows you to dynamically update the state key based on the value of name.
+       */
+      // #endregion
+      [name]: value,
+    }));
+  };
+
+  const validateData = (e) => {
+    const { name, value } = e.target;
+    console.log("name, value: ", name, value);
+
+    if (name === "Username") {
+      if (value === "") {
+        // If the input is empty, reset the validation to true
+        handleChange("is_username", true);
+      } else if (!/^[A-Za-z]+$/.test(value)) {
+        // If the input contains invalid characters, set validation to false
+        handleChange("is_username", false);
+      } else {
+        // If the input is valid, set validation to true
+        handleChange("is_username", true);
+        handleChange("username", value);
+      }
+
+      // #region Multi-line Comment
+      /**
+       * Regular expression to check for a valid email format.
+       * john@gmail.com
+       *
+       * ^: This asserts the start of the string. Ensures that the match begins right from the start of the input, with no preceding characters.
+       *
+       * [^\s@]+:
+       * [ and ]: Defines a character class, which matches any one of the characters contained within it.
+       * \s: Matches any whitespace character (like spaces, tabs, etc.).
+       * @: Matches the "@" character specifically.
+       * ^ inside [ and ]: When used inside a character class, it negates the class, meaning it matches any character except those specified.
+       * [^\s@]+: It matches a sequence of one or more characters that are not whitespace and not the "@" symbol.
+       * + symbol: It is a quantifier that specifies that the preceding element must appear one or more times. This means that the pattern before the + must occur at least once but can repeat any number of times, including indefinitely.
+       * E.g., john
+       *
+       * @: Matches the "@" character specifically.
+       * [^\s@]+ (again): Matches one or more characters after the "@" symbol that are not whitespace and not "@".
+       * E.g., gmail
+       *
+       * \.: Matches a literal period '.' Ensures that there's a period in the domain part of the email, which is standard in most email formats (like example.com).
+       * [^\s@]+ (again): Matches one or more characters after the period, which typically represents the top-level domain (like com, org, etc.).
+       * E.g., com
+       *
+       * $: Asserts the end of the string. Ensures that the match extends to the end of the input, with no trailing characters.
+       *
+       * This pattern is designed to catch most common email formats, ensuring that the input looks like a valid email address (e.g., user@example.com).
+       * However, it may not catch every edge case or allow every valid email according to the full specification.
+       * When a user types just a single letter or number, it fails the emailPattern.test(value) check because it's not yet a valid email address. So, proper validation happens only after typing the entire email address.
+       */
+      // #endregion
+    } else if (name === "Email") {
+      if (value === "") {
+        // If the input is empty, reset the validation to true
+        handleChange("is_email", true);
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        // If the input contains invalid characters, set validation to false
+        handleChange("is_email", false);
+      } else {
+        // If the input is valid, set validation to true
+        handleChange("is_email", true);
+      }
+    } else {
+      if (value === "") {
+        // If the input is empty, reset the validation to true
+        handleChange("is_password", true);
+      } else if (!/^[A-Za-z0-9]+$/.test(value)) {
+        // If the input contains invalid characters, set validation to false
+        handleChange("is_password", false);
+      } else {
+        // If the input is valid, set validation to true
+        handleChange("is_password", true);
+      }
+    }
+    // #region Multi-line Comment
+    /**
+     * onChange={(e) =>
+          setUserDetails({
+            ...userDetails,
+            username: e.target.value,
+          })
+        }
+      */
+    // #endregion
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -149,6 +241,7 @@ function Auth({ register }) {
                   ) : (
                     <h5 className="text-center">Sign In to Your Account</h5>
                   )}
+
                   {register && (
                     <div className="mb-3">
                       <input
@@ -157,13 +250,13 @@ function Auth({ register }) {
                         placeholder="Username"
                         className="form-control rounded-0"
                         value={userDetails.username}
-                        onChange={(e) =>
-                          setUserDetails({
-                            ...userDetails,
-                            username: e.target.value,
-                          })
-                        }
+                        onChange={(e) => validateData(e)}
                       />
+                      {userDetails.is_username == false && (
+                        <p className="err-text text-danger fw-bold me-auto p-2">
+                          *Invalid Input
+                        </p>
+                      )}
                     </div>
                   )}
                   <div className="mb-3">
