@@ -16,6 +16,24 @@ function Auth({ register }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const validateData = (e) => {
+    const { name, value } = e.target;
+    console.log('name, value: ', name, value)
+
+    if (name === "Username") {
+      if (value === "") {
+        // If the input is empty, reset the validation to true
+        handleChange("is_passenger_name", true);
+      } else if (!/^[A-Za-z]+$/.test(value)) {
+        // If the input contains invalid characters, set validation to false
+        handleChange("is_passenger_name", false);
+      } else {
+        // If the input is valid, set validation to true
+        handleChange("is_passenger_name", true);
+      }
+    
+  };
+
   const [userDetails, setUserDetails] = useState({
     username: "",
     email: "",
@@ -135,6 +153,7 @@ function Auth({ register }) {
                     <div className="mb-3">
                       <input
                         type="text"
+                        name="Username"
                         placeholder="Username"
                         className="form-control rounded-0"
                         value={userDetails.username}
@@ -150,6 +169,7 @@ function Auth({ register }) {
                   <div className="mb-3">
                     <input
                       type="text"
+                      name="Email"
                       placeholder="Email ID"
                       className="form-control rounded-0"
                       value={userDetails.email}
@@ -164,6 +184,7 @@ function Auth({ register }) {
                   <div className="mb-3">
                     <input
                       type="text"
+                      name="Password"
                       placeholder="Password"
                       className="form-control rounded-0"
                       value={userDetails.password}
