@@ -57,9 +57,11 @@ function Auth({ register }) {
       if (value === "") {
         // If the input is empty, reset the validation to true
         handleChange("is_username", true);
+        handleChange("username", value);
       } else if (!/^[A-Za-z]+$/.test(value)) {
         // If the input contains invalid characters, set validation to false
         handleChange("is_username", false);
+        handleChange("username", value);
       } else {
         // If the input is valid, set validation to true
         handleChange("is_username", true);
@@ -101,23 +103,29 @@ function Auth({ register }) {
       if (value === "") {
         // If the input is empty, reset the validation to true
         handleChange("is_email", true);
+        handleChange("email", value);
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
         // If the input contains invalid characters, set validation to false
         handleChange("is_email", false);
+        handleChange("email", value);
       } else {
         // If the input is valid, set validation to true
         handleChange("is_email", true);
+        handleChange("email", value);
       }
     } else {
       if (value === "") {
         // If the input is empty, reset the validation to true
         handleChange("is_password", true);
+        handleChange("password", value);
       } else if (!/^[A-Za-z0-9]+$/.test(value)) {
         // If the input contains invalid characters, set validation to false
         handleChange("is_password", false);
+        handleChange("password", value);
       } else {
         // If the input is valid, set validation to true
-        handleChange("is_password", true);
+        handleChange("is_password", true)
+        handleChange("password", value);;
       }
     }
     // #region Multi-line Comment
@@ -269,10 +277,10 @@ function Auth({ register }) {
                       onChange={(e) => validateData(e)}
                     />
                     {userDetails.is_email == false && (
-                        <p className="err-text text-danger fw-bold me-auto p-2">
-                          *Invalid Input
-                        </p>
-                      )}
+                      <p className="err-text text-danger fw-bold me-auto p-2">
+                        *Invalid Input
+                      </p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <input
@@ -284,10 +292,10 @@ function Auth({ register }) {
                       onChange={(e) => validateData(e)}
                     />
                     {userDetails.is_password == false && (
-                        <p className="err-text text-danger fw-bold me-auto p-2">
-                          *Invalid Input
-                        </p>
-                      )}
+                      <p className="err-text text-danger fw-bold me-auto p-2">
+                        *Invalid Input
+                      </p>
+                    )}
                   </div>
                   <div className="mb-3">
                     {register ? (
