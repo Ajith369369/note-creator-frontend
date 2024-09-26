@@ -16,36 +16,128 @@ import { configureStore } from "@reduxjs/toolkit";
 import noteReducer from "./slices/noteSlice";
 import authReducer from "./slices/authSlice";
 
-// Load state from sessionStorage
+// #region Multi-line Comment
+/**
+ * const loadState = () => {: This defines a function called loadState that returns the previously saved Redux state from sessionStorage.
+ * If the state isn't found or there is an error, it returns undefined.
+ * 
+ * The function loadState attempts to retrieve and parse the Redux state from sessionStorage.
+ * If the state is found and successfully parsed, it's returned as a JavaScript object.
+ * If no state is found or an error occurs (e.g., corrupted data), the function returns undefined, signaling Redux to use its default initial state.
+ */
+// #endregion
 const loadState = () => {
   try {
+
+    // #region Multi-line Comment
+    /**
+     * const serializedState = sessionStorage.getItem("reduxState");: This retrieves the serialized (stringified) Redux state from sessionStorage using sessionStorage.getItem("reduxState").
+     * sessionStorage is a browser-provided storage object, and getItem allows you to retrieve a value by its key—in this case, "reduxState".
+     * The result is stored in the variable serializedState. If no state is found, serializedState will be null.
+     */
+    // #endregion
     const serializedState = sessionStorage.getItem("reduxState");
 
-    // If no state is found, return undefined so Redux uses the initial state
+    // #region Multi-line Comment
+    /**
+     * if (serializedState === null) {: This checks if the serializedState is null.
+     * This would happen if there is no reduxState saved in sessionStorage yet.
+     * If null, it means no previous state has been stored, and the function should return undefined.
+     * Returning undefined tells Redux that there is no persisted state, so Redux will use its initial state.
+     */
+    // #endregion
     if (serializedState === null) {
       return undefined;
     }
+
+    // #region Multi-line Comment
+    /**
+     * return JSON.parse(serializedState);: If serializedState is not null, this line parses the string into a JavaScript object using JSON.parse().
+     * This converts the previously serialized (stringified) Redux state back into its original state structure.
+     * The parsed state is then returned.
+     */
+    // #endregion
     return JSON.parse(serializedState);
   } catch (err) {
+
+    // #region Multi-line Comment
+    /**
+     * console.error("Could not load state", err);: If an error is caught, this line logs the error to the console for debugging purposes.
+     * It provides both a custom message ("Could not load state") and the actual error (err) that occurred.
+     */
+    // #endregion
     console.error("Could not load state", err);
+
+    // #region Multi-line Comment
+    /**
+     * return undefined;: If an error occurs (e.g., parsing failure or storage access error), the function returns undefined to signal that no valid state could be loaded.
+     * This ensures that Redux will use the default initial state instead of an invalid state.
+     */
+    // #endregion
     return undefined;
   }
 };
 
-// Save state to sessionStorage
+// #region Multi-line Comment
+/**
+ * const saveState = (state) => {: This defines an arrow function named saveState, which takes a state parameter.
+ * The purpose of this function is to save the current Redux state to the browser's sessionStorage.
+ */
+// #endregion
 const saveState = (state) => {
   try {
+
+    // #region Multi-line Comment
+    /**
+     * const serializedState = JSON.stringify(state);: This line converts the Redux state (which is a JavaScript object) into a JSON string using JSON.stringify.
+     * This process is known as serialization, and it allows complex JavaScript objects to be stored as strings in sessionStorage.
+     * The result, which is a string, is stored in the variable serializedState.
+     */
+    // #endregion
     const serializedState = JSON.stringify(state);
+
+    // #region Multi-line Comment
+    /**
+     * sessionStorage.setItem("reduxState", serializedState);: This line saves the serialized state string into the browser's sessionStorage under the key "reduxState".
+     * 
+     * sessionStorage.setItem is a method that stores a key-value pair in sessionStorage:
+     * The key is "reduxState", and the value is the serialized state (serializedState).
+     * 
+     * Now, the state will persist in sessionStorage even if the page is reloaded, but it will be cleared when the browser or tab is closed.
+     */
+    // #endregion
     sessionStorage.setItem("reduxState", serializedState);
   } catch (err) {
+
+    // #region Multi-line Comment
+    /**
+     * console.error("Could not save state", err);: If an error is caught, this line logs the error to the console.
+     * The custom message "Could not save state" helps identify the problem, and err provides additional details about the error.
+     */
+    // #endregion
     console.error("Could not save state", err);
   }
 };
 
-// Configure your store
+// #region Multi-line Comment
+/**
+ * Configure the store.
+ * This code creates a Redux store using configureStore.
+ * Two reducers, noteReducer and authReducer, manage the state slices noteDetails and auth respectively.
+ * The preloadedState option initializes the store with the state loaded from sessionStorage (or a default state if no data is found). 
+ * 
+ * const store = configureStore({: This line initializes a Redux store by calling configureStore(), a function provided by Redux Toolkit.
+ * store is the constant where the configured Redux store instance is assigned.
+ * configureStore is a more simplified and convenient way to set up a Redux store compared to using createStore directly.
+ * It includes sensible defaults and setups for better development experiences.
+ */
+// #endregion
 const store = configureStore({
   // #region Multi-line Comment
   /**
+   * The reducer field specifies the root reducer for the Redux store.
+   * The reducer object can hold multiple slices (or pieces) of state, each handled by a separate reducer function. Each key-value pair in this object represents a slice of state and its associated reducer.
+   * 
    * The root reducer combines various slices into a single state tree.
    * The reducer property in the configureStore function is where we specify the root reducer for our Redux store.
    * The root reducer is essentially an object that combines all of our individual slice reducers into one. Each slice reducer is responsible for managing a specific part of the state.
@@ -58,6 +150,9 @@ const store = configureStore({
   reducer: {
     // #region Multi-line Comment
     /**
+     * This line specifies that the slice of state, named noteDetails will be managed by noteReducer.
+     * noteReducer is the reducer function that handles actions related to the noteDetails slice of the state (for example, fetching note details, updating a note, etc.).
+     * 
      * The line noteDetails: noteReducer tells Redux to manage the noteDetails slice of the state using the noteReducer.
      * "noteDetails" is the name of the slice.
      * 
@@ -95,6 +190,10 @@ const store = configureStore({
   // #region Multi-line Comment
   /**
    * Load the state from sessionStorage when the store is created.
+   * preloadedState: loadState(),: preloadedState allows the store to be initialized with a specific initial state.
+   * Here, it is calling the loadState() function, which fetches the previously saved state from sessionStorage.
+   * If the loadState() function returns null or undefined (i.e., if no state is saved in sessionStorage), Redux will fall back to using the initialState defined in the reducers.
+   * This is useful for persisting the state across page reloads, so that the user doesn't lose their state, such as authentication info, selected notes, etc.
    */
   // #endregion
   preloadedState: loadState(),
