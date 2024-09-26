@@ -131,7 +131,7 @@ function Introduction() {
           </div>
           <h4 className="ms-3">
             <span className="me-2 fw-bold">Search Made Easy</span><br />Use note
-            titles, and content to search your notes. It&aposll help you get the
+            titles, and content to search your notes. It'll help you get the
             right information from your notes quickly and reliably.
           </h4>
         </div>
