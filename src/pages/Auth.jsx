@@ -266,13 +266,13 @@ function Auth({ register }) {
                       placeholder="Email ID"
                       className="form-control rounded-0"
                       value={userDetails.email}
-                      onChange={(e) =>
-                        setUserDetails({
-                          ...userDetails,
-                          email: e.target.value,
-                        })
-                      }
+                      onChange={(e) => validateData(e)}
                     />
+                    {userDetails.is_email == false && (
+                        <p className="err-text text-danger fw-bold me-auto p-2">
+                          *Invalid Input
+                        </p>
+                      )}
                   </div>
                   <div className="mb-3">
                     <input
@@ -281,13 +281,13 @@ function Auth({ register }) {
                       placeholder="Password"
                       className="form-control rounded-0"
                       value={userDetails.password}
-                      onChange={(e) =>
-                        setUserDetails({
-                          ...userDetails,
-                          password: e.target.value,
-                        })
-                      }
+                      onChange={(e) => validateData(e)}
                     />
+                    {userDetails.is_password == false && (
+                        <p className="err-text text-danger fw-bold me-auto p-2">
+                          *Invalid Input
+                        </p>
+                      )}
                   </div>
                   <div className="mb-3">
                     {register ? (
