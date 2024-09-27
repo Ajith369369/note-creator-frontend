@@ -284,7 +284,7 @@ function Auth({ register }) {
                   </div>
                   <div className="mb-3">
                     <input
-                      type="text"
+                      type="password"
                       name="Password"
                       placeholder="Password"
                       className="form-control rounded-0"

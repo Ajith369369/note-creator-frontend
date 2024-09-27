@@ -154,9 +154,9 @@ function Admin() {
         <div className="dash-home d-flex justify-content-center align-items-center p-md-5">
           <h1 className="text-dark dash fw-bold">DASHBOARD</h1>
         </div>
-        <div className="row w-100">
+        <div className="row w-100 m-0 p-0">
           <div className="col-sm-0 col-md-1"></div>
-          <div className="col-sm-12 col-md-10 d-flex flex-column justify-content-center table-container mx-2 my-2">
+          <div className="col-sm-12 col-md-10 d-flex flex-column justify-content-center table-container p-0">
             <table className="table table-dark table-striped table-hover align-middle table-responsive m-0 p-4">
               <thead className="text-center align-middle">
                 <tr>
