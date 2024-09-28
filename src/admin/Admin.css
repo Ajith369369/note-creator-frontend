@@ -1,6 +1,6 @@
 .admin-container {
   min-height: 100vh;
-  background-image: url('/src/assets/car_bg.jpg');
+  background-image: url("/src/assets/car_bg.jpg");
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -13,7 +13,11 @@
   overflow-x: auto;
 }
 
-#root > div > div.row.w-100 > div.col-sm-12.col-md-10.table-container.mx-2.my-2 > table {
+#root
+  > div
+  > div.row.w-100
+  > div.col-sm-12.col-md-10.table-container.mx-2.my-2
+  > table {
   margin-bottom: 0px;
   max-width: 340px;
 }
@@ -22,7 +26,17 @@ td {
   white-space: nowrap;
 }
 
-#root > div > div.app-main > div > div > div.row.w-100 > div.col-sm-12.col-md-10.d-flex.flex-column.justify-content-center.table-container.mx-2.my-2 > table > tbody > tr > td:nth-child(6) {
+#root
+  > div
+  > div.app-main
+  > div
+  > div.admin-container.row.w-100.m-0.my-2.d-flex.flex-column.justify-content-start.align-items-center
+  > div.row.w-100.m-0.p-0
+  > div.col-sm-12.col-md-10.d-flex.flex-column.justify-content-center.table-container.p-0
+  > table
+  > tbody
+  > tr
+  > td:nth-child(6) {
   text-transform: capitalize;
 }
 
@@ -50,5 +64,4 @@ td {
   .home {
     margin: 5px auto 10px auto;
   }
-
 }
