@@ -5,16 +5,32 @@
   background-repeat: no-repeat;
   background-size: cover;
 
-  div {
+  div.m-0.py-4 {
     // background-color: blue;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(30px);
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 16px;
-  }
 
-  div > div:nth-child(1) > div > a > button {
-    font-size: 16px;
+    div:nth-child(1) > div {
+      position: relative;
+      z-index: 2;
+
+      h1 {
+        position: relative;
+        z-index: 2;
+      }
+
+      h4 {
+        position: relative;
+        z-index: 2;
+      }
+
+      div > a > button {
+        font-size: 16px;
+        // background-color: blue;
+      }
+    }
   }
 
   div

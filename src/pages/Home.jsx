@@ -21,7 +21,7 @@ function Home() {
         className="container-fluid bg-success p-4 logo-page d-flex justify-content-center align-items-center"
         style={{ width: "100%" }}
       >
-        <Row>
+        <Row className="m-0 py-4">
           <Col
             md={6}
             className="d-flex flex-column justify-content-center align-items-center"
