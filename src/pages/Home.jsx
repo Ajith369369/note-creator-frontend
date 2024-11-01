@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import noteCreatorLogo from "../assets/images/note-creator-square-logo.jpeg";
-import "./Home.css";
+import "./Home.scss";
 
 function Home() {
   const [token, setToken] = useState("");
@@ -27,7 +27,7 @@ function Home() {
             className="d-flex flex-column justify-content-center align-items-center"
           >
             <div className="ms-3">
-              <h1 className="text-center text-light" style={{ fontSize: "76px" }}>
+              <h1 className="text-center text-dark" style={{ fontSize: "76px" }}>
                 Note Creator
               </h1>
               <h4 className="text-center">One stop destination for your notes</h4>
