@@ -27,10 +27,15 @@ function Home() {
             className="d-flex flex-column justify-content-center align-items-center"
           >
             <div className="ms-3">
-              <h1 className="text-center text-dark" style={{ fontSize: "76px" }}>
+              <h1
+                className="text-center text-dark"
+                style={{ fontSize: "76px" }}
+              >
                 Note Creator
               </h1>
-              <h4 className="text-center">One stop destination for your notes</h4>
+              <h4 className="text-center">
+                One-stop destination for your notes
+              </h4>
               <div className="d-flex justify-content-center align-items-center">
                 {!token ? (
                   <Link to={"/login"}>
