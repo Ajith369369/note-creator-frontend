@@ -309,7 +309,7 @@ function Auth({ register }) {
                         </button>
                         <p className="mt-2">
                           Already a User? Click Here to{" "}
-                          <Link to={"/login"} className="text-warning">
+                          <Link to={"/login"} className="fw-bold">
                             Login
                           </Link>
                         </p>
@@ -325,7 +325,7 @@ function Auth({ register }) {
                         </button>
                         <p className="mt-2">
                           New User? Click Here to{" "}
-                          <Link to={"/register"} className="text-warning">
+                          <Link to={"/register"} className="fw-bold">
                             Register
                           </Link>
                         </p>
