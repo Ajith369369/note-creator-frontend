@@ -202,7 +202,7 @@ function Admin() {
             {allUsers.length == 0 && (
               <div className="d-flex flex-column justify-content-center align-items-center">
                 <p className="text-danger text-center fs-3 fw-bolder w-100">
-                  No Booking Details
+                  No Notes Were Found!
                 </p>
                 {/* <Button
                   onClick={loadDefaultBookingDetails}
