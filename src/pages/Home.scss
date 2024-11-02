@@ -4,6 +4,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 
   div.m-0.py-4 {
     // background-color: blue;
@@ -28,7 +29,13 @@
 
       div > a > button {
         font-size: 16px;
-        // background-color: blue;
+        color: black;
+        border-color: rgb(211, 211, 211);
+      }
+
+      div > a > button:hover,
+      div > a > button:active {
+        border-color: black;
       }
     }
   }
