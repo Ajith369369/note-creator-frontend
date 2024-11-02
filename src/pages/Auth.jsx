@@ -124,8 +124,8 @@ function Auth({ register }) {
         handleChange("password", value);
       } else {
         // If the input is valid, set validation to true
-        handleChange("is_password", true)
-        handleChange("password", value);;
+        handleChange("is_password", true);
+        handleChange("password", value);
       }
     }
     // #region Multi-line Comment
@@ -304,6 +304,11 @@ function Auth({ register }) {
                           type="button"
                           className="btn btn-warning w-100 rounded-0"
                           onClick={handleRegister}
+                          disabled={
+                            !userDetails.is_username ||
+                            !userDetails.is_email ||
+                            !userDetails.is_password
+                          }
                         >
                           Register
                         </button>
@@ -320,6 +325,9 @@ function Auth({ register }) {
                           type="button"
                           onClick={handleLogin}
                           className="btn btn-warning w-100 rounded-0"
+                          disabled={
+                            !userDetails.is_email || !userDetails.is_password
+                          }
                         >
                           Login
                         </button>
