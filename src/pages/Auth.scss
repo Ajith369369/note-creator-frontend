@@ -44,6 +44,11 @@
         font-size: 16px;
       }
 
+      button:disabled {
+        background-color: rgba(231, 216, 216, 0.452);
+        border-color: black;
+      }
+
       div > p.err-text {
         font-size: 16px;
       }
