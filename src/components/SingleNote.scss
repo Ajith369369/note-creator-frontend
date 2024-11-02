@@ -1,18 +1,24 @@
 // Avoid using the default namespace 'App'.
 @use "../App.scss" as *;
 
-.note-single-section {
-  .note-single-title {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
+.notes-wrapper {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(70px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
 
-  div:nth-child(2) > img {
-    max-height: 400px;
-    width: auto;
-  }
+  .note-single-section {
+    .note-single-title {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
 
-  div:nth-child(3) > h4 {
-    text-align: justify;
-    text-transform: none;
+    div:nth-child(2) > img {
+      max-height: 400px;
+      width: auto;
+    }
+
+    div:nth-child(3) > h4 {
+      text-align: justify;
+      text-transform: none;
+    }
   }
 }
