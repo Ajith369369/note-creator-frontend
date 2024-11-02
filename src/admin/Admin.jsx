@@ -152,7 +152,7 @@ function Admin() {
     <>
       <div className="admin-container row w-100 m-0 my-2 d-flex flex-column justify-content-start align-items-center">
         <div className="dash-home d-flex justify-content-center align-items-center p-md-5">
-          <h1 className="text-dark dash fw-bold">DASHBOARD</h1>
+          <h1 className="text-light dash fw-bold">DASHBOARD</h1>
         </div>
         <div className="row w-100 m-0 p-0">
           <div className="col-sm-0 col-md-1"></div>
