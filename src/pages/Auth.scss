@@ -2,16 +2,35 @@
 @use "../App.scss" as *;
 
 #root > div {
-  .container.w-75 {
-    a > h4 {
-      font-size: 16px;
+  background-image: url("/src/assets/images/header_img.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+  .container.w-75.py-4 {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    a {
+      h4 {
+        font-size: 16px;
+        color: black;
+      }
+
+      h4:hover,
+      h4:active {
+        border-color: black;
+      }
     }
   }
+  // #root > div > div.container.w-75.py-4 > div > div > div.p-5.d-flex.flex-column.justify-content-center.text-dark.col-md-6 > form > div:nth-child(6) > div > p > a#root > div > div.container.w-75.py-4 > div > div > div.p-5.d-flex.flex-column.justify-content-center.text-dark.col-md-6 > form > div:nth-child(5) > div > p > a
 
-  .p-5.d-flex.flex-column.justify-content-center.text-light.col-md-6 {
+  .p-5.d-flex.flex-column.justify-content-center.text-dark.col-md-6 {
     form.w-100 {
       font-size: 16px;
-      
+
       h4 {
         font-size: 20px;
       }
@@ -20,7 +39,8 @@
         font-size: 17px;
       }
 
-      div > input, button {
+      div > input,
+      button {
         font-size: 16px;
       }
 
@@ -29,6 +49,15 @@
         background-color: black;
       }
 
+      // Black outline
+      /* div:nth-child(5) > div > p > a, div:nth-child(6) > div > p > a {
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+          1px 1px 0 #000;
+      } */
+
+      div:nth-child(5) > div > p > a, div:nth-child(6) > div > p > a {
+        color: blue;
+      }
     }
   }
 }

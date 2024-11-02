@@ -219,7 +219,7 @@ function Auth({ register }) {
         className="d-flex justify-content-center align-items-center bg-success"
         style={{ width: "100%", height: "100vh" }}
       >
-        <div className="container w-75">
+        <div className="container w-75 py-4">
           <Link to={"/"} style={{ textDecoration: "none" }}>
             <h4 className="btn btn-outline-light m-0 p-2">
               <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
@@ -227,7 +227,7 @@ function Auth({ register }) {
             </h4>
           </Link>
 
-          <div className="bg-success p-3">
+          <div className="p-3">
             <Row>
               <Col
                 md={6}
@@ -237,10 +237,10 @@ function Auth({ register }) {
               </Col>
               <Col
                 md={6}
-                className="p-5 d-flex flex-column justify-content-center text-light"
+                className="p-5 d-flex flex-column justify-content-center text-dark"
               >
                 <form className="w-100">
-                  <h4 className="text-center text-light">
+                  <h4 className="text-center text-dark">
                     <FontAwesomeIcon icon={faBookOpen} className="fa-2x me-2" />
                     Note Creator
                   </h4>
