@@ -37,10 +37,22 @@
     }
   }
 
-  .btn {
-    background-color: $clr-red-salsa;
-    color: white;
-    border: 1px solid black;
+  .btnsave {
+    border-radius: 5px;
+    border: 1px solid white;
+  }
+
+  .btnsave:active {
+    color: $clr-red-salsa;
+    background-color: white;
+    border-color: white;
+    border: 1px solid $clr-red-salsa;
     font-size: 16px;
+  }
+
+  .btnsave:hover {
+    color: white;
+    background-color: $clr-red-salsa;
+    border-color: black;
   }
 }

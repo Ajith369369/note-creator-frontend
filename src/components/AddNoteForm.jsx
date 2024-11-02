@@ -453,7 +453,7 @@ function AddNoteForm() {
             <button
               type="button"
               onClick={onSaveNoteClicked}
-              className="btn btn-default"
+              className="btnsave p-4"
               disabled={!canSave}
             >
               Save Note

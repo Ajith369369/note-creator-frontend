@@ -244,7 +244,7 @@ function EditNoteForm() {
             <button
               type="button"
               onClick={onSaveNoteClicked}
-              className="btn btn-default"
+              className="btnsave p-4"
               disabled={!canSave}
             >
               Update Note
