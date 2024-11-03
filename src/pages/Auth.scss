@@ -43,7 +43,8 @@
         font-size: 16px;
       }
 
-      button:disabled {
+      button:disabled,
+      button:disabled:hover {
         color: gray;
         background-color: transparent;
         border-color: gray;
