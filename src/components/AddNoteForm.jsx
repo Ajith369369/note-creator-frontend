@@ -228,6 +228,7 @@ function AddNoteForm() {
   };
 
   const onSaveNoteClicked = async () => {
+    window.scrollTo(0, 0);
     noteDetails.noteTitle = noteFormState.noteTitle;
     noteDetails.noteContent = noteFormState.noteContent;
     noteDetails.noteDate = noteFormState.noteDate;
