@@ -5,6 +5,9 @@ import "./SingleNote.scss";
 // import { useParams } from 'react-router';
 
 const SingleNotePage = () => {
+  // Scroll to the top on component mount
+  window.scrollTo(0, 0);
+
   const location = useLocation();
   const selectedNote = location.state?.selectedNote;
   console.log("selectedNote: ", selectedNote);

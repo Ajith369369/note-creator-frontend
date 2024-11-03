@@ -15,7 +15,7 @@ function EditNoteForm() {
   console.log("selectedNote?.userId: ", selectedNote?.userId);
   console.log("selectedNote?._id: ", selectedNote?._id);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // const notes = useSelector(getAllNotes);
   // let tempNote = notes.filter(note => note.noteId === id);
 
@@ -84,6 +84,7 @@ function EditNoteForm() {
       toast("Note edited successfully");
       setFormData({ noteTitle: "", noteContent: "" });
     } */
+    window.scrollTo(0, 0);
     const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
     if (!noteTitle || !noteContent || !noteDate) {
       toast.info("Please fill the form completely.");
@@ -128,7 +129,8 @@ function EditNoteForm() {
           );
           if (result.status == 200) {
             toast.success("Note updated successfully.", {
-              onClose: () => navigate('/profile-home/notes')});
+              onClose: () => navigate("/profile-home/notes"),
+            });
           } else {
             toast.error("Something went wrong.");
           }
@@ -152,7 +154,8 @@ function EditNoteForm() {
           );
           if (result.status == 200) {
             toast.success("Note updated successfully.", {
-              onClose: () => navigate('/profile-home/notes')});
+              onClose: () => navigate("/profile-home/notes"),
+            });
           } else {
             toast.error("Something went wrong.");
           }
@@ -249,7 +252,11 @@ function EditNoteForm() {
             >
               Update Note
             </button>
-            <ToastContainer position="top-center" theme="colored" autoclose={1000} />
+            <ToastContainer
+              position="top-center"
+              theme="colored"
+              autoclose={1000}
+            />
           </form>
         </section>
       </div>
