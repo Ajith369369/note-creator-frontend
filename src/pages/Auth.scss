@@ -25,7 +25,6 @@
       }
     }
   }
-  // #root > div > div.container.w-75.py-4 > div > div > div.p-5.d-flex.flex-column.justify-content-center.text-dark.col-md-6 > form > div:nth-child(6) > div > p > a#root > div > div.container.w-75.py-4 > div > div > div.p-5.d-flex.flex-column.justify-content-center.text-dark.col-md-6 > form > div:nth-child(5) > div > p > a
 
   .p-5.d-flex.flex-column.justify-content-center.text-dark.col-md-6 {
     form.w-100 {
@@ -45,8 +44,10 @@
       }
 
       button:disabled {
-        background-color: rgba(231, 216, 216, 0.452);
-        border-color: black;
+        color: gray;
+        background-color: transparent;
+        border-color: gray;
+        cursor: not-allowed;
       }
 
       div > p.err-text {
@@ -59,7 +60,8 @@
           1px 1px 0 #000;
       } */
 
-      div:nth-child(5) > div > p > a, div:nth-child(6) > div > p > a {
+      div:nth-child(5) > div > p > a,
+      div:nth-child(6) > div > p > a {
         color: blue;
       }
     }

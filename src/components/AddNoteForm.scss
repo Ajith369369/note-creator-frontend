@@ -55,4 +55,13 @@
     background-color: $clr-red-salsa;
     border-color: black;
   }
+
+  // Prevent hover effect if button is disabled.
+  .btnsave:disabled,
+  .btnsave:disabled:hover {
+    color: gray;
+    background-color: transparent;
+    border-color: gray;
+    cursor: not-allowed;
+  }
 }
