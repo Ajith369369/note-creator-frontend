@@ -10,7 +10,6 @@ import { ADMIN_USER } from "../admin/constants";
 import loginImage from "../assets/images/note-creator-round-logo.png";
 import { loginAdmin, loginUser } from "../redux/slices/authSlice";
 import { loginApi, registerApi } from "../services/nc_allApi";
-import "./Auth.scss";
 
 function Auth({ register }) {
   const navigate = useNavigate();
@@ -216,12 +215,12 @@ function Auth({ register }) {
   return (
     <>
       <div
-        className="d-flex justify-content-center align-items-center bg-success"
-        style={{ width: "100%", height: "100vh" }}
+        className="flex justify-center items-center w-full min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
+        style={{ backgroundImage: "url('/src/assets/images/header_img.jpg')" }}
       >
-        <div className="container w-75 py-4">
-          <Link to={"/"} style={{ textDecoration: "none" }}>
-            <h4 className="btn btn-outline-light m-0 p-2">
+        <div className="container w-11/12 md:w-3/4 py-4 bg-white/10 backdrop-blur-[30px] border-2 border-white/20 rounded-2xl">
+          <Link to={"/"} className="no-underline">
+            <h4 className="btn btn-outline-light m-0 p-2 text-base text-black border-gray-300 hover:border-black">
               <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
               Back Home
             </h4>
@@ -231,23 +230,23 @@ function Auth({ register }) {
             <Row>
               <Col
                 md={6}
-                className="p-4 d-flex justify-content-center align-items-center"
+                className="p-4 flex justify-center items-center"
               >
-                <img src={loginImage} alt="" width={"80%"} />
+                <img src={loginImage} alt="" className="w-4/5" />
               </Col>
               <Col
                 md={6}
-                className="p-5 d-flex flex-column justify-content-center text-dark"
+                className="p-5 flex flex-col justify-center text-dark"
               >
-                <form className="w-100">
-                  <h4 className="text-center text-dark">
-                    <FontAwesomeIcon icon={faBookOpen} className="fa-2x me-2" />
+                <form className="w-full text-base">
+                  <h4 className="text-center text-dark text-xl">
+                    <FontAwesomeIcon icon={faBookOpen} className="text-3xl me-2" />
                     Note Creator
                   </h4>
                   {register ? (
-                    <h5 className="text-center">Sign Up to Your Account</h5>
+                    <h5 className="text-center text-lg">Sign Up to Your Account</h5>
                   ) : (
-                    <h5 className="text-center">Sign In to Your Account</h5>
+                    <h5 className="text-center text-lg">Sign In to Your Account</h5>
                   )}
 
                   {register && (
@@ -256,12 +255,12 @@ function Auth({ register }) {
                         type="text"
                         name="Username"
                         placeholder="Username"
-                        className="form-control rounded-0"
+                        className="w-full px-3 py-2 text-base border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-red-salsa"
                         value={userDetails.username}
                         onChange={(e) => validateData(e)}
                       />
                       {userDetails.is_username == false && (
-                        <p className="err-text text-danger fw-bold me-auto p-2">
+                        <p className="text-base text-red-600 font-bold ml-auto p-2">
                           *Invalid Input
                         </p>
                       )}
@@ -272,12 +271,12 @@ function Auth({ register }) {
                       type="text"
                       name="Email"
                       placeholder="Email ID"
-                      className="form-control rounded-0"
+                      className="w-full px-3 py-2 text-base border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-red-salsa"
                       value={userDetails.email}
                       onChange={(e) => validateData(e)}
                     />
                     {userDetails.is_email == false && (
-                      <p className="err-text text-danger fw-bold me-auto p-2">
+                      <p className="text-base text-red-600 font-bold ml-auto p-2">
                         *Invalid Input
                       </p>
                     )}
@@ -287,12 +286,12 @@ function Auth({ register }) {
                       type="password"
                       name="Password"
                       placeholder="Password"
-                      className="form-control rounded-0"
+                      className="w-full px-3 py-2 text-base border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-red-salsa"
                       value={userDetails.password}
                       onChange={(e) => validateData(e)}
                     />
                     {userDetails.is_password == false && (
-                      <p className="err-text text-danger fw-bold me-auto p-2">
+                      <p className="text-base text-red-600 font-bold ml-auto p-2">
                         *Invalid Input
                       </p>
                     )}
@@ -302,7 +301,7 @@ function Auth({ register }) {
                       <div>
                         <button
                           type="button"
-                          className="btn btn-warning w-100 rounded-0"
+                          className="w-full px-4 py-2 text-base bg-yellow-500 text-black rounded-none border border-yellow-500 hover:bg-yellow-600 disabled:text-gray-400 disabled:bg-transparent disabled:border-gray-400 disabled:cursor-not-allowed"
                           onClick={handleRegister}
                           disabled={
                             !userDetails.is_username ||
@@ -312,9 +311,9 @@ function Auth({ register }) {
                         >
                           Register
                         </button>
-                        <p className="mt-2">
+                        <p className="mt-2 text-base">
                           Already a User? Click Here to{" "}
-                          <Link to={"/login"} className="fw-bold">
+                          <Link to={"/login"} className="font-bold text-blue-600">
                             Login
                           </Link>
                         </p>
@@ -324,16 +323,16 @@ function Auth({ register }) {
                         <button
                           type="button"
                           onClick={handleLogin}
-                          className="btn btn-warning w-100 rounded-0"
+                          className="w-full px-4 py-2 text-base bg-yellow-500 text-black rounded-none border border-yellow-500 hover:bg-yellow-600 disabled:text-gray-400 disabled:bg-transparent disabled:border-gray-400 disabled:cursor-not-allowed"
                           disabled={
                             !userDetails.is_email || !userDetails.is_password
                           }
                         >
                           Login
                         </button>
-                        <p className="mt-2">
+                        <p className="mt-2 text-base">
                           New User? Click Here to{" "}
-                          <Link to={"/register"} className="fw-bold">
+                          <Link to={"/register"} className="font-bold text-blue-600">
                             Register
                           </Link>
                         </p>

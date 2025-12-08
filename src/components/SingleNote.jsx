@@ -1,7 +1,6 @@
 // import { getAllNotes } from "../../features/notes/noteSlice";
 import { useLocation } from "react-router-dom";
 import { serverUrl } from "../services/nc_serverUrl";
-import "./SingleNote.scss";
 // import { useParams } from 'react-router';
 
 const SingleNotePage = () => {
@@ -15,15 +14,19 @@ const SingleNotePage = () => {
   // const notes = useSelector(getAllNotes);
   // let tempNote = notes.filter((note) => note.noteId === id);
   return (
-    <section className="note-single-section px-4">
-      <div className="note-single-title">
-        <h1 className="fw-bold text-center my-2">{selectedNote?.noteTitle}</h1>
+    <section className="px-4">
+      <div className="border-b border-black/10">
+        <h1 className="font-bold text-center my-2">{selectedNote?.noteTitle}</h1>
       </div>
-      <div className="py-4 d-flex justify-content-center align-items-center">
-        <img src={`${serverUrl}/uploads/${selectedNote?.noteImage}`} alt="" />
+      <div className="py-4 flex justify-center items-center">
+        <img 
+          src={`${serverUrl}/uploads/${selectedNote?.noteImage}`} 
+          alt="" 
+          className="max-h-96 w-auto"
+        />
       </div>
       <div className="py-4">
-        <h4>{selectedNote?.noteContent}</h4>
+        <h4 className="text-justify normal-case">{selectedNote?.noteContent}</h4>
       </div>
     </section>
   );

@@ -70,44 +70,39 @@ function NotesPage() {
     <>
       {isToken ? (
         <div>
-          <div className="row my-4">
-            <div className="col-md-4"></div>
-            <div className="col-md-4 d-flex">
+          <div className="grid grid-cols-12 gap-4 my-4">
+            <div className="col-span-12 md:col-span-4"></div>
+            <div className="col-span-12 md:col-span-4 flex relative">
               <input
                 type="text"
-                style={{ fontSize: "16px" }}
-                className="form-control"
+                className="w-full px-3 py-2 text-base border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-salsa"
                 placeholder="Note Title"
                 onChange={(e) => setSearchKey(e.target.value)}
               />
               <FontAwesomeIcon
                 icon={faMagnifyingGlass}
                 rotation={90}
-                style={{
-                  marginTop: "8px",
-                  marginLeft: "-25px",
-                  color: "grey",
-                }}
+                className="absolute right-3 top-3 text-gray-500"
               />
             </div>
-            <div className="col-md-4"></div>
+            <div className="col-span-12 md:col-span-4"></div>
           </div>
           <NotesList notes={notesFromNoteSlice} />
         </div>
       ) : (
-        <div className="row mt-5 w-100">
-          <div className="col-md-4"></div>
-          <div className="col-md-4 p-4 d-flex flex-column justify-content-center align-items-center">
-            <img src={noteCreatorLogo} alt="" width={"70%"} height={"300px"} />
-            <h4 className="mt-5 text-center">
+        <div className="grid grid-cols-12 gap-4 mt-12 w-full">
+          <div className="col-span-12 md:col-span-4"></div>
+          <div className="col-span-12 md:col-span-4 p-4 flex flex-col justify-center items-center">
+            <img src={noteCreatorLogo} alt="" className="w-3/4 h-72 object-cover" />
+            <h4 className="mt-12 text-center">
               Please{" "}
-              <Link to={"/login"} className="text-danger">
+              <Link to={"/login"} className="text-red-600">
                 Login
               </Link>{" "}
               to see the notes.
             </h4>
           </div>
-          <div className="col-md-4"></div>
+          <div className="col-span-12 md:col-span-4"></div>
         </div>
       )}
     </>

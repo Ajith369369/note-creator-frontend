@@ -4,7 +4,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { editNoteOfAUserApi } from "../services/nc_allApi";
 import { serverUrl } from "../services/nc_serverUrl";
-import "./EditNoteForm.scss";
 
 function EditNoteForm() {
   // const { noteId } = useParams();
@@ -170,12 +169,12 @@ function EditNoteForm() {
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center">
-        <section className="note-form-section">
-          <h2 className="my-4 fs-16">Edit Note</h2>
-          <form className="note-form">
-            <div className="form-element">
-              <label htmlFor="noteTitle" className="form-label">
+      <div className="flex justify-center items-center">
+        <section className="w-full lg:w-[calc(100vw-196px-12px-36px-6px)] p-5 min-h-screen rounded shadow-md">
+          <h2 className="my-4 text-xl">Edit Note</h2>
+          <form className="w-full max-w-full">
+            <div className="mb-4">
+              <label htmlFor="noteTitle" className="block text-lg mb-2">
                 Title:
               </label>
               <input
@@ -189,23 +188,23 @@ function EditNoteForm() {
                     noteTitle: e.target.value,
                   })
                 }
-                className="form-control"
-                // Keep your inputs consistently controlled by ensuring their value is always defined, even if it’s just an empty string.
+                className="w-full px-3 py-2 text-base border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-salsa"
+                // Keep your inputs consistently controlled by ensuring their value is always defined, even if it's just an empty string.
                 value={noteDetails.noteTitle || ""}
               />
-              <span className="form-error-text">
+              <span className="text-sm text-red-salsa opacity-90">
                 {titleError ? "Title can't be empty!" : ""}
               </span>
             </div>
-            <div className="form-element">
-              <label htmlFor="noteImg" className="form-label">
+            <div className="mb-4">
+              <label htmlFor="noteImg" className="block text-lg mb-2">
                 Image:
               </label>
-              <label htmlFor="noteImg">
+              <label htmlFor="noteImg" className="cursor-pointer">
                 <input
                   type="file"
                   id="noteImg"
-                  style={{ display: "none" }}
+                  className="hidden"
                   key={key}
                   onChange={(e) => handleFile(e)}
                 />
@@ -216,12 +215,12 @@ function EditNoteForm() {
                       : `${serverUrl}/uploads/${selectedNote?.noteImage}`
                   }
                   alt=""
-                  style={{ height: "100px" }}
+                  className="h-24 w-auto"
                 />
               </label>
             </div>
-            <div className="form-element">
-              <label htmlFor="noteContent" className="form-label">
+            <div className="mb-4">
+              <label htmlFor="noteContent" className="block text-lg mb-2">
                 Content:
               </label>
               <textarea
@@ -234,12 +233,12 @@ function EditNoteForm() {
                     noteContent: e.target.value,
                   })
                 }
-                className="form-control"
+                className="w-full px-3 py-2 text-base border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-salsa"
                 rows="10"
-                // Keep your inputs consistently controlled by ensuring their value is always defined, even if it’s just an empty string.
+                // Keep your inputs consistently controlled by ensuring their value is always defined, even if it's just an empty string.
                 value={noteDetails.noteContent || ""}
               ></textarea>
-              <span className="form-error-text">
+              <span className="text-sm text-red-salsa opacity-90">
                 {contentError ? "Content can't be empty!" : ""}
               </span>
             </div>
@@ -247,7 +246,7 @@ function EditNoteForm() {
             <button
               type="button"
               onClick={onSaveNoteClicked}
-              className="btnsave p-4"
+              className="px-4 py-4 rounded border border-white text-white bg-transparent hover:bg-red-salsa hover:border-black active:text-red-salsa active:bg-white active:border-red-salsa disabled:text-gray-400 disabled:bg-transparent disabled:border-gray-400 disabled:cursor-not-allowed transition-all duration-300"
               disabled={!canSave}
             >
               Update Note

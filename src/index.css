@@ -1,8 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0px;
   padding: 0px;
   font-family: "Inter", sans-serif;
-  font-size: 16px;
 }
 
 #root {
@@ -12,4 +15,40 @@
 
 body {
   overflow-x: hidden;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Custom utility classes for consistency with existing design */
+@layer utilities {
+  .text-red-salsa {
+    color: #fb3640;
+  }
+  
+  .bg-red-salsa {
+    background-color: #fb3640;
+  }
+  
+  .border-red-salsa {
+    border-color: #fb3640;
+  }
+  
+  .hover\:bg-red-salsa:hover {
+    background-color: #fb3640;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .form-control {
+    @apply border border-black/10 px-4 py-3 w-full rounded-sm text-sm font-light opacity-90 leading-relaxed;
+  }
+  
+  .form-label {
+    @apply block mb-1.5 font-semibold text-sm;
+  }
+  
+  .form-element {
+    @apply mb-3.5;
+  }
 }

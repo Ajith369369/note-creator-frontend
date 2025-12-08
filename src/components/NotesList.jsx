@@ -11,7 +11,6 @@ import {
   deleteNoteOfAUserApi,
   getAllNotesOfAUserApi,
 } from "../services/nc_allApi";
-import "./NotesList.scss";
 // import EditNoteForm from "./EditNoteForm";
 
 function NotesList({ notes }) {
@@ -81,36 +80,39 @@ function NotesList({ notes }) {
 
   console.log("notes in NotesList.jsx: ", notes);
   if (!notes || notes?.length === 0) {
-    return <div className="not-found">No notes found</div>;
+    return <div className="mx-6 my-6">No notes found</div>;
   }
 
   return (
     <>
-      <div className="notes">
-        <h5 className="fs-18 fw-8 text-uppercase notes-title">notes</h5>
-        <div className="notes-list grid">
+      <div className="mx-3 my-6 shadow-md p-10">
+        <h5 className="text-lg font-extrabold uppercase border-b border-dark pb-2">notes</h5>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-9">
           {notes?.map((note) => {
             return (
-              <div className="notes-item" key={note?._id}>
-                <div className="notes-item-title">
+              <div 
+                className="border border-black/10 rounded-md relative transition-all duration-300 hover:bg-red-salsa hover:text-white group" 
+                key={note?._id}
+              >
+                <div className="text-sm font-medium bg-black/5 rounded-t px-3.5 py-2 border-b border-black/10">
                   {note?.noteTitle.substring(0, 80) + "..."}
                 </div>
-                <div className="notes-item-body">
+                <div className="text-sm font-light opacity-95 px-3.5 pt-3.5 pb-1.5">
                   {note?.noteContent.substring(0, 150) + "..."}
                 </div>
                 {/* formatDistanceToNow(parseISO(note?.noteDate)): It is used to format a date (in this case, note?.noteDate) into a human-readable relative time, showing how long ago that date was compared to the current time. It's a combination of two functions from the date-fns library.
                 
                 parseISO(note?.noteDate): This function parses a string in ISO 8601 format (e.g., "2023-09-12T08:00:00Z") into a JavaScript Date object.
                 
-                formatDistanceToNow(date): This function takes a JavaScript Date object and calculates the relative distance from that date to the current time. It returns a string like "5 minutes ago", "3 days ago", "1 month ago", etc., depending on how far the noteDate is from the current time. */}
-                <div className="notes-item-date text-capitalize">
+                formatDistanceToNow(date): This function takes a JavaScript Date object and calculates the relative distance from that date to the current time. It returns a string like "5 minutes ago", "3 days ago", "1 month ago", etc., depending how far the noteDate is from the current time. */}
+                <div className="inline-block mx-3.5 text-xs text-light-dark capitalize border-t border-black/5 group-hover:text-white">
                   {formatDistanceToNow(parseISO(note?.noteDate))}
                 </div>
-                <div className="notes-item-btns flex align-center justify-between">
+                <div className="flex items-center justify-between px-3.5 pt-4 pb-2.5">
                   <div>
                     <button
                       type="button"
-                      className="notes-item-btn"
+                      className="mr-2.5 text-lg text-red-salsa transition-all duration-300 hover:scale-90 bg-transparent border-none cursor-pointer group-hover:text-white"
                       // onClick={() => dispatch(removeNote(note?._id))}
                       onClick={() => handleDelete(note?._id)}
                     >
@@ -122,7 +124,7 @@ function NotesList({ notes }) {
                     </Link> */}
                     <button
                       type="button"
-                      className="notes-item-btn"
+                      className="mr-2.5 text-[19px] text-green-custom transition-all duration-300 hover:scale-90 bg-transparent border-none cursor-pointer group-hover:text-white"
                       onClick={() => handleNavigate(note)}
                     >
                       <FiEdit />
@@ -132,7 +134,7 @@ function NotesList({ notes }) {
                   <button
                     type="button"
                     onClick={() => handleNavigate_2(note)}
-                    className="read-more-btn fs-14"
+                    className="text-sm text-light-dark bg-transparent border-none cursor-pointer group-hover:text-white"
                   >
                     Read More
                   </button>

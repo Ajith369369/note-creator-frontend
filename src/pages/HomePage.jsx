@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { logout } from "../redux/slices/authSlice";
-import "./HomePage.scss";
 import useAuthGuard from "./useAuthGuard";
 
 function HomePage() {
@@ -89,18 +88,19 @@ function HomePage() {
 
   return (
     <>
-      <div className="app-cont">
+      <div className="w-full overflow-x-hidden">
         <Sidebar />
-        <div className="app-main">
-          <header className="header w-100 flex align-center">
-            <div className="container w-100">
-              <div className="header-content flex align-center justify-between text-white py-3">
+        <div className="ml-[60px] lg:ml-sidebar w-[calc(100%-60px)] lg:w-[calc(100%-196px)] min-h-screen overflow-y-scroll">
+          <header className="w-full min-h-[60px] bg-cover bg-center bg-no-repeat relative shadow-md flex items-center" style={{ backgroundImage: "url('/src/assets/images/header_img.jpg')" }}>
+            <div className="absolute top-0 left-0 w-full h-full bg-white/5 backdrop-blur-[5px]"></div>
+            <div className="container w-full relative z-[5]">
+              <div className="flex items-center justify-between text-white py-3">
                 <div className="greetings">
-                  <h3 className="fw-6 outlined-text">{greetText}</h3>
+                  <h3 className="font-semibold text-white [text-shadow:-1px_-1px_0_black,1px_-1px_0_black,-1px_1px_0_black,1px_1px_0_black]">{greetText}</h3>
                 </div>
-                <div className="d-flex flex-wrap justify-content-center align-items-center">
-                  <div className="date me-3 text-center">
-                    <span className="text-uppercase outlined-text fw-6">
+                <div className="flex flex-wrap justify-center items-center">
+                  <div className="mr-3 text-center">
+                    <span className="uppercase text-sm font-semibold text-white [text-shadow:-1px_-1px_0_black,1px_-1px_0_black,-1px_1px_0_black,1px_1px_0_black]">
                       {date}
                     </span>
                   </div>
@@ -108,7 +108,7 @@ function HomePage() {
                     {token && (
                       <button
                         onClick={handleLogout}
-                        className="btn btn-warning rounded-pill mx-3"
+                        className="px-5 py-2 text-sm font-semibold bg-yellow-500 text-black rounded-full mx-3 border border-yellow-500 hover:bg-yellow-600"
                       >
                         <FontAwesomeIcon icon={faPowerOff} className="me-2" />
                         Log Out
@@ -119,7 +119,7 @@ function HomePage() {
               </div>
             </div>
           </header>
-          <div className="notes-wrapper py-4 px-4">
+          <div className="py-4 px-4 min-h-screen">
             <Outlet />
           </div>
         </div>

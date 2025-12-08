@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import noteCreatorLogo from "../assets/images/note-creator-square-logo.jpeg";
-import "./Home.scss";
 
 function Home() {
   const [token, setToken] = useState("");
@@ -18,35 +17,34 @@ function Home() {
   return (
     <>
       <div
-        className="container-fluid bg-success p-4 logo-page d-flex justify-content-center align-items-center"
-        style={{ width: "100%" }}
+        className="container-fluid p-4 flex justify-center items-center w-full min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
+        style={{ backgroundImage: "url('/src/assets/images/header_img.jpg')" }}
       >
-        <Row className="m-0 py-4">
+        <Row className="m-0 py-4 bg-white/10 backdrop-blur-[30px] border-2 border-white/20 rounded-2xl">
           <Col
             md={6}
-            className="d-flex flex-column justify-content-center align-items-center"
+            className="flex flex-col justify-center items-center"
           >
-            <div className="ms-3">
+            <div className="ml-3 relative z-[2]">
               <h1
-                className="text-center text-dark"
-                style={{ fontSize: "76px" }}
+                className="text-center text-dark text-7xl relative z-[2]"
               >
                 Note Creator
               </h1>
-              <h4 className="text-center">
+              <h4 className="text-center relative z-[2]">
                 One-stop destination for your notes
               </h4>
-              <div className="d-flex justify-content-center align-items-center">
+              <div className="flex justify-center items-center">
                 {!token ? (
                   <Link to={"/login"}>
-                    <button className="btn btn-outline-light my-4">
+                    <button className="btn btn-outline-light my-4 text-base text-black border-gray-300 hover:border-black">
                       Get Started
                       <FontAwesomeIcon icon={faArrowRight} className="ms-2" />
                     </button>
                   </Link>
                 ) : (
                   <Link to={"/profile-home/introduction"}>
-                    <button className="btn btn-outline-light my-4">
+                    <button className="btn btn-outline-light my-4 text-base text-black border-gray-300 hover:border-black">
                       Manage Notes
                       <FontAwesomeIcon icon={faArrowRight} className="ms-2" />
                     </button>
@@ -57,9 +55,9 @@ function Home() {
           </Col>
           <Col
             md={6}
-            className="d-flex flex-column justify-content-center align-items-center flex-column"
+            className="flex flex-col justify-center items-center"
           >
-            <img src={noteCreatorLogo} alt="" height={"400px"} />
+            <img src={noteCreatorLogo} alt="" className="h-96 w-auto" />
           </Col>
         </Row>
       </div>
