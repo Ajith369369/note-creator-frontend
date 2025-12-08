@@ -1,7 +1,6 @@
 import { faArrowLeft, faBookOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -218,35 +217,36 @@ function Auth({ register }) {
         className="flex justify-center items-center w-full min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
         style={{ backgroundImage: "url('/src/assets/images/header_img.jpg')" }}
       >
-        <div className="container w-11/12 md:w-3/4 py-4 bg-white/10 backdrop-blur-[30px] border-2 border-white/20 rounded-2xl">
+        <div className="w-11/12 md:w-3/4 mx-auto p-4 bg-white/10 backdrop-blur-[30px] border-2 border-white/20 rounded-2xl">
           <Link to={"/"} className="no-underline">
-            <h4 className="btn btn-outline-light m-0 p-2 text-base text-black border-gray-300 hover:border-black">
-              <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
+            <h4 className="inline-flex items-center gap-2 m-0 px-4 py-2 text-base text-black border border-gray-300 rounded hover:border-black hover:bg-white/20">
+              <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
               Back Home
             </h4>
           </Link>
 
           <div className="p-3">
-            <Row>
-              <Col
-                md={6}
-                className="p-4 flex justify-center items-center"
-              >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-4 flex justify-center items-center">
                 <img src={loginImage} alt="" className="w-4/5" />
-              </Col>
-              <Col
-                md={6}
-                className="p-5 flex flex-col justify-center text-dark"
-              >
+              </div>
+              <div className="p-5 flex flex-col justify-center text-black">
                 <form className="w-full text-base">
-                  <h4 className="text-center text-dark text-xl">
-                    <FontAwesomeIcon icon={faBookOpen} className="text-3xl me-2" />
+                  <h4 className="text-center text-black text-xl">
+                    <FontAwesomeIcon
+                      icon={faBookOpen}
+                      className="text-3xl mr-2"
+                    />
                     Note Creator
                   </h4>
                   {register ? (
-                    <h5 className="text-center text-lg">Sign Up to Your Account</h5>
+                    <h5 className="text-center text-lg">
+                      Sign Up to Your Account
+                    </h5>
                   ) : (
-                    <h5 className="text-center text-lg">Sign In to Your Account</h5>
+                    <h5 className="text-center text-lg">
+                      Sign In to Your Account
+                    </h5>
                   )}
 
                   {register && (
@@ -313,7 +313,10 @@ function Auth({ register }) {
                         </button>
                         <p className="mt-2 text-base">
                           Already a User? Click Here to{" "}
-                          <Link to={"/login"} className="font-bold text-blue-600">
+                          <Link
+                            to={"/login"}
+                            className="font-bold text-blue-600"
+                          >
                             Login
                           </Link>
                         </p>
@@ -332,7 +335,10 @@ function Auth({ register }) {
                         </button>
                         <p className="mt-2 text-base">
                           New User? Click Here to{" "}
-                          <Link to={"/register"} className="font-bold text-blue-600">
+                          <Link
+                            to={"/register"}
+                            className="font-bold text-blue-600"
+                          >
                             Register
                           </Link>
                         </p>
@@ -340,8 +346,8 @@ function Auth({ register }) {
                     )}
                   </div>
                 </form>
-              </Col>
-            </Row>
+              </div>
+            </div>
           </div>
         </div>
         <ToastContainer
