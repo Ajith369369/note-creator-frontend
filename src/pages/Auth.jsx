@@ -1,5 +1,6 @@
-import { faArrowLeft, faBookOpen } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -213,139 +214,185 @@ function Auth({ register }) {
 
   return (
     <>
-      <div
-        className="flex justify-center items-center w-full min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
-        style={{ backgroundImage: "url('/src/assets/images/header_img.jpg')" }}
-      >
-        <div className="w-11/12 md:w-3/4 mx-auto p-4 bg-white/10 backdrop-blur-[30px] border-2 border-white/20 rounded-2xl">
-          <Link to={"/"} className="no-underline">
-            <h4 className="inline-flex items-center gap-2 m-0 px-4 py-2 text-base text-black border border-gray-300 rounded hover:border-black hover:bg-white/20">
-              <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+      <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950">
+        {/* Ambient gradients */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(79,70,229,0.18),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(236,72,153,0.18),transparent_30%),radial-gradient(circle_at_50%_80%,rgba(34,211,238,0.16),transparent_35%)]" />
+        {/* Soft background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
+          style={{
+            backgroundImage: "url('/src/assets/images/header_img.jpg')",
+          }}
+        />
+
+        <div className="relative z-10 w-full max-w-6xl px-6 md:px-10 py-10">
+          <div className="flex justify-between items-center mb-6">
+            <Link
+              to={"/"}
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white border border-white/30 rounded-full bg-white/5 hover:bg-white/10 transition shadow-lg shadow-white/10"
+            >
+              <FontAwesomeIcon icon={faArrowLeft} className="text-white" />
               Back Home
-            </h4>
-          </Link>
+            </Link>
+            <div className="hidden md:flex items-center gap-2 text-slate-200/80 text-sm">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              Secure authentication
+            </div>
+          </div>
 
-          <div className="p-3">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-4 flex justify-center items-center">
-                <img src={loginImage} alt="" className="w-4/5" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-white/5 border border-white/15 rounded-3xl shadow-2xl backdrop-blur-2xl p-6 md:p-10">
+            <div className="order-2 md:order-1 space-y-6 text-white">
+              <div className="space-y-2">
+                <p className="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold text-emerald-100 bg-emerald-500/20 border border-emerald-200/40 rounded-full">
+                  <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
+                  {register ? "Create your space" : "Welcome back"}
+                </p>
+                <h1 className="text-3xl md:text-4xl font-bold leading-tight drop-shadow-lg">
+                  {register ? "Join Note Creator" : "Sign in to Note Creator"}
+                </h1>
+                <p className="text-slate-200/80 text-base">
+                  Effortlessly capture, organize, and sync your notes with a
+                  clean, focused experience.
+                </p>
               </div>
-              <div className="p-5 flex flex-col justify-center text-black">
-                <form className="w-full text-base">
-                  <h4 className="text-center text-black text-xl">
-                    <FontAwesomeIcon
-                      icon={faBookOpen}
-                      className="text-3xl mr-2"
-                    />
-                    Note Creator
-                  </h4>
-                  {register ? (
-                    <h5 className="text-center text-lg">
-                      Sign Up to Your Account
-                    </h5>
-                  ) : (
-                    <h5 className="text-center text-lg">
-                      Sign In to Your Account
-                    </h5>
-                  )}
 
-                  {register && (
-                    <div className="mb-3">
+              <form className="space-y-4 text-slate-900">
+                {register && (
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-slate-200">
+                      Username
+                    </label>
+                    <div className="relative">
                       <input
                         type="text"
                         name="Username"
-                        placeholder="Username"
-                        className="w-full px-3 py-2 text-base border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-red-salsa"
+                        placeholder="johndoe"
+                        className="w-full px-4 py-3 rounded-xl bg-white/90 text-slate-900 border border-white/40 shadow-inner shadow-white/20 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-300 transition"
                         value={userDetails.username}
                         onChange={(e) => validateData(e)}
                       />
-                      {userDetails.is_username == false && (
-                        <p className="text-base text-red-600 font-bold ml-auto p-2">
-                          *Invalid Input
-                        </p>
-                      )}
                     </div>
-                  )}
-                  <div className="mb-3">
+                    {userDetails.is_username == false && (
+                      <p className="text-sm text-rose-300 font-semibold">
+                        *Invalid username
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-200">
+                    Email
+                  </label>
+                  <div className="relative">
                     <input
                       type="text"
                       name="Email"
-                      placeholder="Email ID"
-                      className="w-full px-3 py-2 text-base border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-red-salsa"
+                      placeholder="you@example.com"
+                      className="w-full px-4 py-3 rounded-xl bg-white/90 text-slate-900 border border-white/40 shadow-inner shadow-white/20 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-300 transition"
                       value={userDetails.email}
                       onChange={(e) => validateData(e)}
                     />
-                    {userDetails.is_email == false && (
-                      <p className="text-base text-red-600 font-bold ml-auto p-2">
-                        *Invalid Input
-                      </p>
-                    )}
                   </div>
-                  <div className="mb-3">
+                  {userDetails.is_email == false && (
+                    <p className="text-sm text-rose-300 font-semibold">
+                      *Invalid email
+                    </p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-200">
+                    Password
+                  </label>
+                  <div className="relative">
                     <input
                       type="password"
                       name="Password"
-                      placeholder="Password"
-                      className="w-full px-3 py-2 text-base border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-red-salsa"
+                      placeholder="••••••••"
+                      className="w-full px-4 py-3 rounded-xl bg-white/90 text-slate-900 border border-white/40 shadow-inner shadow-white/20 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-300 transition"
                       value={userDetails.password}
                       onChange={(e) => validateData(e)}
                     />
-                    {userDetails.is_password == false && (
-                      <p className="text-base text-red-600 font-bold ml-auto p-2">
-                        *Invalid Input
+                  </div>
+                  {userDetails.is_password == false && (
+                    <p className="text-sm text-rose-300 font-semibold">
+                      *Only letters and numbers
+                    </p>
+                  )}
+                </div>
+
+                <div className="pt-2 space-y-2">
+                  {register ? (
+                    <>
+                      <button
+                        type="button"
+                        className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-400 text-emerald-900 font-semibold shadow-lg shadow-emerald-400/40 hover:shadow-emerald-400/60 hover:-translate-y-0.5 transition disabled:opacity-60 disabled:cursor-not-allowed"
+                        onClick={handleRegister}
+                        disabled={
+                          !userDetails.is_username ||
+                          !userDetails.is_email ||
+                          !userDetails.is_password
+                        }
+                      >
+                        Create Account
+                      </button>
+                      <p className="text-sm text-slate-200/90 text-center">
+                        Already have an account?{" "}
+                        <Link
+                          to={"/login"}
+                          className="font-semibold text-emerald-200 hover:text-emerald-100 underline"
+                        >
+                          Log in
+                        </Link>
                       </p>
-                    )}
-                  </div>
-                  <div className="mb-3">
-                    {register ? (
-                      <div>
-                        <button
-                          type="button"
-                          className="w-full px-4 py-2 text-base bg-yellow-500 text-black rounded-none border border-yellow-500 hover:bg-yellow-600 disabled:text-gray-400 disabled:bg-transparent disabled:border-gray-400 disabled:cursor-not-allowed"
-                          onClick={handleRegister}
-                          disabled={
-                            !userDetails.is_username ||
-                            !userDetails.is_email ||
-                            !userDetails.is_password
-                          }
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        onClick={handleLogin}
+                        className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-400 text-emerald-900 font-semibold shadow-lg shadow-emerald-400/40 hover:shadow-emerald-400/60 hover:-translate-y-0.5 transition disabled:opacity-60 disabled:cursor-not-allowed"
+                        disabled={
+                          !userDetails.is_email || !userDetails.is_password
+                        }
+                      >
+                        Sign In
+                      </button>
+                      <p className="text-sm text-slate-200/90 text-center">
+                        New here?{" "}
+                        <Link
+                          to={"/register"}
+                          className="font-semibold text-emerald-200 hover:text-emerald-100 underline"
                         >
-                          Register
-                        </button>
-                        <p className="mt-2 text-base">
-                          Already a User? Click Here to{" "}
-                          <Link
-                            to={"/login"}
-                            className="font-bold text-blue-600"
-                          >
-                            Login
-                          </Link>
-                        </p>
-                      </div>
-                    ) : (
-                      <div>
-                        <button
-                          type="button"
-                          onClick={handleLogin}
-                          className="w-full px-4 py-2 text-base bg-yellow-500 text-black rounded-none border border-yellow-500 hover:bg-yellow-600 disabled:text-gray-400 disabled:bg-transparent disabled:border-gray-400 disabled:cursor-not-allowed"
-                          disabled={
-                            !userDetails.is_email || !userDetails.is_password
-                          }
-                        >
-                          Login
-                        </button>
-                        <p className="mt-2 text-base">
-                          New User? Click Here to{" "}
-                          <Link
-                            to={"/register"}
-                            className="font-bold text-blue-600"
-                          >
-                            Register
-                          </Link>
-                        </p>
-                      </div>
-                    )}
+                          Create an account
+                        </Link>
+                      </p>
+                    </>
+                  )}
+                </div>
+              </form>
+            </div>
+
+            <div className="order-1 md:order-2 flex justify-center">
+              <div className="relative w-full max-w-sm">
+                <div className="absolute -inset-6 bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-500 blur-3xl opacity-30 animate-pulse" />
+                <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-white/10 shadow-2xl shadow-emerald-500/20 backdrop-blur-2xl p-6">
+                  <img
+                    src={loginImage}
+                    alt="Note Creator"
+                    className="w-full h-auto object-contain drop-shadow-2xl"
+                  />
+                  <div className="mt-4 text-center space-y-2 text-emerald-50">
+                    <p className="text-sm font-medium uppercase tracking-[0.18em] text-white/80">
+                      Beautifully minimal
+                    </p>
+                    <p className="text-base text-white/90">
+                      Keep every note clean, organized, and instantly accessible
+                      across devices.
+                    </p>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
@@ -361,3 +408,7 @@ function Auth({ register }) {
 }
 
 export default Auth;
+
+Auth.propTypes = {
+  register: PropTypes.bool,
+};
