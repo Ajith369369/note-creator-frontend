@@ -1,5 +1,5 @@
 import noteCreatorLogo from "@/assets/images/note-creator-square-logo.jpeg";
-import NotesList from "@/components/NotesList";
+import NotesList from "@/pages/notes-page/components/NotesList";
 import useAuthGuard from "@/pages/useAuthGuard";
 import { updateNotes } from "@/redux/slices/noteSlice";
 import { getAllNotesOfAUserApi } from "@/services/nc_allApi";

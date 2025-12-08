@@ -6,7 +6,7 @@ import Auth from "@/pages/Auth";
 import EditNote from "@/pages/EditNote";
 import Home from "@/pages/Home";
 import HomePage from "@/pages/HomePage";
-import NotesPage from "@/pages/NotesPage";
+import NotesPage from "@/pages/notes-page/NotesPage";
 import PageNotFound from "@/pages/PageNotFound";
 import { Route, Routes } from "react-router-dom";
 
