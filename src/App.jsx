@@ -3,7 +3,7 @@ import Introduction from "@/components/Introduction";
 import SingleNote from "@/components/SingleNote";
 import AddNote from "@/pages/add-note/AddNote";
 import Auth from "@/pages/Auth";
-import EditNote from "@/pages/EditNote";
+import EditNote from "@/pages/edit-note/EditNote";
 import Home from "@/pages/Home";
 import HomePage from "@/pages/HomePage";
 import NotesPage from "@/pages/notes-page/NotesPage";

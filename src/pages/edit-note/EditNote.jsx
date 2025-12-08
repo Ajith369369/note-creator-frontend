@@ -1,4 +1,4 @@
-import EditNoteForm from "@/components/EditNoteForm";
+import EditNoteForm from "@/pages/edit-note/components/EditNoteForm";
 import useAuthGuard from "@/pages/useAuthGuard";
 import { useEffect } from "react";
 
