@@ -1,7 +1,6 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import noteCreatorLogo from "../assets/images/note-creator-square-logo.jpeg";
 
@@ -20,15 +19,10 @@ function Home() {
         className="container-fluid p-4 flex justify-center items-center w-full min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
         style={{ backgroundImage: "url('/src/assets/images/header_img.jpg')" }}
       >
-        <Row className="m-0 py-4 bg-white/10 backdrop-blur-[30px] border-2 border-white/20 rounded-2xl">
-          <Col
-            md={6}
-            className="flex flex-col justify-center items-center"
-          >
+        <div className="m-0 p-4 bg-white/10 backdrop-blur-[30px] border-2 border-white/20 rounded-2xl grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col justify-center items-center">
             <div className="ml-3 relative z-[2]">
-              <h1
-                className="text-center text-dark text-7xl relative z-[2]"
-              >
+              <h1 className="text-center text-dark text-7xl relative z-[2]">
                 Note Creator
               </h1>
               <h4 className="text-center relative z-[2]">
@@ -52,14 +46,15 @@ function Home() {
                 )}
               </div>
             </div>
-          </Col>
-          <Col
-            md={6}
-            className="flex flex-col justify-center items-center"
-          >
-            <img src={noteCreatorLogo} alt="" className="h-96 w-auto" />
-          </Col>
-        </Row>
+          </div>
+          <div className="flex flex-col justify-center items-center">
+            <img
+              src={noteCreatorLogo}
+              alt=""
+              className="h-[400px] object-contain"
+            />
+          </div>
+        </div>
       </div>
     </>
   );
