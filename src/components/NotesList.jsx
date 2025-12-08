@@ -1,8 +1,8 @@
 import { formatDistanceToNow, parseISO } from "date-fns";
-import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { FiEdit } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,20 +11,14 @@ import {
   deleteNoteOfAUserApi,
   getAllNotesOfAUserApi,
 } from "../services/nc_allApi";
-// import EditNoteForm from "./EditNoteForm";
 
 function NotesList({ notes }) {
   console.log("notes props received from NotesPage.jsx: ", notes);
 
   const dispatch = useDispatch();
-  const notesFromNoteSlice = useSelector((state) => state.noteDetails.notes);
-
-  const [allnotes, setAllNotes] = useState([]);
-  const [deleteStatus, setDeleteStatus] = useState(false);
-  const [searchKey, setSearchKey] = useState("");
   const navigate = useNavigate();
 
-  const getAllNotesOfAUser = async (searchKey) => {
+  const refreshNotes = async () => {
     const token = sessionStorage.getItem("token");
     if (token) {
       const reqHeader = {
@@ -35,7 +29,7 @@ function NotesList({ notes }) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       };
-      const result = await getAllNotesOfAUserApi(searchKey, reqHeader);
+      const result = await getAllNotesOfAUserApi("", reqHeader);
       dispatch(updateNotes(result.data));
     }
   };
@@ -54,17 +48,12 @@ function NotesList({ notes }) {
       const result = await deleteNoteOfAUserApi(id, reqHeader);
       if (result.status == 200) {
         window.scrollTo(0, 0);
-        console.log('Result of Delete operation: ', result)
+        console.log("Result of Delete operation: ", result);
         toast.success("Note deleted successfully.");
-        setDeleteStatus(true);
+        refreshNotes();
       }
     }
   };
-
-  useEffect(() => {
-    getAllNotesOfAUser(searchKey);
-    setDeleteStatus(false);
-  }, [deleteStatus]);
 
   const handleNavigate = (selected_note) => {
     // Navigate with the selected note's data.
@@ -80,74 +69,90 @@ function NotesList({ notes }) {
 
   console.log("notes in NotesList.jsx: ", notes);
   if (!notes || notes?.length === 0) {
-    return <div className="mx-6 my-6">No notes found</div>;
+    return (
+      <div className="mx-3 my-10">
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-xl shadow-slate-900/40 p-8 flex flex-col items-start gap-3 text-white">
+          <div className="absolute -right-10 -top-10 h-32 w-32 bg-gradient-to-br from-white/10 to-white/0 rounded-full blur-3xl opacity-40" />
+          <div className="absolute -left-6 bottom-0 h-24 w-24 bg-gradient-to-tr from-red-salsa/30 to-orange-300/10 blur-3xl opacity-50" />
+          <p className="text-lg font-semibold">No notes found</p>
+          <p className="text-sm text-white/80">
+            Start by creating your first note to see it appear here.
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
     <>
-      <div className="mx-3 my-6 shadow-md p-10">
-        <h5 className="text-lg font-extrabold uppercase border-b border-dark pb-2">notes</h5>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-9">
-          {notes?.map((note) => {
-            return (
-              <div 
-                className="border border-black/10 rounded-md relative transition-all duration-300 hover:bg-red-salsa hover:text-white group" 
-                key={note?._id}
-              >
-                <div className="text-sm font-medium bg-black/5 rounded-t px-3.5 py-2 border-b border-black/10">
-                  {note?.noteTitle.substring(0, 80) + "..."}
-                </div>
-                <div className="text-sm font-light opacity-95 px-3.5 pt-3.5 pb-1.5">
-                  {note?.noteContent.substring(0, 150) + "..."}
-                </div>
-                {/* formatDistanceToNow(parseISO(note?.noteDate)): It is used to format a date (in this case, note?.noteDate) into a human-readable relative time, showing how long ago that date was compared to the current time. It's a combination of two functions from the date-fns library.
-                
-                parseISO(note?.noteDate): This function parses a string in ISO 8601 format (e.g., "2023-09-12T08:00:00Z") into a JavaScript Date object.
-                
-                formatDistanceToNow(date): This function takes a JavaScript Date object and calculates the relative distance from that date to the current time. It returns a string like "5 minutes ago", "3 days ago", "1 month ago", etc., depending how far the noteDate is from the current time. */}
-                <div className="inline-block mx-3.5 text-xs text-light-dark capitalize border-t border-black/5 group-hover:text-white">
-                  {formatDistanceToNow(parseISO(note?.noteDate))}
-                </div>
-                <div className="flex items-center justify-between px-3.5 pt-4 pb-2.5">
-                  <div>
-                    <button
-                      type="button"
-                      className="mr-2.5 text-lg text-red-salsa transition-all duration-300 hover:scale-90 bg-transparent border-none cursor-pointer group-hover:text-white"
-                      // onClick={() => dispatch(removeNote(note?._id))}
-                      onClick={() => handleDelete(note?._id)}
-                    >
-                      <ImCancelCircle />
-                    </button>
-                    {/* <EditNoteForm note={note} /> */}
-                    {/* <Link to = {`/profile-home/edit/${note?._id}`} className = "notes-item-btn">
-                      <FiEdit />
-                    </Link> */}
-                    <button
-                      type="button"
-                      className="mr-2.5 text-[19px] text-green-custom transition-all duration-300 hover:scale-90 bg-transparent border-none cursor-pointer group-hover:text-white"
-                      onClick={() => handleNavigate(note)}
-                    >
-                      <FiEdit />
-                    </button>
-                  </div>
+      <div className="mx-3 my-6">
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-xl shadow-slate-900/40 p-6">
+          <div className="absolute -left-12 top-0 h-32 w-32 bg-gradient-to-b from-emerald-400/30 to-indigo-500/10 blur-3xl" />
+          <div className="absolute -right-10 bottom-6 h-28 w-28 bg-rose-400/20 blur-2xl" />
 
-                  <button
-                    type="button"
-                    onClick={() => handleNavigate_2(note)}
-                    className="text-sm text-light-dark bg-transparent border-none cursor-pointer group-hover:text-white"
-                  >
-                    Read More
-                  </button>
-                  {/* <Link
-                    to={`/note/${note?._id}`}
-                    className="read-more-btn fs-14"
-                  >
-                    Read More
-                  </Link> */}
+          <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <h5 className="text-lg font-semibold uppercase tracking-wide text-white">
+              Notes
+            </h5>
+            <span className="text-sm text-white/80 bg-white/10 border border-white/10 rounded-full px-3 py-1">
+              {notes.length} total
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-6">
+            {notes?.map((note) => {
+              return (
+                <div
+                  key={note?._id}
+                  className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-lg shadow-lg shadow-slate-900/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/0 to-white/5 opacity-80" />
+                  <div className="absolute right-3 top-3 h-8 w-8 rounded-full bg-red-salsa/20 blur-xl" />
+                  <div className="relative p-5 flex flex-col gap-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="text-base font-semibold text-white line-clamp-2">
+                        {note?.noteTitle}
+                      </h3>
+                      <span className="text-[11px] font-semibold text-white/80 bg-white/10 border border-white/10 rounded-full px-2 py-1">
+                        {formatDistanceToNow(parseISO(note?.noteDate))}
+                      </span>
+                    </div>
+
+                    <p className="text-sm text-white/80 leading-relaxed line-clamp-4">
+                      {note?.noteContent}
+                    </p>
+
+                    <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          className="flex items-center justify-center h-9 w-9 rounded-lg bg-red-500/15 border border-red-400/30 text-red-200 hover:bg-red-500/25 transition"
+                          onClick={() => handleDelete(note?._id)}
+                        >
+                          <ImCancelCircle />
+                        </button>
+                        <button
+                          type="button"
+                          className="flex items-center justify-center h-9 w-9 rounded-lg bg-emerald-500/15 border border-emerald-400/30 text-emerald-200 hover:bg-emerald-500/25 transition"
+                          onClick={() => handleNavigate(note)}
+                        >
+                          <FiEdit />
+                        </button>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => handleNavigate_2(note)}
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/10 border border-white/10 rounded-full px-3 py-2 hover:bg-white/15 transition"
+                      >
+                        Read More
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
       <ToastContainer position="top-center" theme="colored" autoclose={1000} />
@@ -156,3 +161,14 @@ function NotesList({ notes }) {
 }
 
 export default NotesList;
+
+NotesList.propTypes = {
+  notes: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      noteTitle: PropTypes.string,
+      noteContent: PropTypes.string,
+      noteDate: PropTypes.string,
+    })
+  ),
+};

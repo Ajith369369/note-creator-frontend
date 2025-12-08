@@ -96,7 +96,7 @@ function HomePage() {
             token={token}
             handleLogout={handleLogout}
           />
-          <div className="py-4 px-4 min-h-screen">
+          <div className="min-h-screen">
             <Outlet />
           </div>
         </div>
