@@ -1,9 +1,9 @@
+import { editNoteOfAUserApi } from "@/services/nc_allApi";
+import { serverUrl } from "@/services/nc_serverUrl";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { editNoteOfAUserApi } from "../services/nc_allApi";
-import { serverUrl } from "../services/nc_serverUrl";
 
 function EditNoteForm() {
   // const { noteId } = useParams();
@@ -19,11 +19,11 @@ function EditNoteForm() {
   // let tempNote = notes.filter(note => note.noteId === id);
 
   // const [formData, setFormData] = useState(tempNote[0]);
-  const [titleError, setTitleError] = useState(false);
-  const [contentError, setContentError] = useState(false);
-  const [canSave, setCanSave] = useState(true);
+  const [titleError] = useState(false);
+  const [contentError] = useState(false);
+  const [canSave] = useState(true);
   const [preview, setPreview] = useState("");
-  const [key, setKey] = useState(false);
+  const [key] = useState(false);
   const [noteDetails, setNoteDetails] = useState({
     noteTitle: selectedNote?.noteTitle,
     noteContent: selectedNote?.noteContent,

@@ -1,11 +1,11 @@
+import useAuthGuard from "@/pages/useAuthGuard";
+import { adminDataApi, deleteUserAndNotesApi } from "@/services/nc_allApi";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useAuthGuard from "../pages/useAuthGuard";
-import { adminDataApi, deleteUserAndNotesApi } from "../services/nc_allApi";
 
 function Admin() {
   // Check if user is authenticated

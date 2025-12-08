@@ -1,10 +1,10 @@
+import Header from "@/components/Header";
+import Sidebar from "@/components/Sidebar";
+import useAuthGuard from "@/pages/useAuthGuard";
+import { logout } from "@/redux/slices/authSlice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
-import { logout } from "../redux/slices/authSlice";
-import useAuthGuard from "./useAuthGuard";
 
 function HomePage() {
   // Check if user is authenticated

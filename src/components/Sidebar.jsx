@@ -1,3 +1,4 @@
+import notes_icon from "@/assets/images/notes_icon.png";
 import PropTypes from "prop-types";
 import { AiFillHome } from "react-icons/ai";
 import { BsPlusLg } from "react-icons/bs";
@@ -5,7 +6,6 @@ import { MdNoteAlt } from "react-icons/md";
 import { RiAdminFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import notes_icon from "../assets/images/notes_icon.png";
 
 function Sidebar() {
   const authFormState = useSelector((state) => state.auth);

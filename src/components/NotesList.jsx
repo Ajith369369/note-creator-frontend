@@ -1,3 +1,8 @@
+import { updateNotes } from "@/redux/slices/noteSlice";
+import {
+  deleteNoteOfAUserApi,
+  getAllNotesOfAUserApi,
+} from "@/services/nc_allApi";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import PropTypes from "prop-types";
 import { FiEdit } from "react-icons/fi";
@@ -6,11 +11,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { updateNotes } from "../redux/slices/noteSlice";
-import {
-  deleteNoteOfAUserApi,
-  getAllNotesOfAUserApi,
-} from "../services/nc_allApi";
 
 function NotesList({ notes }) {
   console.log("notes props received from NotesPage.jsx: ", notes);

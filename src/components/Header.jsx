@@ -1,3 +1,4 @@
+import headerImg from "@/assets/images/header_img.jpg";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
@@ -7,7 +8,7 @@ function Header({ greetText, date, token, handleLogout }) {
     <header
       className="relative w-full min-h-[72px] bg-cover bg-center bg-no-repeat flex items-center"
       style={{
-        backgroundImage: "url('/src/assets/images/header_img.jpg')",
+        backgroundImage: `url(${headerImg})`,
       }}
     >
       {/* Soft gradient overlays */}

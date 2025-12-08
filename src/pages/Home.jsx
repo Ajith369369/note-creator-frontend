@@ -1,8 +1,9 @@
+import headerImg from "@/assets/images/header_img.jpg";
+import noteCreatorLogo from "@/assets/images/note-creator-square-logo.jpeg";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import noteCreatorLogo from "../assets/images/note-creator-square-logo.jpeg";
 
 function Home() {
   const [token, setToken] = useState("");
@@ -20,7 +21,7 @@ function Home() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
           style={{
-            backgroundImage: "url('/src/assets/images/header_img.jpg')",
+            backgroundImage: `url(${headerImg})`,
           }}
         />
 

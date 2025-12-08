@@ -1,5 +1,5 @@
+import EditNoteForm from "@/components/EditNoteForm";
 import { useEffect } from "react";
-import EditNoteForm from "../components/EditNoteForm";
 import useAuthGuard from "./useAuthGuard";
 
 function EditNote() {

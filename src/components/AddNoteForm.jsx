@@ -1,13 +1,13 @@
+import defaultImage from "@/assets/images/note-creator-square-logo.jpeg";
+import {
+  resetNoteFormState,
+  updateNoteFormState,
+} from "@/redux/slices/noteSlice";
+import { addNoteOfAUserApi } from "@/services/nc_allApi";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import defaultImage from "../assets/images/note-creator-square-logo.jpeg";
-import {
-  resetNoteFormState,
-  updateNoteFormState,
-} from "../redux/slices/noteSlice";
-import { addNoteOfAUserApi } from "../services/nc_allApi";
 
 function AddNoteForm() {
   const dispatch = useDispatch();
@@ -387,6 +387,7 @@ function AddNoteForm() {
     if (imageSet) {
       onSaveNoteClicked_2();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageSet]);
 
   return (

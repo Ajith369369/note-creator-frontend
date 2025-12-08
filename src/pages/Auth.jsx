@@ -1,3 +1,8 @@
+import { ADMIN_USER } from "@/admin/constants";
+import headerImg from "@/assets/images/header_img.jpg";
+import loginImage from "@/assets/images/note-creator-round-logo.png";
+import { loginAdmin, loginUser } from "@/redux/slices/authSlice";
+import { loginApi, registerApi } from "@/services/nc_allApi";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
@@ -6,10 +11,6 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ADMIN_USER } from "../admin/constants";
-import loginImage from "../assets/images/note-creator-round-logo.png";
-import { loginAdmin, loginUser } from "../redux/slices/authSlice";
-import { loginApi, registerApi } from "../services/nc_allApi";
 
 function Auth({ register }) {
   const navigate = useNavigate();
@@ -221,7 +222,7 @@ function Auth({ register }) {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
           style={{
-            backgroundImage: "url('/src/assets/images/header_img.jpg')",
+            backgroundImage: `url(${headerImg})`,
           }}
         />
 

@@ -1,13 +1,13 @@
+import noteCreatorLogo from "@/assets/images/note-creator-square-logo.jpeg";
+import NotesList from "@/components/NotesList";
+import useAuthGuard from "@/pages/useAuthGuard";
+import { updateNotes } from "@/redux/slices/noteSlice";
+import { getAllNotesOfAUserApi } from "@/services/nc_allApi";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import noteCreatorLogo from "../assets/images/note-creator-square-logo.jpeg";
-import NotesList from "../components/NotesList";
-import { updateNotes } from "../redux/slices/noteSlice";
-import { getAllNotesOfAUserApi } from "../services/nc_allApi";
-import useAuthGuard from "./useAuthGuard";
 
 function NotesPage() {
   // Check if user is authenticated
