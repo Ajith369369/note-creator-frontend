@@ -20,6 +20,7 @@ export default {
       width: {
         'sidebar': '196px',
       },
+      spacing: { sidebar: '196px' },
       transitionDuration: {
         '300': '300ms',
       },

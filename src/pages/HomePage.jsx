@@ -71,7 +71,7 @@ function HomePage() {
     else if (currentHour == 18 && currentHour < 21)
       setGreetText("Good Evening, " + username + "!");
     else setGreetText("Good Night, " + username + "!");
-  }, [addUser]);
+  }, [addUser, username]);
 
   const handleLogout = () => {
     //Remove existing user details from session storage.
@@ -91,12 +91,19 @@ function HomePage() {
       <div className="w-full overflow-x-hidden">
         <Sidebar />
         <div className="ml-[60px] lg:ml-sidebar w-[calc(100%-60px)] lg:w-[calc(100%-196px)] min-h-screen overflow-y-scroll">
-          <header className="w-full min-h-[60px] bg-cover bg-center bg-no-repeat relative shadow-md flex items-center" style={{ backgroundImage: "url('/src/assets/images/header_img.jpg')" }}>
+          <header
+            className="w-full min-h-[60px] bg-cover bg-center bg-no-repeat relative shadow-md flex items-center"
+            style={{
+              backgroundImage: "url('/src/assets/images/header_img.jpg')",
+            }}
+          >
             <div className="absolute top-0 left-0 w-full h-full bg-white/5 backdrop-blur-[5px]"></div>
-            <div className="container w-full relative z-[5]">
+            <div className="w-full px-4 lg:px-6 relative z-[5]">
               <div className="flex items-center justify-between text-white py-3">
                 <div className="greetings">
-                  <h3 className="font-semibold text-white [text-shadow:-1px_-1px_0_black,1px_-1px_0_black,-1px_1px_0_black,1px_1px_0_black]">{greetText}</h3>
+                  <h3 className="font-semibold text-white [text-shadow:-1px_-1px_0_black,1px_-1px_0_black,-1px_1px_0_black,1px_1px_0_black]">
+                    {greetText}
+                  </h3>
                 </div>
                 <div className="flex flex-wrap justify-center items-center">
                   <div className="mr-3 text-center">
