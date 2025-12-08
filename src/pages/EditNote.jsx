@@ -1,6 +1,6 @@
 import EditNoteForm from "@/components/EditNoteForm";
+import useAuthGuard from "@/pages/useAuthGuard";
 import { useEffect } from "react";
-import useAuthGuard from "./useAuthGuard";
 
 function EditNote() {
   // Check if user is authenticated
