@@ -1,15 +1,14 @@
 import { Route, Routes } from "react-router-dom";
+import Admin from "./admin/Admin";
+import Introduction from "./components/Introduction";
 import SingleNote from "./components/SingleNote";
-import "./App.scss";
 import AddNote from "./pages/AddNote";
 import Auth from "./pages/Auth";
 import EditNote from "./pages/EditNote";
 import Home from "./pages/Home";
 import HomePage from "./pages/HomePage";
 import NotesPage from "./pages/NotesPage";
-import Introduction from "./components/Introduction";
 import PageNotFound from "./pages/PageNotFound";
-import Admin from "./admin/Admin";
 
 function App() {
   return (

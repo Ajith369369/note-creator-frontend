@@ -6,7 +6,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthGuard from "../pages/useAuthGuard";
 import { adminDataApi, deleteUserAndNotesApi } from "../services/nc_allApi";
-import "./Admin.css";
 
 function Admin() {
   // Check if user is authenticated
@@ -150,44 +149,50 @@ function Admin() {
 
   return (
     <>
-      <div className="admin-container row w-100 m-0 my-2 d-flex flex-column justify-content-start align-items-center">
-        <div className="dash-home d-flex justify-content-center align-items-center p-md-5">
-          <h1 className="text-light dash fw-bold">DASHBOARD</h1>
+      <div className="w-full my-2 px-3 md:px-6 flex flex-col items-center">
+        <div className="w-full bg-gradient-to-r from-gray-900 to-gray-800 rounded-xl flex justify-center items-center py-8 mb-6 shadow">
+          <h1 className="text-white text-3xl md:text-4xl font-bold tracking-wide">
+            DASHBOARD
+          </h1>
         </div>
-        <div className="row w-100 m-0 p-0">
-          <div className="col-sm-0 col-md-1"></div>
-          <div className="col-sm-12 col-md-10 d-flex flex-column justify-content-center table-container p-0">
-            <table className="table table-dark table-striped table-hover align-middle table-responsive m-0 p-4">
-              <thead className="text-center align-middle">
+
+        <div className="w-full">
+          <div className="overflow-x-auto bg-white/70 rounded-xl shadow">
+            <table className="min-w-full text-sm text-gray-800">
+              <thead className="bg-gray-900 text-white text-center text-[16px] leading-6">
                 <tr>
-                  <th>Sl. No.</th>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Number 0f Notes</th>
-                  <th>Last Active Date</th>
-                  <th>Last Active</th>
-                  <th>Delete</th>
+                  <th className="px-4 py-3">Sl. No.</th>
+                  <th className="px-4 py-3 text-left">Username</th>
+                  <th className="px-4 py-3 text-left">Email</th>
+                  <th className="px-4 py-3">Number of Notes</th>
+                  <th className="px-4 py-3">Last Active Date</th>
+                  <th className="px-4 py-3">Last Active</th>
+                  <th className="px-4 py-3">Delete</th>
                 </tr>
               </thead>
               {allUsers.length > 0 && (
-                <tbody className="table-group-divider">
+                <tbody className="divide-y divide-gray-200">
                   {allUsers?.map((item, index) => (
-                    <tr key={item._id}>
-                      <td className="text-center">{index + 1}</td>
-                      <td>{item?.username}</td>
-                      <td>{item?.email}</td>
-                      <td className="text-center">{item?.notes_number}</td>
-                      <td className="text-center">
+                    <tr key={item._id} className="hover:bg-gray-50">
+                      <td className="px-4 py-3 text-center font-medium">
+                        {index + 1}
+                      </td>
+                      <td className="px-4 py-3">{item?.username}</td>
+                      <td className="px-4 py-3">{item?.email}</td>
+                      <td className="px-4 py-3 text-center">
+                        {item?.notes_number}
+                      </td>
+                      <td className="px-4 py-3 text-center">
                         {dateFormatter(item?.last_active_date)}
                       </td>
-                      <td className="text-center">
+                      <td className="px-4 py-3 text-center">
                         {item?.last_active_date &&
                           formatDistanceToNow(parseISO(item?.last_active_date))}
                       </td>
-                      <td className="text-center">
+                      <td className="px-4 py-3 text-center">
                         {item?.username !== "admin" && (
                           <button
-                            className="btn btn-danger"
+                            className="inline-flex items-center justify-center rounded-md bg-red-600 text-white px-3 py-2 text-sm font-semibold hover:bg-red-700 transition"
                             onClick={() => handleDeleteUser(item._id)}
                           >
                             <FontAwesomeIcon icon={faTrashCan} />
@@ -199,23 +204,14 @@ function Admin() {
                 </tbody>
               )}
             </table>
-            {allUsers.length == 0 && (
-              <div className="d-flex flex-column justify-content-center align-items-center">
-                <p className="text-danger text-center fs-3 fw-bolder w-100">
+            {allUsers.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-8 px-4">
+                <p className="text-red-600 text-center text-xl font-bold w-full">
                   No Notes Were Found!
                 </p>
-                {/* <Button
-                  onClick={loadDefaultBookingDetails}
-                  variant="light"
-                  className="px-4"
-                  style={{ backgroundColor: "white", width: "150px" }}
-                >
-                  Load Default Data
-                </Button> */}
               </div>
             )}
           </div>
-          <div className="col-sm-0 col-md-1"></div>
         </div>
       </div>
       <ToastContainer position="top-center" theme="colored" autoclose={1000} />
