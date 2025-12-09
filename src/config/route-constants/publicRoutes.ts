@@ -3,4 +3,4 @@ export const PUBLIC_ROUTES = {
   REGISTER: "/register",
   FORGOT_PASSWORD: "/forgot-password",
   RESET_PASSWORD: "/reset-password",
-};
+} as const;

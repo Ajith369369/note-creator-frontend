@@ -8,4 +8,4 @@ export const USER = {
   PROFILE_ADD: "/profile-home/add",
   PROFILE_EDIT: "/profile-home/edit",
   PROFILE_NOTE: "/profile-home/note",
-};
+} as const;

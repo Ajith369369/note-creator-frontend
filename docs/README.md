@@ -9,3 +9,47 @@ You can now import anything from `src` via `@/`.
 
 ---
 
+# Converting the entire frontend to TypeScript touches configs, tooling, and every component/page/hook. Before editing, could you clarify the scope?
+
+- Full repo migration (add tsconfig, update Vite config, add @types, rename all files to .ts/.tsx, fix all types)?
+- Or only start with infrastructure (tsconfig, deps, strict settings) and migrate incrementally?
+
+If full migration, please confirm so I can proceed step-by-step across the codebase.
+
+---
+
+# Set up TypeScript infrastructure with strict settings and updated linting:
+
+- Added `tsconfig.json` (strict, allowJs for incremental migration, alias for `@/*`, Vite/Node types).
+- Added `src/vite-env.d.ts` for Vite typings.
+- Added `npm run typecheck` to run `tsc --noEmit`.
+- Updated ESLint to cover ts/tsx using `@typescript-eslint` with React hooks/refresh and stricter unused-var warnings.
+
+Next: run `npm install` (deps already present) then `npm run typecheck`. We can start migrating files to `.ts/.tsx` incrementally.
+
+---
+
+# Set up the initial TypeScript entry points:
+
+- Added `tsconfig.json` and `src/vite-env.d.ts` (strict, alias `@/*`, noEmit, Bundler resolution).
+- Added `typecheck` script; ESLint already covers TS.
+- Converted entry/routing to TS: `src/main.tsx`, `src/App.tsx`, `src/routes/AppRoutes.tsx`; updated `index.html` to load `main.tsx`.
+- Cleaned up old `.jsx` versions.
+
+Next steps to continue migration:
+- Run `npm run typecheck` to surface any new TS issues.
+- Incrementally rename components/pages to `.tsx` and add types (may need image/module declarations).
+- Consider fixing missing exports in `config/route-constants` (doctor/patient files absent).
+
+---
+
+# Converted route constants and entry points to TypeScript with only super/admin/user exports:
+
+- Replaced JS route constant files with TS (`adminRoutes.ts`, `userRoutes.ts`, `superAdminRoutes.ts`, `publicRoutes.ts`, `frontendRoutes.ts`) and updated barrel to `index.ts`.
+- Updated `AppRoutes`/`App`/`main` to TypeScript and ensured `index.html` loads `main.tsx`.
+- Removed old JS constant and entry files.
+
+Next steps: run `npm run typecheck` and start migrating remaining components/pages to `.tsx`. Let me know if you want `userCredentials` converted next.
+
+---
+
