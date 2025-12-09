@@ -1,6 +1,6 @@
 import noteCreatorLogo from "@/assets/images/note-creator-square-logo.jpeg";
+import useAuthGuard from "@/hooks/useAuthGuard";
 import NotesList from "@/pages/notes-page/components/NotesList";
-import useAuthGuard from "@/pages/useAuthGuard";
 import { updateNotes } from "@/redux/slices/noteSlice";
 import { getAllNotesOfAUserApi } from "@/services/nc_allApi";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";

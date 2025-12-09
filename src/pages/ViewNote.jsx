@@ -3,7 +3,7 @@ import { serverUrl } from "@/services/nc_serverUrl";
 import { useLocation } from "react-router-dom";
 // import { useParams } from 'react-router';
 
-const SingleNotePage = () => {
+const ViewNote = () => {
   // Scroll to the top on component mount
   window.scrollTo(0, 0);
 
@@ -36,4 +36,4 @@ const SingleNotePage = () => {
   );
 };
 
-export default SingleNotePage;
+export default ViewNote;

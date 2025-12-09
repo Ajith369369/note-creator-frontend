@@ -1,4 +1,4 @@
-import useAuthGuard from "@/pages/useAuthGuard";
+import useAuthGuard from "@/hooks/useAuthGuard";
 import { adminDataApi, deleteUserAndNotesApi } from "@/services/nc_allApi";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

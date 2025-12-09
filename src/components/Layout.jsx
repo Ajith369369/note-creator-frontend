@@ -1,12 +1,12 @@
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
-import useAuthGuard from "@/pages/useAuthGuard";
+import useAuthGuard from "@/hooks/useAuthGuard";
 import { logout } from "@/redux/slices/authSlice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 
-function HomePage() {
+function Layout() {
   // Check if user is authenticated
   useAuthGuard();
 
@@ -105,4 +105,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Layout;
