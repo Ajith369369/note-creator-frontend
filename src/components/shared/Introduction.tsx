@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { BsFillInfoCircleFill, BsPinAngle } from "react-icons/bs";
 import { CgArrangeFront } from "react-icons/cg";
 import { FaSearch, FaSyncAlt } from "react-icons/fa";
@@ -7,7 +8,13 @@ import { LuStickyNote } from "react-icons/lu";
 import { TbCaptureFilled } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
-const featureCards = [
+type FeatureCard = {
+  icon: ReactElement;
+  title: string;
+  desc: string;
+};
+
+const featureCards: FeatureCard[] = [
   {
     icon: <LuStickyNote className="w-12 h-12 text-amber-300" />,
     title: "Project Management",

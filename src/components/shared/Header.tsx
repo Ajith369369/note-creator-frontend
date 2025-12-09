@@ -1,9 +1,15 @@
 import headerImg from "@/assets/images/header_img.jpg";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PropTypes from "prop-types";
 
-function Header({ greetText, date, token, handleLogout }) {
+type HeaderProps = {
+  greetText: string;
+  date: string;
+  token?: string | null;
+  handleLogout: () => void;
+};
+
+function Header({ greetText, date, token, handleLogout }: HeaderProps) {
   return (
     <header
       className="relative w-full min-h-[72px] bg-cover bg-center bg-no-repeat flex items-center"
@@ -58,10 +64,3 @@ function Header({ greetText, date, token, handleLogout }) {
 }
 
 export default Header;
-
-Header.propTypes = {
-  greetText: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  token: PropTypes.string,
-  handleLogout: PropTypes.func.isRequired,
-};

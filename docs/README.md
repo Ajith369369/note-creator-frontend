@@ -53,3 +53,14 @@ Next steps: run `npm run typecheck` and start migrating remaining components/pag
 
 ---
 
+# Converted shared UI to TypeScript and added asset typings:
+
+- Added `src/types/static.d.ts` for image module declarations.
+- Migrated shared components to `.tsx` (`Header`, `Introduction`, `Sidebar`, `Layout`) with typed props/state.
+- Updated shared barrel to `index.ts`.
+- Removed old `.jsx` files.
+
+Next steps: run `npm run typecheck`; we can continue migrating pages/components as you prefer.
+
+---
+
