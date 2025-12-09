@@ -392,79 +392,171 @@ function AddNoteForm() {
 
   return (
     <>
-      <div className="flex justify-center items-center">
-        <section className="w-full lg:w-[calc(100vw-196px-12px-36px-6px)] p-5 min-h-screen rounded shadow-md">
-          <h2 className="my-4 text-xl">Add New Note</h2>
-          <form className="w-full max-w-full">
-            <div className="mb-4">
-              <label htmlFor="noteTitle" className="block text-lg mb-2">
-                Title:
-              </label>
-              <input
-                type="text"
-                id="noteTitle"
-                name="noteTitle"
-                placeholder="Note title here ..."
-                onChange={(e) => onFormDataChange(e)}
-                className="w-full px-3 py-2 text-base border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-salsa"
-                value={noteFormState.noteTitle}
-              />
-              <span className="text-sm text-red-salsa opacity-90">
-                {titleError ? "Title can't be empty!" : ""}
-              </span>
+      <div className="relative z-10 text-white">
+        <section className="flex flex-col gap-10 px-4 py-10 sm:px-6 lg:px-10">
+          <div className="flex flex-col gap-4">
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-200">
+              Add Note
+            </span>
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-semibold sm:text-4xl">
+                  Craft a beautiful, lasting memory
+                </h2>
+                <p className="max-w-3xl text-sm text-slate-200/85 sm:text-base">
+                  Give your note a strong title, a vivid description, and a
+                  cover that stands out. Everything saves with rich formatting
+                  and a modern card aesthetic.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-xs text-slate-200/70 sm:text-sm lg:w-80">
+                <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-3 backdrop-blur">
+                  <p className="font-semibold text-emerald-200">Live preview</p>
+                  <p>See your cover update instantly while you type.</p>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-3 backdrop-blur">
+                  <p className="font-semibold text-emerald-200">Secure save</p>
+                  <p>Protected upload with graceful error handling.</p>
+                </div>
+              </div>
             </div>
-            <div className="mb-4">
-              <label htmlFor="noteImg" className="block text-lg mb-2">
-                Image:
-              </label>
-              <label htmlFor="noteImg" className="cursor-pointer">
+          </div>
+
+          <div className="grid gap-8 lg:grid-cols-[1.1fr,0.9fr]">
+            <form className="flex flex-col gap-6 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-emerald-500/10 backdrop-blur">
+              <div className="space-y-2">
+                <label
+                  htmlFor="noteTitle"
+                  className="block text-sm font-semibold text-emerald-100"
+                >
+                  Title
+                </label>
                 <input
-                  type="file"
-                  id="noteImg"
-                  className="hidden"
-                  key={key}
-                  onChange={(e) => handleFile(e)}
+                  type="text"
+                  id="noteTitle"
+                  name="noteTitle"
+                  placeholder="Name your note with intent..."
+                  onChange={(e) => onFormDataChange(e)}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base text-white placeholder:text-slate-200/60 shadow-inner focus:border-emerald-300/80 focus:outline-none focus:ring-4 focus:ring-emerald-400/30"
+                  value={noteFormState.noteTitle}
                 />
+                <span className="text-sm text-rose-300">
+                  {titleError ? "Title can't be empty!" : ""}
+                </span>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="noteImg"
+                    className="text-sm font-semibold text-emerald-100"
+                  >
+                    Cover Image
+                  </label>
+                  <p className="text-xs text-slate-200/70">
+                    JPG, PNG up to 3MB
+                  </p>
+                </div>
+                <label
+                  htmlFor="noteImg"
+                  className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-dashed border-emerald-300/50 bg-white/5 p-4 transition duration-300 hover:border-emerald-200 hover:bg-emerald-400/5"
+                >
+                  <input
+                    type="file"
+                    id="noteImg"
+                    className="hidden"
+                    key={key}
+                    onChange={(e) => handleFile(e)}
+                  />
+                  <div className="flex items-center gap-4">
+                    <div className="overflow-hidden rounded-xl border border-white/10 bg-white/10 shadow-inner">
+                      <img
+                        src={preview ? preview : defaultImage}
+                        alt="Note cover preview"
+                        className="h-28 w-28 object-cover transition duration-500 group-hover:scale-[1.02]"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-sm font-semibold text-white">
+                        Drop or click to upload
+                      </span>
+                      <span className="text-xs text-slate-200/70">
+                        A strong cover makes the note unforgettable.
+                      </span>
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <div className="space-y-2">
+                <label
+                  htmlFor="noteContent"
+                  className="block text-sm font-semibold text-emerald-100"
+                >
+                  Content
+                </label>
+                <div className="rounded-2xl border border-white/10 bg-white/5 shadow-inner focus-within:border-emerald-300/80 focus-within:ring-4 focus-within:ring-emerald-400/20">
+                  <textarea
+                    id="noteContent"
+                    name="noteContent"
+                    placeholder="Pour your thoughts, plans, or ideas..."
+                    onChange={(e) => onFormDataChange(e)}
+                    className="h-56 w-full resize-none rounded-2xl bg-transparent px-4 py-3 text-base text-white placeholder:text-slate-200/60 focus:outline-none"
+                    value={noteFormState.noteContent}
+                  ></textarea>
+                </div>
+                <span className="text-sm text-rose-300">
+                  {contentError ? "Content can't be empty!" : ""}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={onSaveNoteClicked}
+                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-emerald-500/30 transition duration-300 hover:translate-y-[1px] hover:shadow-xl hover:shadow-emerald-500/35 focus:outline-none focus:ring-4 focus:ring-emerald-300/60 disabled:from-slate-500 disabled:via-slate-500 disabled:to-slate-500 disabled:text-slate-200 disabled:shadow-none disabled:hover:translate-y-0 disabled:cursor-not-allowed"
+                  disabled={!canSave}
+                >
+                  Save Note
+                </button>
+                <span className="text-xs text-slate-200/70">
+                  Autosaving kicks in after a cover or content update.
+                </span>
+              </div>
+              <ToastContainer
+                position="top-center"
+                theme="colored"
+                autoclose={3000}
+              />
+            </form>
+
+            <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-gradient-to-br from-emerald-500/10 via-emerald-400/5 to-slate-900/60 p-6 shadow-2xl shadow-emerald-500/10 backdrop-blur">
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-200">
+                  Live Preview
+                </p>
+                <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-emerald-100">
+                  Modern Card
+                </span>
+              </div>
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-inner">
                 <img
                   src={preview ? preview : defaultImage}
-                  alt=""
-                  className="h-24 w-auto"
+                  alt="Preview"
+                  className="h-60 w-full object-cover"
                 />
-              </label>
+              </div>
+              <div className="rounded-2xl border border-white/5 bg-white/5 p-4 shadow-inner">
+                <p className="text-lg font-semibold text-white">
+                  {noteFormState.noteTitle || "Title appears here"}
+                </p>
+                <p className="mt-2 max-h-32 overflow-hidden text-sm text-slate-200/80">
+                  {noteFormState.noteContent ||
+                    "Start writing to see your story come alive."}
+                </p>
+              </div>
             </div>
-
-            <div className="mb-4">
-              <label htmlFor="noteContent" className="block text-lg mb-2">
-                Content:
-              </label>
-              <textarea
-                id="noteContent"
-                name="noteContent"
-                placeholder="Note content here ..."
-                onChange={(e) => onFormDataChange(e)}
-                className="w-full px-3 py-2 text-base border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-salsa"
-                rows="10"
-                value={noteFormState.noteContent}
-              ></textarea>
-              <span className="text-sm text-red-salsa opacity-90">
-                {contentError ? "Content can't be empty!" : ""}
-              </span>
-            </div>
-
-            <button
-              type="button"
-              onClick={onSaveNoteClicked}
-              className="px-4 py-4 rounded border border-white text-white bg-transparent hover:bg-red-salsa hover:border-black active:text-red-salsa active:bg-white active:border-red-salsa disabled:text-gray-400 disabled:bg-transparent disabled:border-gray-400 disabled:cursor-not-allowed transition-all duration-300"
-              disabled={!canSave}
-            >
-              Save Note
-            </button>
-            <ToastContainer
-              position="top-center"
-              theme="colored"
-              autoclose={3000}
-            />
-          </form>
+          </div>
         </section>
       </div>
     </>
