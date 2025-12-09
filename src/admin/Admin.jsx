@@ -147,75 +147,136 @@ function Admin() {
     getAdminDashboardData();
   }, [deleteStatus]);
 
-  return (
-    <>
-      <div className="w-full my-2 px-3 md:px-6 flex flex-col items-center">
-        <div className="w-full bg-gradient-to-r from-gray-900 to-gray-800 rounded-xl flex justify-center items-center py-8 mb-6 shadow">
-          <h1 className="text-white text-3xl md:text-4xl font-bold tracking-wide">
-            DASHBOARD
-          </h1>
-        </div>
+  const totalNotes = allUsers.reduce(
+    (sum, user) => sum + (user?.notes_number || 0),
+    0
+  );
 
-        <div className="w-full">
-          <div className="overflow-x-auto bg-white/70 rounded-xl shadow">
-            <table className="min-w-full text-sm text-gray-800">
-              <thead className="bg-gray-900 text-white text-center text-[16px] leading-6">
-                <tr>
-                  <th className="px-4 py-3">Sl. No.</th>
-                  <th className="px-4 py-3 text-left">Username</th>
-                  <th className="px-4 py-3 text-left">Email</th>
-                  <th className="px-4 py-3">Number of Notes</th>
-                  <th className="px-4 py-3">Last Active Date</th>
-                  <th className="px-4 py-3">Last Active</th>
-                  <th className="px-4 py-3">Delete</th>
-                </tr>
-              </thead>
-              {allUsers.length > 0 && (
-                <tbody className="divide-y divide-gray-200">
-                  {allUsers?.map((item, index) => (
-                    <tr key={item._id} className="hover:bg-gray-50">
-                      <td className="px-4 py-3 text-center font-medium">
-                        {index + 1}
-                      </td>
-                      <td className="px-4 py-3">{item?.username}</td>
-                      <td className="px-4 py-3">{item?.email}</td>
-                      <td className="px-4 py-3 text-center">
-                        {item?.notes_number}
-                      </td>
-                      <td className="px-4 py-3 text-center">
-                        {dateFormatter(item?.last_active_date)}
-                      </td>
-                      <td className="px-4 py-3 text-center">
-                        {item?.last_active_date &&
-                          formatDistanceToNow(parseISO(item?.last_active_date))}
-                      </td>
-                      <td className="px-4 py-3 text-center">
-                        {item?.username !== "admin" && (
-                          <button
-                            className="inline-flex items-center justify-center rounded-md bg-red-600 text-white px-3 py-2 text-sm font-semibold hover:bg-red-700 transition"
-                            onClick={() => handleDeleteUser(item._id)}
-                          >
-                            <FontAwesomeIcon icon={faTrashCan} />
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              )}
-            </table>
-            {allUsers.length === 0 && (
-              <div className="flex flex-col items-center justify-center py-8 px-4">
-                <p className="text-red-600 text-center text-xl font-bold w-full">
-                  No Notes Were Found!
+  return (
+    <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white">
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-emerald-500/10 backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -left-16 -top-14 h-56 w-56 rounded-full bg-emerald-500/20 blur-3xl" />
+          <div className="pointer-events-none absolute -right-10 top-10 h-72 w-72 rounded-full bg-teal-400/20 blur-3xl" />
+          <div className="pointer-events-none absolute bottom-0 left-10 h-40 w-40 rounded-full bg-emerald-300/10 blur-3xl" />
+
+          <div className="relative space-y-8 px-4 py-8 sm:px-8 lg:px-10">
+            <header className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.25em] text-emerald-200/80">
+                  Admin dashboard
+                </p>
+                <h1 className="mt-2 text-3xl font-semibold sm:text-4xl lg:text-5xl">
+                  Control, clarity, and calm
+                </h1>
+                <p className="mt-3 max-w-3xl text-sm text-slate-200/80">
+                  Review users, monitor activity, and keep your workspace
+                  pristine with an elegant glassy overview.
                 </p>
               </div>
-            )}
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:w-[360px]">
+                <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-inner backdrop-blur-lg">
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-emerald-100/70">
+                    Users
+                  </p>
+                  <p className="mt-2 text-2xl font-semibold">
+                    {allUsers.length}
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-inner backdrop-blur-lg">
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-emerald-100/70">
+                    Notes
+                  </p>
+                  <p className="mt-2 text-2xl font-semibold">{totalNotes}</p>
+                </div>
+                <div className="col-span-2 sm:col-span-1 rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-inner backdrop-blur-lg">
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-emerald-100/70">
+                    Status
+                  </p>
+                  <p className="mt-2 text-sm font-semibold text-emerald-200">
+                    Live
+                  </p>
+                </div>
+              </div>
+            </header>
+
+            <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-emerald-500/10 backdrop-blur-xl">
+              <div className="overflow-x-auto">
+                <table className="min-w-full text-sm text-slate-100">
+                  <thead className="bg-white/10 text-[13px] uppercase tracking-[0.1em] text-emerald-100">
+                    <tr>
+                      <th className="px-4 py-4 text-left">Sl. No.</th>
+                      <th className="px-4 py-4 text-left">Username</th>
+                      <th className="px-4 py-4 text-left">Email</th>
+                      <th className="px-4 py-4 text-center">Notes</th>
+                      <th className="px-4 py-4 text-center">
+                        Last Active Date
+                      </th>
+                      <th className="px-4 py-4 text-center">Last Active</th>
+                      <th className="px-4 py-4 text-center">Delete</th>
+                    </tr>
+                  </thead>
+                  {allUsers.length > 0 && (
+                    <tbody className="divide-y divide-white/5">
+                      {allUsers?.map((item, index) => (
+                        <tr
+                          key={item._id}
+                          className="transition hover:bg-white/5 hover:backdrop-blur"
+                        >
+                          <td className="px-4 py-4 font-medium text-slate-50/90">
+                            {index + 1}
+                          </td>
+                          <td className="px-4 py-4 text-slate-50">
+                            {item?.username}
+                          </td>
+                          <td className="px-4 py-4 text-slate-100/80">
+                            {item?.email}
+                          </td>
+                          <td className="px-4 py-4 text-center text-emerald-200">
+                            {item?.notes_number}
+                          </td>
+                          <td className="px-4 py-4 text-center text-slate-100/80">
+                            {dateFormatter(item?.last_active_date)}
+                          </td>
+                          <td className="px-4 py-4 text-center text-slate-100/80">
+                            {item?.last_active_date &&
+                              formatDistanceToNow(
+                                parseISO(item?.last_active_date)
+                              )}
+                          </td>
+                          <td className="px-4 py-4 text-center">
+                            {item?.username !== "admin" && (
+                              <button
+                                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-rose-500 to-red-600 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white shadow-lg shadow-rose-500/30 transition hover:shadow-rose-400/40 active:translate-y-[1px]"
+                                onClick={() => handleDeleteUser(item._id)}
+                              >
+                                <FontAwesomeIcon icon={faTrashCan} />
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  )}
+                </table>
+              </div>
+              {allUsers.length === 0 && (
+                <div className="flex flex-col items-center justify-center py-10 px-6 text-center">
+                  <p className="text-lg font-semibold text-emerald-100">
+                    No notes were found
+                  </p>
+                  <p className="mt-2 text-sm text-slate-200/80">
+                    Users and their note activity will appear here once
+                    available.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
       <ToastContainer position="top-center" theme="colored" autoclose={1000} />
-    </>
+    </main>
   );
 }
 
