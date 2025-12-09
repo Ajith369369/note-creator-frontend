@@ -473,7 +473,7 @@ function AddNoteForm() {
                       <img
                         src={preview ? preview : defaultImage}
                         alt="Note cover preview"
-                        className="h-28 w-28 object-cover transition duration-500 group-hover:scale-[1.02]"
+                        className="h-28 w-28 object-contain transition duration-500 group-hover:scale-[1.02]"
                       />
                     </div>
                     <div className="flex flex-col gap-1">
@@ -543,7 +543,7 @@ function AddNoteForm() {
                 <img
                   src={preview ? preview : defaultImage}
                   alt="Preview"
-                  className="h-60 w-full object-cover"
+                  className="aspect-video w-full object-contain bg-black/30"
                 />
               </div>
               <div className="rounded-2xl border border-white/5 bg-white/5 p-4 shadow-inner">
