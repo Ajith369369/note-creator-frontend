@@ -1,6 +1,6 @@
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // #region Multi-line Comment
 /**
@@ -11,7 +11,6 @@ import { useEffect } from 'react';
  */
 // #endregion
 const useAuthGuard = () => {
-
   // #region Multi-line Comment
   /**
    * const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);: The useSelector hook is provided by React-Redux. It allows you to access the Redux store within a React component.
@@ -40,7 +39,6 @@ const useAuthGuard = () => {
    */
   // #endregion
   useEffect(() => {
-
     // #region Multi-line Comment
     /**
      * if (!isAuthenticated) {: This checks if the user is not authenticated (i.e., isAuthenticated is false).
@@ -48,16 +46,15 @@ const useAuthGuard = () => {
      */
     // #endregion
     if (!isAuthenticated) {
-      
       // #region Multi-line Comment
       /**
-       * Redirect to PageNotFound page if not authenticated.
+       * Redirect to NotFoundPage if not authenticated.
        * navigate('*');: This is a call to the navigate function provided by useNavigate.
        * It navigates the user to the route corresponding to the wildcard (*), which is a catch-all route in the application. It is a 404 Page Not Found page.
        * This effectively redirects unauthenticated users to a Page Not Found if they attempt to access a route that requires authentication.
        */
       // #endregion
-      navigate('*'); 
+      navigate("*");
     }
 
     // #region Multi-line Comment

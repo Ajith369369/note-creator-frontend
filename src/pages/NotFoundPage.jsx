@@ -3,7 +3,7 @@ import pageNotFound from "/src/assets/images/pnf-octocat.gif";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-function PageNotFound() {
+function NotFoundPage() {
   return (
     <>
       <div className="w-full min-h-screen flex justify-center items-center bg-green-600">
@@ -32,4 +32,4 @@ function PageNotFound() {
   );
 }
 
-export default PageNotFound;
+export default NotFoundPage;

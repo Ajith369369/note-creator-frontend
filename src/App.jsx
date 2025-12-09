@@ -6,7 +6,7 @@ import Auth from "@/pages/Auth";
 import EditNote from "@/pages/edit-note/EditNote";
 import Home from "@/pages/Home";
 import NotesPage from "@/pages/notes-page/NotesPage";
-import PageNotFound from "@/pages/PageNotFound";
+import NotFoundPage from "@/pages/NotFoundPage";
 import ViewNote from "@/pages/ViewNote";
 import { Route, Routes } from "react-router-dom";
 
@@ -25,7 +25,7 @@ function App() {
           <Route path="/profile-home/edit" element={<EditNote />} />
           <Route path="/profile-home/note" element={<ViewNote />} />
         </Route>
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );
