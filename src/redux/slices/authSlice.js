@@ -21,7 +21,7 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.isUserAuthenticated = true;
     },
-    
+
     // Reset to false on logout
     logout(state) {
       state.isAuthenticated = false;

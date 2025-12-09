@@ -60,7 +60,7 @@ function EditNoteForm() {
           const result = await editNoteOfAUserApi(
             selectedNote?._id,
             reqBody,
-            reqHeader
+            reqHeader,
           );
           if (result.status == 200) {
             toast.success("Note updated successfully.", {
@@ -77,7 +77,7 @@ function EditNoteForm() {
           const result = await editNoteOfAUserApi(
             selectedNote?._id,
             reqBody,
-            reqHeader
+            reqHeader,
           );
           if (result.status == 200) {
             toast.success("Note updated successfully.", {

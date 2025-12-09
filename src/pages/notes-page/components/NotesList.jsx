@@ -169,6 +169,6 @@ NotesList.propTypes = {
       noteTitle: PropTypes.string,
       noteContent: PropTypes.string,
       noteDate: PropTypes.string,
-    })
+    }),
   ),
 };

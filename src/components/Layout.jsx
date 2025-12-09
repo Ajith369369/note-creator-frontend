@@ -55,7 +55,7 @@ function Layout() {
 
     // Combines the formatted day, month, current date (currentDate.getDate()), and year (currentDate.getFullYear()) into a string and updates the date state.
     setDate(
-      `${day}, ${month} ${currentDate.getDate()}, ${currentDate.getFullYear()}`
+      `${day}, ${month} ${currentDate.getDate()}, ${currentDate.getFullYear()}`,
     );
 
     // Retrieves the current hour from currentDate (24-hour format).

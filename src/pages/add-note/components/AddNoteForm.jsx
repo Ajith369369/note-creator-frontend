@@ -337,7 +337,7 @@ function AddNoteForm() {
         const result = await addNoteOfAUserApi(reqBody, reqHeader);
         console.log(
           "Result of the addNoteOfAUserApi call to the console: ",
-          result
+          result,
         );
 
         if (result.status == 200) {
@@ -378,7 +378,7 @@ function AddNoteForm() {
       setPreview(URL.createObjectURL(noteDetails.noteImage));
       console.log(
         "URL.createObjectURL(noteDetails.noteImage): ",
-        URL.createObjectURL(noteDetails.noteImage)
+        URL.createObjectURL(noteDetails.noteImage),
       );
     }
   }, [noteDetails.noteImage]);

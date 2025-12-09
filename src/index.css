@@ -24,15 +24,15 @@ body {
   .text-red-salsa {
     color: #fb3640;
   }
-  
+
   .bg-red-salsa {
     background-color: #fb3640;
   }
-  
+
   .border-red-salsa {
     border-color: #fb3640;
   }
-  
+
   .hover\:bg-red-salsa:hover {
     background-color: #fb3640;
   }
@@ -43,11 +43,11 @@ body {
   .form-control {
     @apply border border-black/10 px-4 py-3 w-full rounded-sm text-sm font-light opacity-90 leading-relaxed;
   }
-  
+
   .form-label {
     @apply block mb-1.5 font-semibold text-sm;
   }
-  
+
   .form-element {
     @apply mb-3.5;
   }

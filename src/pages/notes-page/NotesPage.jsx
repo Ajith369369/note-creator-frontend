@@ -34,7 +34,7 @@ function NotesPage() {
         dispatch(updateNotes(result.data));
       }
     },
-    [dispatch]
+    [dispatch],
   );
 
   console.log("searchKey: ", searchKey);

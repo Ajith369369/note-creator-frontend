@@ -44,7 +44,7 @@ function Admin() {
       console.log("result: ", result);
       console.log(
         "result.data.usersWithLastNoteDate: ",
-        result.data.usersWithLastNoteDate
+        result.data.usersWithLastNoteDate,
       );
 
       if (result.status >= 200 && result.status < 300) {
@@ -149,7 +149,7 @@ function Admin() {
 
   const totalNotes = allUsers.reduce(
     (sum, user) => sum + (user?.notes_number || 0),
-    0
+    0,
   );
 
   return (
@@ -241,7 +241,7 @@ function Admin() {
                           <td className="px-4 py-4 text-center text-slate-100/80">
                             {item?.last_active_date &&
                               formatDistanceToNow(
-                                parseISO(item?.last_active_date)
+                                parseISO(item?.last_active_date),
                               )}
                           </td>
                           <td className="px-4 py-4 text-center">

@@ -182,7 +182,7 @@ function Auth({ register }) {
           setUserDetails({ username: "", email: "", password: "" });
           sessionStorage.setItem(
             "existingUser",
-            JSON.stringify(result.data.existingUser)
+            JSON.stringify(result.data.existingUser),
           );
 
           // Token was already a string when received.
@@ -196,7 +196,7 @@ function Auth({ register }) {
           setUserDetails({ username: "", email: "", password: "" });
           sessionStorage.setItem(
             "existingUser",
-            JSON.stringify(result.data.existingUser)
+            JSON.stringify(result.data.existingUser),
           );
 
           // Token was already a string when received.
