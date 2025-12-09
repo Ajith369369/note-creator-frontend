@@ -4,7 +4,6 @@ import {
   getAllNotesOfAUserApi,
 } from "@/services/nc_allApi";
 import { formatDistanceToNow, parseISO } from "date-fns";
-import PropTypes from "prop-types";
 import { FiEdit } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { useDispatch } from "react-redux";
@@ -12,9 +11,19 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function NotesList({ notes }) {
-  console.log("notes props received from NotesPage.jsx: ", notes);
+type Note = {
+  _id?: string;
+  noteTitle?: string;
+  noteContent?: string;
+  noteDate?: string;
+  noteImage?: string;
+};
 
+type NotesListProps = {
+  notes: Note[];
+};
+
+function NotesList({ notes }: NotesListProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,10 +31,6 @@ function NotesList({ notes }) {
     const token = sessionStorage.getItem("token");
     if (token) {
       const reqHeader = {
-        // "Content-Type": "application/json" is used to send requests without uploaded content.
-        // Select form-data in body section in Postman.
-        // Bearer - No other certificate is required to verify this token.
-        // iat : Time atwhich token is generated.
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       };
@@ -34,41 +39,32 @@ function NotesList({ notes }) {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id?: string) => {
+    if (!id) return;
     const token = sessionStorage.getItem("token");
     if (token) {
       const reqHeader = {
-        // "Content-Type": "application/json" is used to send requests without uploaded content.
-        // Select form-data in body section in Postman.
-        // Bearer - No other certificate is required to verify this token.
-        // iat : Time atwhich token is generated.
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       };
       const result = await deleteNoteOfAUserApi(id, reqHeader);
-      if (result.status == 200) {
+      if (result.status === 200) {
         window.scrollTo(0, 0);
-        console.log("Result of Delete operation: ", result);
         toast.success("Note deleted successfully.");
         refreshNotes();
       }
     }
   };
 
-  const handleNavigate = (selected_note) => {
-    // Navigate with the selected note's data.
-    // { state: { selectedNote: selected_note } }: This is an object where the state key contains another object with a key selectedNote that holds the value, selected_note passed to the function. This effectively passes the selected_note data to the new route (/profile-home/edit).
-    navigate("/profile-home/edit", { state: { selectedNote: selected_note } });
+  const handleNavigate = (selectedNote: Note) => {
+    navigate("/profile-home/edit", { state: { selectedNote } });
   };
 
-  const handleNavigate_2 = (selected_note) => {
-    // Navigate with the selected note's data.
-    // { state: { selectedNote: selected_note } }: This is an object where the state key contains another object with a key selectedNote that holds the value, selected_note passed to the function. This effectively passes the selected_note data to the new route (/profile-home/note).
-    navigate("/profile-home/note", { state: { selectedNote: selected_note } });
+  const handleNavigateToView = (selectedNote: Note) => {
+    navigate("/profile-home/note", { state: { selectedNote } });
   };
 
-  console.log("notes in NotesList.jsx: ", notes);
-  if (!notes || notes?.length === 0) {
+  if (!notes || notes.length === 0) {
     return (
       <div className="mx-3 my-10">
         <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-xl shadow-slate-900/40 p-8 flex flex-col items-start gap-3 text-white">
@@ -100,10 +96,11 @@ function NotesList({ notes }) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-6">
-            {notes?.map((note) => {
+            {notes.map((note) => {
+              const noteDate = note.noteDate ? parseISO(note.noteDate) : null;
               return (
                 <div
-                  key={note?._id}
+                  key={note._id}
                   className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-lg shadow-lg shadow-slate-900/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/0 to-white/5 opacity-80" />
@@ -111,15 +108,15 @@ function NotesList({ notes }) {
                   <div className="relative p-5 flex flex-col gap-3">
                     <div className="flex items-start justify-between gap-2">
                       <h3 className="text-base font-semibold text-white line-clamp-2">
-                        {note?.noteTitle}
+                        {note.noteTitle}
                       </h3>
                       <span className="text-[11px] font-semibold text-white/80 bg-white/10 border border-white/10 rounded-full px-2 py-1">
-                        {formatDistanceToNow(parseISO(note?.noteDate))}
+                        {noteDate ? formatDistanceToNow(noteDate) : "—"}
                       </span>
                     </div>
 
                     <p className="text-sm text-white/80 leading-relaxed line-clamp-4">
-                      {note?.noteContent}
+                      {note.noteContent}
                     </p>
 
                     <div className="flex items-center justify-between pt-2 border-t border-white/10">
@@ -127,7 +124,7 @@ function NotesList({ notes }) {
                         <button
                           type="button"
                           className="flex items-center justify-center h-9 w-9 rounded-lg bg-red-500/15 border border-red-400/30 text-red-200 hover:bg-red-500/25 transition"
-                          onClick={() => handleDelete(note?._id)}
+                          onClick={() => handleDelete(note._id)}
                         >
                           <ImCancelCircle />
                         </button>
@@ -142,7 +139,7 @@ function NotesList({ notes }) {
 
                       <button
                         type="button"
-                        onClick={() => handleNavigate_2(note)}
+                        onClick={() => handleNavigateToView(note)}
                         className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/10 border border-white/10 rounded-full px-3 py-2 hover:bg-white/15 transition"
                       >
                         Read More
@@ -161,14 +158,3 @@ function NotesList({ notes }) {
 }
 
 export default NotesList;
-
-NotesList.propTypes = {
-  notes: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      noteTitle: PropTypes.string,
-      noteContent: PropTypes.string,
-      noteDate: PropTypes.string,
-    }),
-  ),
-};

@@ -1,36 +1,45 @@
 import { editNoteOfAUserApi } from "@/services/nc_allApi";
 import { serverUrl } from "@/services/nc_serverUrl";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+type NoteDetails = {
+  noteTitle?: string;
+  noteContent?: string;
+  noteDate?: string;
+  noteImage?: File | string | null;
+};
+
 function EditNoteForm() {
   const location = useLocation();
-  const selectedNote = location.state?.selectedNote;
+  const selectedNote = (location.state as { selectedNote?: NoteDetails } | null)
+    ?.selectedNote;
   const navigate = useNavigate();
 
   const [titleError] = useState(false);
   const [contentError] = useState(false);
   const [canSave] = useState(true);
-  const [preview, setPreview] = useState("");
-  const [key] = useState(false);
-  const [noteDetails, setNoteDetails] = useState({
+  const [preview, setPreview] = useState<string>("");
+  const [noteDetails, setNoteDetails] = useState<NoteDetails>({
     noteTitle: selectedNote?.noteTitle,
     noteContent: selectedNote?.noteContent,
     noteDate: selectedNote?.noteDate,
     noteImage: "",
   });
 
-  const handleFile = (e) => {
-    setNoteDetails({
-      ...noteDetails,
-      noteImage: e.target.files[0],
-    });
+  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setNoteDetails((prev) => ({
+      ...prev,
+      noteImage: file,
+    }));
   };
 
   useEffect(() => {
-    if (noteDetails.noteImage) {
+    if (noteDetails.noteImage && typeof noteDetails.noteImage !== "string") {
       setPreview(URL.createObjectURL(noteDetails.noteImage));
     }
   }, [noteDetails.noteImage]);
@@ -40,54 +49,45 @@ function EditNoteForm() {
     const { noteTitle, noteContent, noteImage, noteDate } = noteDetails;
     if (!noteTitle || !noteContent || !noteDate) {
       toast.info("Please fill the form completely.");
-    } else {
-      const reqBody = new FormData();
-      reqBody.append("noteTitle", noteTitle);
-      reqBody.append("noteContent", noteContent);
-      reqBody.append("noteDate", noteDate);
-      preview
-        ? reqBody.append("noteImage", noteImage)
-        : reqBody.append("noteImage", selectedNote?.noteImage);
+      return;
+    }
 
-      const token = sessionStorage.getItem("token");
+    const reqBody = new FormData();
+    reqBody.append("noteTitle", noteTitle);
+    reqBody.append("noteContent", noteContent);
+    reqBody.append("noteDate", noteDate);
+    if (preview && noteImage) {
+      reqBody.append("noteImage", noteImage);
+    } else if (selectedNote?.noteImage) {
+      reqBody.append("noteImage", selectedNote.noteImage);
+    }
 
-      if (token) {
-        if (preview) {
-          const reqHeader = {
+    const token = sessionStorage.getItem("token");
+    if (!token) return;
+
+    const reqHeader =
+      preview && noteImage
+        ? {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
-          };
-          const result = await editNoteOfAUserApi(
-            selectedNote?._id,
-            reqBody,
-            reqHeader,
-          );
-          if (result.status == 200) {
-            toast.success("Note updated successfully.", {
-              onClose: () => navigate("/profile-home/notes"),
-            });
-          } else {
-            toast.error("Something went wrong.");
           }
-        } else {
-          const reqHeader = {
+        : {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           };
-          const result = await editNoteOfAUserApi(
-            selectedNote?._id,
-            reqBody,
-            reqHeader,
-          );
-          if (result.status == 200) {
-            toast.success("Note updated successfully.", {
-              onClose: () => navigate("/profile-home/notes"),
-            });
-          } else {
-            toast.error("Something went wrong.");
-          }
-        }
-      }
+
+    const result = await editNoteOfAUserApi(
+      (selectedNote as any)?._id,
+      reqBody,
+      reqHeader
+    );
+
+    if (result.status === 200) {
+      toast.success("Note updated successfully.", {
+        onClose: () => navigate("/profile-home/notes"),
+      });
+    } else {
+      toast.error("Something went wrong.");
     }
   };
 
@@ -164,8 +164,7 @@ function EditNoteForm() {
                   type="file"
                   id="noteImg"
                   className="hidden"
-                  key={key}
-                  onChange={(e) => handleFile(e)}
+                  onChange={handleFile}
                 />
               </label>
             </div>
@@ -174,7 +173,7 @@ function EditNoteForm() {
                 src={
                   preview
                     ? preview
-                    : `${serverUrl}/uploads/${selectedNote?.noteImage}`
+                    : `${serverUrl}/uploads/${selectedNote?.noteImage || ""}`
                 }
                 alt="Note cover"
                 className="h-48 w-full rounded-xl object-cover shadow-lg transition duration-500 hover:scale-[1.01]"
@@ -201,7 +200,7 @@ function EditNoteForm() {
                   })
                 }
                 className="w-full resize-none rounded-2xl bg-transparent px-4 py-3 text-base text-white placeholder:text-white/60 outline-none"
-                rows="10"
+                rows={10}
                 value={noteDetails.noteContent || ""}
               ></textarea>
             </div>
@@ -242,7 +241,7 @@ function EditNoteForm() {
                 src={
                   preview
                     ? preview
-                    : `${serverUrl}/uploads/${selectedNote?.noteImage}`
+                    : `${serverUrl}/uploads/${selectedNote?.noteImage || ""}`
                 }
                 alt="Note preview"
                 className="h-56 w-full rounded-xl object-cover shadow-lg"
