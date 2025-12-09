@@ -64,3 +64,9 @@ Next steps: run `npm run typecheck`; we can continue migrating pages/components 
 
 ---
 
+# Fixed type-only import errors
+
+Fixed type-only import errors by switching `ReactElement` and `ReactNode` to type-only imports in `Introduction.tsx` and `Sidebar.tsx`. You can rerun `npm run typecheck` to confirm.
+
+---
+

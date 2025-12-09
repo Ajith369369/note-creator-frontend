@@ -2,13 +2,25 @@ import { serverUrl } from "@/services/nc_serverUrl";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+type Note = {
+  noteTitle?: string;
+  noteDate?: string;
+  noteImage?: string;
+  noteContent?: string;
+};
+
 const ViewNote = () => {
   const location = useLocation();
-  const selectedNote = location.state?.selectedNote;
+  const selectedNote = (location.state as { selectedNote?: Note } | null)
+    ?.selectedNote;
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const imageSrc = selectedNote?.noteImage
+    ? `${serverUrl}/uploads/${selectedNote.noteImage}`
+    : undefined;
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
@@ -38,11 +50,17 @@ const ViewNote = () => {
           <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
             <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 shadow-2xl backdrop-blur-xl">
               <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/30">
-                <img
-                  src={`${serverUrl}/uploads/${selectedNote?.noteImage}`}
-                  alt={selectedNote?.noteTitle || "Note cover"}
-                  className="h-[340px] w-full object-cover transition duration-700 hover:scale-[1.02]"
-                />
+                {imageSrc ? (
+                  <img
+                    src={imageSrc}
+                    alt={selectedNote?.noteTitle || "Note cover"}
+                    className="h-[340px] w-full object-cover transition duration-700 hover:scale-[1.02]"
+                  />
+                ) : (
+                  <div className="flex h-[340px] w-full items-center justify-center text-slate-200/70">
+                    No image available
+                  </div>
+                )}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-transparent" />
                 <div className="absolute bottom-4 left-4 rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-xs uppercase tracking-[0.2em] text-white/80 backdrop-blur">
                   Visual highlight

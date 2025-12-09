@@ -1,5 +1,5 @@
 import notesIcon from "@/assets/images/notes_icon.png";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { AiFillHome } from "react-icons/ai";
 import { BsPlusLg } from "react-icons/bs";
 import { MdNoteAlt } from "react-icons/md";

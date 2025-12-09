@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import { BsFillInfoCircleFill, BsPinAngle } from "react-icons/bs";
 import { CgArrangeFront } from "react-icons/cg";
 import { FaSearch, FaSyncAlt } from "react-icons/fa";
