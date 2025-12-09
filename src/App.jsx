@@ -1,6 +1,5 @@
 import Admin from "@/admin/Admin";
-import Introduction from "@/components/Introduction";
-import Layout from "@/components/Layout";
+import { Introduction, Layout } from "@/components/shared";
 import AddNote from "@/pages/add-note/AddNote";
 import Auth from "@/pages/Auth";
 import EditNote from "@/pages/edit-note/EditNote";
