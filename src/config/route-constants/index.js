@@ -2,9 +2,8 @@
 
 // Role-specific routes
 export { ADMIN } from "./adminRoutes";
-export { DOCTOR } from "./doctorRoutes";
-export { PATIENT } from "./patientRoutes";
 export { SUPER_ADMIN } from "./superAdminRoutes";
+export { USER } from "./userRoutes";
 
 // Combined frontend routes
 export { FRONTEND_ROUTES } from "./frontendRoutes";
