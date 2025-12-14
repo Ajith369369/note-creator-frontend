@@ -42,7 +42,7 @@ function Auth({ register }: AuthProps) {
 
   const handleChange = <K extends keyof UserDetails>(
     name: K,
-    value: UserDetails[K]
+    value: UserDetails[K],
   ) => {
     setUserDetails((prevState) => ({
       ...prevState,
@@ -119,7 +119,7 @@ function Auth({ register }: AuthProps) {
         setUserDetails(defaultUserDetails);
         sessionStorage.setItem(
           "existingUser",
-          JSON.stringify(result.data.existingUser)
+          JSON.stringify(result.data.existingUser),
         );
         sessionStorage.setItem("token", result.data.token);
 

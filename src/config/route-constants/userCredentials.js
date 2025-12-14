@@ -67,7 +67,7 @@ export const getAllUserConfigs = () => {
 // Get user config by email (useful for login)
 export const getUserConfigByEmail = (email) => {
   return Object.values(USER_CONFIG).find(
-    (config) => config.email.toLowerCase() === email.toLowerCase()
+    (config) => config.email.toLowerCase() === email.toLowerCase(),
   );
 };
 
@@ -87,7 +87,7 @@ export const getUserConfigByRoleKey = (roleKey) => {
   // Try to find by urlPrefix
   return (
     Object.values(USER_CONFIG).find(
-      (config) => config.urlPrefix.toLowerCase() === roleKey.toLowerCase()
+      (config) => config.urlPrefix.toLowerCase() === roleKey.toLowerCase(),
     ) || null
   );
 };

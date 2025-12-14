@@ -31,7 +31,7 @@ function NotesPage() {
   const [searchKey, setSearchKey] = useState("");
   const dispatch = useDispatch();
   const notesFromNoteSlice = useSelector(
-    (state: RootState) => state.noteDetails.notes
+    (state: RootState) => state.noteDetails.notes,
   );
 
   const getAllNotesOfAUser = useCallback(
@@ -46,7 +46,7 @@ function NotesPage() {
         dispatch(updateNotes(result.data));
       }
     },
-    [dispatch]
+    [dispatch],
   );
 
   useEffect(() => {

@@ -79,7 +79,7 @@ function EditNoteForm() {
     const result = await editNoteOfAUserApi(
       (selectedNote as any)?._id,
       reqBody,
-      reqHeader
+      reqHeader,
     );
 
     if (result.status === 200) {

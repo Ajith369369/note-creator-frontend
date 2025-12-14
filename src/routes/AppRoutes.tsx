@@ -13,24 +13,24 @@ import { Route, Routes } from "react-router-dom";
 const AppRoutes = () => {
   const profileAdminPath = USER.PROFILE_ADMIN.replace(
     `${USER.PROFILE_HOME}/`,
-    ""
+    "",
   );
   const profileIntroPath = USER.PROFILE_INTRODUCTION.replace(
     `${USER.PROFILE_HOME}/`,
-    ""
+    "",
   );
   const profileNotesPath = USER.PROFILE_NOTES.replace(
     `${USER.PROFILE_HOME}/`,
-    ""
+    "",
   );
   const profileAddPath = USER.PROFILE_ADD.replace(`${USER.PROFILE_HOME}/`, "");
   const profileEditPath = USER.PROFILE_EDIT.replace(
     `${USER.PROFILE_HOME}/`,
-    ""
+    "",
   );
   const profileNotePath = USER.PROFILE_NOTE.replace(
     `${USER.PROFILE_HOME}/`,
-    ""
+    "",
   );
 
   return (

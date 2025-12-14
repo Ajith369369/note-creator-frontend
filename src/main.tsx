@@ -16,7 +16,7 @@ if (rootElement) {
           <App />
         </Provider>
       </BrowserRouter>
-    </StrictMode>
+    </StrictMode>,
   );
 } else {
   // This should never happen, but protects type narrowing

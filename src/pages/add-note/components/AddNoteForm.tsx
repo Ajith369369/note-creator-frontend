@@ -25,7 +25,7 @@ type RootState = {
 function AddNoteForm() {
   const dispatch = useDispatch();
   const noteFormState = useSelector(
-    (state: RootState) => state.noteDetails.noteFormState
+    (state: RootState) => state.noteDetails.noteFormState,
   );
 
   const [titleError, setTitleError] = useState(false);
@@ -43,7 +43,7 @@ function AddNoteForm() {
   const [imageSet, setImageSet] = useState(false);
 
   const onFormDataChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     if (name === "noteTitle") {

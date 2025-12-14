@@ -39,7 +39,7 @@ function Layout() {
     const day = currentDate.toLocaleDateString("default", { weekday: "long" });
     const month = currentDate.toLocaleString("default", { month: "long" });
     setDate(
-      `${day}, ${month} ${currentDate.getDate()}, ${currentDate.getFullYear()}`
+      `${day}, ${month} ${currentDate.getDate()}, ${currentDate.getFullYear()}`,
     );
 
     const currentHour = currentDate.getHours();
