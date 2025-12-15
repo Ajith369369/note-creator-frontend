@@ -220,3 +220,145 @@ The dashboard now updates immediately after a user is deleted, and there are no 
 
 ---
 
+# 'ChangeEvent' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled
+
+Fixing the import and explaining `ChangeEvent`:
+
+Fixed the import. Explanation of `ChangeEvent`:
+
+## What is `ChangeEvent`?
+
+`ChangeEvent` is a TypeScript type from React that represents the event object when a form input value changes.
+
+### Purpose
+- Type-safe event handling for input changes
+- Provides access to the event object and the changed value
+
+### Common Usage
+```typescript
+// For HTML input elements
+const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const newValue = e.target.value; // TypeScript knows this is a string
+  console.log(newValue);
+};
+
+// For textarea elements
+const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const newValue = e.target.value;
+};
+
+// For select elements
+const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const selectedValue = e.target.value;
+};
+```
+
+### Why Type-Only Import?
+
+With `verbatimModuleSyntax: true` in your `tsconfig.json`, TypeScript requires type-only imports for types to ensure:
+1. Types are stripped at compile time (they don't exist at runtime)
+2. Better tree-shaking and bundle optimization
+3. Clear separation between runtime values and type annotations
+
+### The Fix
+
+**Before (incorrect):**
+```typescript
+import { ChangeEvent, MouseEvent, useState } from "react";
+```
+
+**After (correct):**
+```typescript
+import { useState } from "react";           // Runtime value
+import type { ChangeEvent, MouseEvent } from "react"; // Types only
+```
+
+This separates:
+- Runtime values (`useState`) — imported normally
+- Types (`ChangeEvent`, `MouseEvent`) — imported with `type` keyword
+
+The error is now resolved.
+
+---
+
+# `MouseEvent` in your `Auth.tsx` file:
+
+## What is `MouseEvent`?
+
+`MouseEvent` is a TypeScript type from React that represents the event object when a user interacts with a mouse (clicks, hovers, etc.) on an element.
+
+### In Your Code
+
+You're using `MouseEvent<HTMLButtonElement>` in two places:
+
+```typescript
+// Line 93 - Register button handler
+const handleRegister = async (e: MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();  // Prevents default form submission behavior
+  // ... rest of the code
+};
+
+// Line 111 - Login button handler  
+const handleLogin = async (e: MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();  // Prevents default form submission behavior
+  // ... rest of the code
+};
+```
+
+### Why Use `MouseEvent<HTMLButtonElement>`?
+
+1. Type safety: TypeScript knows the event is from a button click
+2. Access to event properties: You can use `e.preventDefault()`, `e.stopPropagation()`, `e.clientX`, `e.clientY`, etc.
+3. Element-specific typing: `HTMLButtonElement` ensures the event target is a button
+
+### Common `MouseEvent` Properties
+
+```typescript
+const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();        // Prevent default behavior
+  e.stopPropagation();       // Stop event bubbling
+  e.currentTarget;           // The button element (typed as HTMLButtonElement)
+  e.target;                  // The element that triggered the event
+  e.clientX;                 // Mouse X coordinate
+  e.clientY;                 // Mouse Y coordinate
+  e.button;                  // Which mouse button (0 = left, 1 = middle, 2 = right)
+  e.shiftKey;                // Was Shift key pressed?
+  e.ctrlKey;                 // Was Ctrl key pressed?
+  e.altKey;                  // Was Alt key pressed?
+};
+```
+
+### Why `e.preventDefault()`?
+
+In your code, you call `e.preventDefault()` because:
+- The buttons are inside a `<form>` element
+- Without it, clicking would trigger a form submission and page reload
+- `preventDefault()` stops the default form submission behavior
+- This lets you handle the submission with async functions (`handleRegister`, `handleLogin`)
+
+### Alternative: `FormEvent`
+
+Since these buttons are in a form, you could also use `FormEvent`:
+
+```typescript
+import type { FormEvent } from "react";
+
+const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  // Handle form submission
+};
+```
+
+But for button `onClick` handlers, `MouseEvent<HTMLButtonElement>` is the correct choice.
+
+### Summary
+
+- `MouseEvent<HTMLButtonElement>` types the click event from a button
+- Provides type-safe access to event properties
+- `e.preventDefault()` prevents default form submission
+- Enables async handling of login/register logic
+
+This ensures type safety and prevents accidental form submissions.
+
+---
+
