@@ -3,7 +3,7 @@ import { adminDataApi, deleteUserAndNotesApi } from "@/services/api";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatDistanceToNow, parseISO } from "date-fns";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -25,13 +25,12 @@ function Admin() {
   // Initializes the state variable allUsers with an empty array. This state will hold the booking details of all users fetched from the API.
   const [allUsers, setAllUsers] = useState<User[]>([]);
 
-  const [deleteStatus, setDeleteStatus] = useState<boolean>(false);
-
   // Initializes the state variable defaultUsers with an empty array. This state will hold the default booking details fetched from the API.
   // const [defaultUsers, setDefaultUsers] = useState([]);
 
   // Get the admin dashboard data
-  const getAdminDashboardData = async () => {
+  // Memoized with useCallback to prevent unnecessary re-renders and satisfy React's exhaustive-deps rule
+  const getAdminDashboardData = useCallback(async () => {
     // Retrieves a token from the browser's sessionStorage.
     // The token is used for authentication, verifying that the user is allowed to perform the action (adding a project).
     const token = sessionStorage.getItem("token");
@@ -60,7 +59,7 @@ function Admin() {
         setAllUsers(result.data.usersWithLastNoteDate);
       }
     }
-  };
+  }, []);
 
   // Add default data to the database (db.json)
   /* const addDefaultDataToDatabase = async () => {
@@ -144,16 +143,19 @@ function Admin() {
       if (result.status === 200) {
         console.log("Result of Delete operation: ", result);
         toast.success("User and his notes were deleted successfully.");
-        setDeleteStatus(true);
+        // Refresh dashboard data after successful delete
+        await getAdminDashboardData();
       }
     }
   };
 
-  // The function call inside the useEffect hook triggers the getAdminDashboardData function as soon as the component (the specific React component in which the useEffect is defined, i.e., <Admin/>) is mounted (rendered for the first time).
-  // The empty array [] as the second argument means that this effect will only run once when the component first mounts.
+  // Fetch dashboard data on component mount
+  // Note: getAdminDashboardData calls setState asynchronously (after API response),
+  // so this is safe and follows React best practices for data fetching
   useEffect(() => {
     getAdminDashboardData();
-  }, [deleteStatus]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const totalNotes = allUsers.reduce(
     (sum, user) => sum + (user?.notes_number || 0),
@@ -283,7 +285,7 @@ function Admin() {
           </div>
         </div>
       </div>
-      <ToastContainer position="top-center" theme="colored" autoclose={1000} />
+      <ToastContainer position="top-center" theme="colored" autoClose={1000} />
     </main>
   );
 }
