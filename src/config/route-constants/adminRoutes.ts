@@ -1,28 +1,5 @@
-// Admin Routes (relative paths - will be nested under /admin)
+// Admin-only routes
 export const ADMIN = {
-  DASHBOARD: "dashboard",
-  HEADER: "header",
-  PATIENTS_ALL: "patients/all",
-  PATIENTS_FAMILY_PROFILES: "patients/family-profiles",
-  DOCTORS: "doctors",
-  APPOINTMENTS_CALENDAR: "appointments/calendar",
-  APPOINTMENTS_LIST: "appointments/list",
-  APPOINTMENTS_REQUESTS: "appointments/requests",
-  APPOINTMENTS_OPD_SLOTS: "appointments/opd-slots",
-  HEALTH_RECORDS_UPLOADED_REPORTS: "health-records/uploaded-reports",
-  HEALTH_RECORDS_PRESCRIPTIONS: "health-records/prescriptions",
-  HEALTH_RECORDS_DOCUMENTS: "health-records/documents",
-  BILLING_INVOICES: "billing/invoices",
-  BILLING_PAYMENTS: "billing/payments",
-  BILLING_PAYMENT_HISTORY: "billing/payment-history",
-  BILLING_FEE_STRUCTURE: "billing/fee-structure",
-  BILLING_PHARMACY: "billing/pharmacy-billing",
-  DISPENSE_MEDICINES: "dispense-medicines",
-  COMMUNICATION_TEMPLATES: "communication/templates",
-  REPORTS_APPOINTMENT_SUMMARY: "reports/appointment-summary",
-  REPORTS_PATIENT_GROWTH: "reports/patient-growth",
-  REPORTS_USAGE_STATS: "reports/usage-stats",
-  SETTINGS_ORGANIZATION_PROFILE: "settings/organization-profile",
-  SETTINGS_WORKING_HOURS: "settings/working-hours",
-  SETTINGS_CHANGE_PLAN: "settings/change-plan",
+  // Relative path (nested under /profile-home)
+  DASHBOARD: "admin",
 } as const;
