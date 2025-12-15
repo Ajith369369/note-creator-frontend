@@ -1,6 +1,12 @@
 import { Layout, SuspenseWrapper } from "@/components/shared";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
-import { ADMIN, PUBLIC_ROUTES, SHARED } from "@/config/route-constants";
+import {
+  ADMIN,
+  getUserUrlPrefix,
+  PUBLIC_ROUTES,
+  SHARED,
+  USER_ROLES,
+} from "@/config/route-constants";
 import { lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -21,11 +27,15 @@ const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
  * Best Practices Applied:
  * 1. Role-agnostic routes for shared features (notes, introduction)
  * 2. Role-specific routes only for admin dashboard
- * 3. Index route for automatic redirect from /profile-home
+ * 3. Index route for automatic redirect from /profile
  * 4. Protected routes with role-based access control
  * 5. Lazy loading with Suspense for better performance
+ * 6. Dynamic route paths using getUserUrlPrefix
  */
 const AppRoutes = () => {
+  // Get dynamic profile path from user credentials
+  const profilePath = `/${getUserUrlPrefix(USER_ROLES.SHARED)}`;
+
   return (
     <SuspenseWrapper>
       <Routes>
@@ -35,7 +45,7 @@ const AppRoutes = () => {
         <Route path={PUBLIC_ROUTES.LOGIN} element={<Auth />} />
 
         {/* Protected Routes - Shared by Admin and Users */}
-        <Route path={SHARED.PROFILE_HOME} element={<Layout />}>
+        <Route path={profilePath} element={<Layout />}>
           {/* Index route - redirects to introduction */}
           <Route
             index

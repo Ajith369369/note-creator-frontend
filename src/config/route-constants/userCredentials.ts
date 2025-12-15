@@ -18,6 +18,7 @@ export interface UserConfig {
 }
 
 // Comprehensive user configuration for all roles
+// Computed property names, i.e., this means like USER_CONFIG["USER_ROLES.ADMIN"]
 // Contains email, password, role, label, urlPrefix, and defaultDashboardRoute
 export const USER_CONFIG: Record<UserRole, UserConfig> = {
   [USER_ROLES.SUPER_ADMIN]: {
@@ -49,8 +50,8 @@ export const USER_CONFIG: Record<UserRole, UserConfig> = {
     password: "",
     role: USER_ROLES.SHARED,
     label: "",
-    urlPrefix: "shared",
-    defaultDashboardRoute: "/shared/introduction",
+    urlPrefix: "profile",
+    defaultDashboardRoute: "/profile/introduction",
   },
 };
 
