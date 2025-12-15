@@ -4,3 +4,4 @@ export const ADMIN_USER = {
   password: "adminpswd", // Set your admin password here
   // It is not recommended to store passwords like this in production
 };
+

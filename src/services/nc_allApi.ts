@@ -1,19 +1,25 @@
+import { AxiosResponse } from "axios";
 import { commonApi } from "./nc_commonApi";
 import { serverUrl } from "./nc_serverUrl";
 
 // register
-export const registerApi = async (reqBody) => {
+export const registerApi = async (
+  reqBody: unknown,
+): Promise<AxiosResponse> => {
   return await commonApi("POST", `${serverUrl}/register`, reqBody, "");
 };
 
 // login
-export const loginApi = async (reqBody) => {
+export const loginApi = async (reqBody: unknown): Promise<AxiosResponse> => {
   return await commonApi("POST", `${serverUrl}/login`, reqBody, "");
 };
 
 // add note of a user
 // uploaded content requests need header.
-export const addNoteOfAUserApi = async (reqBody, reqHeader) => {
+export const addNoteOfAUserApi = async (
+  reqBody: unknown,
+  reqHeader: Record<string, string>,
+): Promise<AxiosResponse> => {
   console.log("Inside addNoteOfAUserApi()");
   return await commonApi(
     "POST",
@@ -24,7 +30,7 @@ export const addNoteOfAUserApi = async (reqBody, reqHeader) => {
 };
 
 // get all notes of all users
-export const getAllNotesOfAllUsersApi = async () => {
+export const getAllNotesOfAllUsersApi = async (): Promise<AxiosResponse> => {
   return await commonApi("GET", `${serverUrl}/notes/all`, "", "");
 };
 
@@ -35,7 +41,10 @@ export const getAllNotesOfAllUsersApi = async () => {
 /* export const getAllNotesOfAUserApi = async (searchKey, reqHeader) => {
   return await commonApi("GET", `${serverUrl}/notes/user/all?search=${searchKey}`, "", reqHeader);
 }; */
-export const getAllNotesOfAUserApi = async (searchKey, reqHeader) => {
+export const getAllNotesOfAUserApi = async (
+  searchKey: string,
+  reqHeader: Record<string, string>,
+): Promise<AxiosResponse> => {
   // console.log("Inside getAllNotesOfAUserApi()");
   return await commonApi(
     "GET",
@@ -45,12 +54,18 @@ export const getAllNotesOfAUserApi = async (searchKey, reqHeader) => {
   );
 };
 
-export const getANoteOfAUserApi = async (noteId) => {
+export const getANoteOfAUserApi = async (
+  noteId: string,
+): Promise<AxiosResponse> => {
   return await commonApi("GET", `${serverUrl}/notes/user/${noteId}`, "", "");
 };
 
 // edit note of a user
-export const editNoteOfAUserApi = async (noteId, reqBody, reqHeader) => {
+export const editNoteOfAUserApi = async (
+  noteId: string,
+  reqBody: unknown,
+  reqHeader: Record<string, string>,
+): Promise<AxiosResponse> => {
   //id is passed as path parameter
   return await commonApi(
     "PUT",
@@ -71,7 +86,10 @@ export const editNoteOfAUserApi = async (noteId, reqBody, reqHeader) => {
  * Standard Practice: It is more conventional to use {} for DELETE requests when the body is expected to be an object. This is especially true if you are using a library or API client that expects an object for consistency.
  */
 // #endregion
-export const deleteNoteOfAUserApi = async (noteId, reqHeader) => {
+export const deleteNoteOfAUserApi = async (
+  noteId: string,
+  reqHeader: Record<string, string>,
+): Promise<AxiosResponse> => {
   return await commonApi(
     "DELETE",
     `${serverUrl}/notes/user/delete/${noteId}`,
@@ -81,7 +99,9 @@ export const deleteNoteOfAUserApi = async (noteId, reqHeader) => {
 };
 
 // get data for admin dashboard
-export const adminDataApi = async (reqHeader) => {
+export const adminDataApi = async (
+  reqHeader: Record<string, string>,
+): Promise<AxiosResponse> => {
   console.log("Inside adminDataApi.");
   return await commonApi(
     "GET",
@@ -96,7 +116,10 @@ export const adminDataApi = async (reqHeader) => {
  * delete user and all his notes.
  */
 // #endregion
-export const deleteUserAndNotesApi = async (userId, reqHeader) => {
+export const deleteUserAndNotesApi = async (
+  userId: string,
+  reqHeader: Record<string, string>,
+): Promise<AxiosResponse> => {
   console.log("Inside deleteUserAndNotesApi().");
   return await commonApi(
     "DELETE",
@@ -105,3 +128,4 @@ export const deleteUserAndNotesApi = async (userId, reqHeader) => {
     reqHeader,
   );
 };
+

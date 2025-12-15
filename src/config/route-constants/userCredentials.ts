@@ -3,11 +3,22 @@ export const USER_ROLES = {
   SUPER_ADMIN: "SUPER_ADMIN",
   ADMIN: "ADMIN",
   USER: "USER",
-};
+} as const;
+
+export type UserRole = (typeof USER_ROLES)[keyof typeof USER_ROLES];
+
+export interface UserConfig {
+  email: string;
+  password: string;
+  role: UserRole;
+  label: string;
+  urlPrefix: string;
+  defaultDashboardRoute: string;
+}
 
 // Comprehensive user configuration for all roles
 // Contains email, password, role, label, urlPrefix, and defaultDashboardRoute
-export const USER_CONFIG = {
+export const USER_CONFIG: Record<UserRole, UserConfig> = {
   [USER_ROLES.SUPER_ADMIN]: {
     email: "superadmin@notecreator.com",
     password: "SuperAdminPswd",
@@ -35,53 +46,57 @@ export const USER_CONFIG = {
 };
 
 // Helper functions to access user config data
-export const getUserConfig = (role) => {
+export const getUserConfig = (role: UserRole): UserConfig | null => {
   return USER_CONFIG[role] || null;
 };
 
-export const getUserEmail = (role) => {
+export const getUserEmail = (role: UserRole): string | null => {
   return USER_CONFIG[role]?.email || null;
 };
 
-export const getUserPassword = (role) => {
+export const getUserPassword = (role: UserRole): string | null => {
   return USER_CONFIG[role]?.password || null;
 };
 
-export const getUserLabel = (role) => {
+export const getUserLabel = (role: UserRole): string => {
   return USER_CONFIG[role]?.label || role;
 };
 
-export const getUserUrlPrefix = (role) => {
+export const getUserUrlPrefix = (role: UserRole): string | null => {
   return USER_CONFIG[role]?.urlPrefix || null;
 };
 
-export const getUserDefaultRoute = (role) => {
+export const getUserDefaultRoute = (role: UserRole): string => {
   return USER_CONFIG[role]?.defaultDashboardRoute || "/login";
 };
 
 // Get all user configs as an array (useful for iteration)
-export const getAllUserConfigs = () => {
+export const getAllUserConfigs = (): UserConfig[] => {
   return Object.values(USER_CONFIG);
 };
 
 // Get user config by email (useful for login)
-export const getUserConfigByEmail = (email) => {
+export const getUserConfigByEmail = (
+  email: string,
+): UserConfig | undefined => {
   return Object.values(USER_CONFIG).find(
     (config) => config.email.toLowerCase() === email.toLowerCase(),
   );
 };
 
 // Get user config by role key (e.g., "SUPER_ADMIN" or "superadmin")
-export const getUserConfigByRoleKey = (roleKey) => {
+export const getUserConfigByRoleKey = (
+  roleKey: string,
+): UserConfig | null => {
   // Try direct role match first
-  if (USER_CONFIG[roleKey]) {
-    return USER_CONFIG[roleKey];
+  if (USER_CONFIG[roleKey as UserRole]) {
+    return USER_CONFIG[roleKey as UserRole];
   }
 
   // Try case-insensitive match
   const normalizedKey = roleKey.toUpperCase();
-  if (USER_CONFIG[normalizedKey]) {
-    return USER_CONFIG[normalizedKey];
+  if (USER_CONFIG[normalizedKey as UserRole]) {
+    return USER_CONFIG[normalizedKey as UserRole];
   }
 
   // Try to find by urlPrefix
@@ -91,3 +106,4 @@ export const getUserConfigByRoleKey = (roleKey) => {
     ) || null
   );
 };
+

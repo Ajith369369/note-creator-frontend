@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "@/redux/store";
 
 // #region Multi-line Comment
 /**
@@ -19,7 +20,9 @@ const useAuthGuard = () => {
    * This flag typically indicates whether the user is authenticated (logged in) or not.
    */
   // #endregion
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated,
+  );
 
   // #region Multi-line Comment
   /**
@@ -74,3 +77,4 @@ const useAuthGuard = () => {
  */
 // #endregion
 export default useAuthGuard;
+

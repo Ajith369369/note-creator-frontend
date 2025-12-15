@@ -7,6 +7,14 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+interface User {
+  _id: string;
+  username: string;
+  email: string;
+  notes_number: number;
+  last_active_date: string;
+}
+
 function Admin() {
   // Check if user is authenticated
   useAuthGuard();
@@ -15,9 +23,9 @@ function Admin() {
   // By calling useDispatch(), we can dispatch actions from within our React component.
 
   // Initializes the state variable allUsers with an empty array. This state will hold the booking details of all users fetched from the API.
-  const [allUsers, setAllUsers] = useState([]);
+  const [allUsers, setAllUsers] = useState<User[]>([]);
 
-  const [deleteStatus, setDeleteStatus] = useState("");
+  const [deleteStatus, setDeleteStatus] = useState<boolean>(false);
 
   // Initializes the state variable defaultUsers with an empty array. This state will hold the default booking details fetched from the API.
   // const [defaultUsers, setDefaultUsers] = useState([]);
@@ -107,7 +115,7 @@ function Admin() {
     }
   }; */
 
-  const dateFormatter = (isoString) => {
+  const dateFormatter = (isoString: string): string => {
     const date = new Date(isoString);
 
     // en-GB format gives dd/mm/yyyy
@@ -119,7 +127,7 @@ function Admin() {
     return formattedDate;
   };
 
-  const handleDeleteUser = async (user_id) => {
+  const handleDeleteUser = async (user_id: string) => {
     const token = sessionStorage.getItem("token");
 
     if (token) {
@@ -133,7 +141,7 @@ function Admin() {
         Authorization: `Bearer ${token}`,
       };
       const result = await deleteUserAndNotesApi(user_id, reqHeader);
-      if (result.status == 200) {
+      if (result.status === 200) {
         console.log("Result of Delete operation: ", result);
         toast.success("User and his notes were deleted successfully.");
         setDeleteStatus(true);
@@ -281,3 +289,4 @@ function Admin() {
 }
 
 export default Admin;
+

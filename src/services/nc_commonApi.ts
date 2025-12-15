@@ -1,7 +1,13 @@
+import type { AxiosRequestConfig, AxiosResponse } from "axios";
 import axios from "axios";
 
-export const commonApi = async (reqmethod, url, reqBody, reqHeader) => {
-  const reqConfig = {
+export const commonApi = async (
+  reqmethod: string,
+  url: string,
+  reqBody: unknown,
+  reqHeader?: Record<string, string>
+): Promise<AxiosResponse> => {
+  const reqConfig: AxiosRequestConfig = {
     method: reqmethod,
     url,
     data: reqBody,
