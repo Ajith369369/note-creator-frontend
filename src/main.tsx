@@ -11,12 +11,16 @@ const rootElement = document.getElementById("root");
 if (rootElement) {
   createRoot(rootElement).render(
     <StrictMode>
-      <BrowserRouter>
+      <BrowserRouter
+        future={{
+          v7_startTransition: true,
+        }}
+      >
         <Provider store={store}>
           <App />
         </Provider>
       </BrowserRouter>
-    </StrictMode>,
+    </StrictMode>
   );
 } else {
   // This should never happen, but protects type narrowing
