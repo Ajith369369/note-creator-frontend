@@ -4,6 +4,7 @@ import {
   updateNoteFormState,
 } from "@/redux/slices/noteSlice";
 import { addNoteOfAUserApi } from "@/services/api";
+import type { ChangeEvent } from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -33,17 +34,23 @@ function AddNoteForm() {
   const [canSave, setCanSave] = useState(false);
   const [preview, setPreview] = useState<string>("");
   const [key, setKey] = useState(false);
-  const [noteDetails, setNoteDetails] = useState<NoteFormState>({
+  const [imageSet, setImageSet] = useState(false);
+
+  const formatDate = () => {
+    const now = new Date();
+    return now.toISOString().split("T")[0];
+  };
+
+  // Initialize noteDetails with current date using lazy initializer
+  const [noteDetails, setNoteDetails] = useState<NoteFormState>(() => ({
     noteTitle: "",
     noteContent: "",
     noteImage: "",
-    noteDate: "",
-  });
-
-  const [imageSet, setImageSet] = useState(false);
+    noteDate: formatDate(),
+  }));
 
   const onFormDataChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     if (name === "noteTitle") {
@@ -67,7 +74,7 @@ function AddNoteForm() {
     return file;
   };
 
-  const handleFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setNoteDetails((prevData) => ({
@@ -107,16 +114,12 @@ function AddNoteForm() {
     }
   }, [noteDetails.noteImage]);
 
-  const formatDate = () => {
-    const now = new Date();
-    return now.toISOString().split("T")[0];
-  };
-
+  // Sync initial date to Redux store on mount
   useEffect(() => {
     const currentDate = formatDate();
-    setNoteDetails((prev) => ({ ...prev, noteDate: currentDate }));
     dispatch(updateNoteFormState({ noteDate: currentDate }));
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (noteDetails.noteTitle && noteDetails.noteContent) {
@@ -330,7 +333,7 @@ function AddNoteForm() {
           <ToastContainer
             position="top-center"
             theme="colored"
-            autoclose={1000}
+            autoClose={1000}
           />
         </div>
       </section>

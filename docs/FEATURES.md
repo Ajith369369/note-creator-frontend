@@ -362,3 +362,153 @@ This ensures type safety and prevents accidental form submissions.
 
 ---
 
+# Finding the router configuration to add the `v7_startTransition` future flag:
+
+Adding the `v7_startTransition` future flag to `BrowserRouter`:
+
+Added the `v7_startTransition` future flag to your router configuration.
+
+## What Changed
+
+**Before:**
+```typescript
+<BrowserRouter>
+  <Provider store={store}>
+    <App />
+  </Provider>
+</BrowserRouter>
+```
+
+**After:**
+```typescript
+<BrowserRouter
+  future={{
+    v7_startTransition: true,
+  }}
+>
+  <Provider store={store}>
+    <App />
+  </Provider>
+</BrowserRouter>
+```
+
+## What This Does
+
+1. Opts in early to React Router v7 behavior
+2. Wraps state updates in `React.startTransition` for better performance
+3. Silences the warning you were seeing
+4. Prepares your app for React Router v7
+
+## Why `React.startTransition`?
+
+- Keeps the UI responsive during navigation
+- Marks navigation updates as non-urgent
+- Allows React to interrupt lower-priority work
+- Improves perceived performance during route changes
+
+## Result
+
+The warning should now be gone, and your app is prepared for React Router v7. The flag enables the new behavior early so you can test and ensure everything works correctly.
+
+---
+
+Adding the `v7_relativeSplatPath` future flag to the router configuration:
+
+Adding the `v7_relativeSplatPath` flag to the existing future flags:
+
+Added the `v7_relativeSplatPath` future flag.
+
+## What Changed
+
+**Before:**
+```typescript
+<BrowserRouter
+  future={{
+    v7_startTransition: true,
+  }}
+>
+```
+
+**After:**
+```typescript
+<BrowserRouter
+  future={{
+    v7_startTransition: true,
+    v7_relativeSplatPath: true,
+  }}
+>
+```
+
+## What This Does
+
+1. Opts in to React Router v7's new relative route resolution within splat routes
+2. Changes how relative paths are resolved in catch-all routes (`*`)
+3. Silences the warning
+4. Prepares your app for React Router v7
+
+## What Are Splat Routes?
+
+Splat routes are catch-all routes using `*`:
+
+```typescript
+<Route path="*" element={<NotFoundPage />} />
+```
+
+## Why the Change?
+
+In React Router v7, relative path resolution within splat routes will change to be more consistent and predictable. This flag enables the new behavior early.
+
+## Result
+
+Both warnings should now be resolved, and your app is configured for React Router v7's new behavior. The router will use:
+- `v7_startTransition`: Wraps navigation updates in `React.startTransition`
+- `v7_relativeSplatPath`: Uses the new relative path resolution in splat routes
+
+Your app is now ready for React Router v7.
+
+---
+
+# AddNoteForm.tsx: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Fixing the warning by initializing state with a lazy initializer instead of using `useEffect`:
+
+Fixing the warning by initializing state with a lazy initializer and moving the Redux dispatch to a separate effect:
+
+Removing the duplicate `noteDetails` state declaration:
+
+Fixing the remaining errors:
+
+Fixing the import and ToastContainer prop:
+
+Fixing the ToastContainer prop:
+
+Fixed the React warning. Summary of changes:
+
+## What Changed
+
+1. Removed setState from useEffect — no longer calling `setNoteDetails` in the effect
+2. Used lazy initializer — initialized `noteDetails` with the date during initial render:
+   ```typescript
+   const [noteDetails, setNoteDetails] = useState<NoteFormState>(() => ({
+     noteTitle: "",
+     noteContent: "",
+     noteImage: "",
+     noteDate: formatDate(), // Date is set during initialization
+   }));
+   ```
+3. Separated Redux dispatch — moved Redux update to its own effect that only runs on mount
+4. Fixed type imports — changed `React.ChangeEvent` to imported `ChangeEvent` type
+5. Fixed ToastContainer — changed `autoclose` to `autoClose`
+
+## How It Works Now
+
+- Initial render: `noteDetails` is initialized with the current date using a lazy initializer
+- On mount: Redux store is updated with the date (this is fine because it's updating external state, not React state)
+- No cascading renders: state is initialized once, not updated in an effect
+
+## Remaining Warning
+
+There's a minor warning about unused `imageSet` variable, but that's not related to the React warning you asked about. The setState-in-effect warning is now resolved.
+
+---
+
