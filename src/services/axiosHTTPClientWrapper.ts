@@ -1,7 +1,7 @@
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
 import axios from "axios";
 
-export const commonApi = async (
+export const axiosHTTPClientWrapper = async (
   reqmethod: string,
   url: string,
   reqBody: unknown,

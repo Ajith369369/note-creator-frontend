@@ -1,77 +1,75 @@
-import { AxiosResponse } from "axios";
-import { commonApi } from "./nc_commonApi";
-import { serverUrl } from "./nc_serverUrl";
-
-// register
-export const registerApi = async (
-  reqBody: unknown,
-): Promise<AxiosResponse> => {
-  return await commonApi("POST", `${serverUrl}/register`, reqBody, "");
-};
-
-// login
-export const loginApi = async (reqBody: unknown): Promise<AxiosResponse> => {
-  return await commonApi("POST", `${serverUrl}/login`, reqBody, "");
-};
+import type { AxiosResponse } from "axios";
+import { axiosHTTPClientWrapper } from "../axiosHTTPClientWrapper";
+import { serverUrl } from "../nc_serverUrl";
 
 // add note of a user
 // uploaded content requests need header.
 export const addNoteOfAUserApi = async (
   reqBody: unknown,
-  reqHeader: Record<string, string>,
+  reqHeader: Record<string, string>
 ): Promise<AxiosResponse> => {
   console.log("Inside addNoteOfAUserApi()");
-  return await commonApi(
+  return await axiosHTTPClientWrapper(
     "POST",
     `${serverUrl}/notes/user/add`,
     reqBody,
-    reqHeader,
+    reqHeader
   );
 };
 
 // get all notes of all users
 export const getAllNotesOfAllUsersApi = async (): Promise<AxiosResponse> => {
-  return await commonApi("GET", `${serverUrl}/notes/all`, "", "");
+  return await axiosHTTPClientWrapper(
+    "GET",
+    `${serverUrl}/notes/all`,
+    undefined,
+    undefined
+  );
 };
 
 // get all notes of a user
 /* export const getAllNotesOfAUserApi = async (reqHeader) => {
-  return await commonApi("GET", `${serverUrl}/notes/user/all`, "", reqHeader);
+  return await axiosHTTPClientWrapper("GET", `${serverUrl}/notes/user/all`, "", reqHeader);
 }; */
 /* export const getAllNotesOfAUserApi = async (searchKey, reqHeader) => {
-  return await commonApi("GET", `${serverUrl}/notes/user/all?search=${searchKey}`, "", reqHeader);
+  return await axiosHTTPClientWrapper("GET", `${serverUrl}/notes/user/all?search=${searchKey}`, "", reqHeader);
 }; */
 export const getAllNotesOfAUserApi = async (
   searchKey: string,
-  reqHeader: Record<string, string>,
+  reqHeader: Record<string, string>
 ): Promise<AxiosResponse> => {
   // console.log("Inside getAllNotesOfAUserApi()");
-  return await commonApi(
+  return await axiosHTTPClientWrapper(
     "GET",
     `${serverUrl}/notes/user/all?search=${searchKey}`,
     "",
-    reqHeader,
+    reqHeader
   );
 };
 
 export const getANoteOfAUserApi = async (
-  noteId: string,
+  noteId: string
 ): Promise<AxiosResponse> => {
-  return await commonApi("GET", `${serverUrl}/notes/user/${noteId}`, "", "");
+  return await axiosHTTPClientWrapper(
+    "GET",
+    `${serverUrl}/notes/user/${noteId}`,
+    undefined,
+    undefined
+  );
 };
 
 // edit note of a user
 export const editNoteOfAUserApi = async (
   noteId: string,
   reqBody: unknown,
-  reqHeader: Record<string, string>,
+  reqHeader: Record<string, string>
 ): Promise<AxiosResponse> => {
   //id is passed as path parameter
-  return await commonApi(
+  return await axiosHTTPClientWrapper(
     "PUT",
     `${serverUrl}/notes/user/edit/${noteId}`,
     reqBody,
-    reqHeader,
+    reqHeader
   );
 };
 
@@ -88,44 +86,12 @@ export const editNoteOfAUserApi = async (
 // #endregion
 export const deleteNoteOfAUserApi = async (
   noteId: string,
-  reqHeader: Record<string, string>,
+  reqHeader: Record<string, string>
 ): Promise<AxiosResponse> => {
-  return await commonApi(
+  return await axiosHTTPClientWrapper(
     "DELETE",
     `${serverUrl}/notes/user/delete/${noteId}`,
     {},
-    reqHeader,
+    reqHeader
   );
 };
-
-// get data for admin dashboard
-export const adminDataApi = async (
-  reqHeader: Record<string, string>,
-): Promise<AxiosResponse> => {
-  console.log("Inside adminDataApi.");
-  return await commonApi(
-    "GET",
-    `${serverUrl}/profile-home/admin`,
-    "",
-    reqHeader,
-  );
-};
-
-// #region Multi-line Comment
-/**
- * delete user and all his notes.
- */
-// #endregion
-export const deleteUserAndNotesApi = async (
-  userId: string,
-  reqHeader: Record<string, string>,
-): Promise<AxiosResponse> => {
-  console.log("Inside deleteUserAndNotesApi().");
-  return await commonApi(
-    "DELETE",
-    `${serverUrl}/profile-home/admin/user/delete/${userId}`,
-    {},
-    reqHeader,
-  );
-};
-

@@ -1,4 +1,4 @@
-import { editNoteOfAUserApi } from "@/services/nc_allApi";
+import { editNoteOfAUserApi } from "@/services/api";
 import { serverUrl } from "@/services/nc_serverUrl";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -79,7 +79,7 @@ function EditNoteForm() {
     const result = await editNoteOfAUserApi(
       (selectedNote as any)?._id,
       reqBody,
-      reqHeader,
+      reqHeader
     );
 
     if (result.status === 200) {

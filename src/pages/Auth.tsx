@@ -2,7 +2,7 @@ import { ADMIN_USER } from "@/admin/constants";
 import headerImg from "@/assets/images/header_img.jpg";
 import loginImage from "@/assets/images/note-creator-round-logo.png";
 import { loginAdmin, loginUser } from "@/redux/slices/authSlice";
-import { loginApi, registerApi } from "@/services/nc_allApi";
+import { loginApi, registerApi } from "@/services/api";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, MouseEvent, useState } from "react";
@@ -42,7 +42,7 @@ function Auth({ register }: AuthProps) {
 
   const handleChange = <K extends keyof UserDetails>(
     name: K,
-    value: UserDetails[K],
+    value: UserDetails[K]
   ) => {
     setUserDetails((prevState) => ({
       ...prevState,
@@ -119,7 +119,7 @@ function Auth({ register }: AuthProps) {
         setUserDetails(defaultUserDetails);
         sessionStorage.setItem(
           "existingUser",
-          JSON.stringify(result.data.existingUser),
+          JSON.stringify(result.data.existingUser)
         );
         sessionStorage.setItem("token", result.data.token);
 

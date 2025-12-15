@@ -2,7 +2,7 @@ import noteCreatorLogo from "@/assets/images/note-creator-square-logo.jpeg";
 import useAuthGuard from "@/hooks/useAuthGuard";
 import NotesList from "@/pages/notes-page/components/NotesList";
 import { updateNotes } from "@/redux/slices/noteSlice";
-import { getAllNotesOfAUserApi } from "@/services/nc_allApi";
+import { getAllNotesOfAUserApi } from "@/services/api";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useEffect, useState } from "react";
@@ -27,11 +27,14 @@ function NotesPage() {
   // Check if user is authenticated
   useAuthGuard();
 
-  const [isToken, setIsToken] = useState<string | null>(null);
+  // Use lazy initializer to read from sessionStorage only once during initial render
+  const [isToken] = useState<string | null>(() =>
+    sessionStorage.getItem("token")
+  );
   const [searchKey, setSearchKey] = useState("");
   const dispatch = useDispatch();
   const notesFromNoteSlice = useSelector(
-    (state: RootState) => state.noteDetails.notes,
+    (state: RootState) => state.noteDetails.notes
   );
 
   const getAllNotesOfAUser = useCallback(
@@ -46,16 +49,12 @@ function NotesPage() {
         dispatch(updateNotes(result.data));
       }
     },
-    [dispatch],
+    [dispatch]
   );
 
   useEffect(() => {
     getAllNotesOfAUser(searchKey);
   }, [searchKey, getAllNotesOfAUser]);
-
-  useEffect(() => {
-    setIsToken(sessionStorage.getItem("token"));
-  }, []);
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden">

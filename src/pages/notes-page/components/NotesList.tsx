@@ -1,8 +1,5 @@
 import { updateNotes } from "@/redux/slices/noteSlice";
-import {
-  deleteNoteOfAUserApi,
-  getAllNotesOfAUserApi,
-} from "@/services/nc_allApi";
+import { deleteNoteOfAUserApi, getAllNotesOfAUserApi } from "@/services/api";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { FiEdit } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
