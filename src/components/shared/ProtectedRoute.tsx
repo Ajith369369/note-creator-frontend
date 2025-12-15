@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { SHARED_ROUTES } from "@/config/route-constants";
+import { SHARED } from "@/config/route-constants";
 import { RootState } from "@/redux/store";
 
 interface ProtectedRouteProps {
@@ -42,7 +42,7 @@ const ProtectedRoute = ({ children, requireAdmin = false }: ProtectedRouteProps)
   // Check admin access if required
   if (requireAdmin && !isAdminAuthenticated) {
     // Redirect non-admin users to introduction page
-    return <Navigate to={SHARED_ROUTES.PROFILE_INTRODUCTION} replace />;
+    return <Navigate to={SHARED.PROFILE_INTRODUCTION} replace />;
   }
 
   return <>{children}</>;

@@ -1,7 +1,7 @@
 // Barrel file for route constants
 
 // Role-agnostic shared routes (best practice)
-export { SHARED_ROUTES } from "./sharedRoutes";
+export { SHARED } from "./sharedRoutes";
 
 // Role-specific routes
 export { ADMIN } from "./adminRoutes"; // Legacy - for backward compatibility

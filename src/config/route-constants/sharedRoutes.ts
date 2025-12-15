@@ -1,14 +1,14 @@
 // Role-agnostic routes - accessible by both admin and regular users
-export const SHARED_ROUTES = {
+export const SHARED = {
   // Base profile route
   PROFILE_HOME: "/profile-home",
 
   // Shared profile routes (both admin and users)
   INTRODUCTION: "introduction",
   NOTES: "notes",
-  NOTE_VIEW: "note/:id",
+  NOTE_VIEW: "note",
   NOTE_ADD: "add",
-  NOTE_EDIT: "edit/:id",
+  NOTE_EDIT: "edit",
 
   // Full paths for navigation
   PROFILE_INTRODUCTION: "/profile-home/introduction",

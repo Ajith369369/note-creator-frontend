@@ -3,6 +3,7 @@ export const USER_ROLES = {
   SUPER_ADMIN: "SUPER_ADMIN",
   ADMIN: "ADMIN",
   USER: "USER",
+  SHARED: "SHARED",
 } as const;
 
 export type UserRole = (typeof USER_ROLES)[keyof typeof USER_ROLES];
@@ -25,7 +26,7 @@ export const USER_CONFIG: Record<UserRole, UserConfig> = {
     role: USER_ROLES.SUPER_ADMIN,
     label: "Super Admin",
     urlPrefix: "superadmin",
-    defaultDashboardRoute: "/superadmin/dashboard",
+    defaultDashboardRoute: "/superadmin/introduction",
   },
   [USER_ROLES.ADMIN]: {
     email: "admin@gmail.com",
@@ -33,7 +34,7 @@ export const USER_CONFIG: Record<UserRole, UserConfig> = {
     role: USER_ROLES.ADMIN,
     label: "Admin",
     urlPrefix: "admin",
-    defaultDashboardRoute: "/admin/dashboard",
+    defaultDashboardRoute: "/admin/introduction",
   },
   [USER_ROLES.USER]: {
     email: "user@gmail.com",
@@ -41,7 +42,15 @@ export const USER_CONFIG: Record<UserRole, UserConfig> = {
     role: USER_ROLES.USER,
     label: "User",
     urlPrefix: "user",
-    defaultDashboardRoute: "/user/dashboard",
+    defaultDashboardRoute: "/user/introduction",
+  },
+  [USER_ROLES.SHARED]: {
+    email: "",
+    password: "",
+    role: USER_ROLES.SHARED,
+    label: "",
+    urlPrefix: "shared",
+    defaultDashboardRoute: "/shared/introduction",
   },
 };
 
