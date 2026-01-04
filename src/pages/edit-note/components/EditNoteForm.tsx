@@ -64,12 +64,15 @@ function EditNoteForm() {
     }
 
     const reqBody = new FormData();
-    reqBody.append("noteTitle", noteTitle);
-    reqBody.append("noteContent", noteContent);
-    reqBody.append("noteDate", noteDate);
-    if (preview && noteImage) {
+    reqBody.append("noteTitle", noteTitle as string);
+    reqBody.append("noteContent", noteContent as string);
+    reqBody.append("noteDate", noteDate as string);
+    if (preview && noteImage && typeof noteImage !== "string") {
       reqBody.append("noteImage", noteImage);
-    } else if (selectedNote?.noteImage) {
+    } else if (
+      selectedNote?.noteImage &&
+      typeof selectedNote.noteImage !== "string"
+    ) {
       reqBody.append("noteImage", selectedNote.noteImage);
     }
 
@@ -274,7 +277,7 @@ function EditNoteForm() {
         </aside>
       </div>
 
-      <ToastContainer position="top-center" theme="colored" autoclose={1000} />
+      <ToastContainer position="top-center" theme="colored" autoClose={1000} />
     </div>
   );
 }

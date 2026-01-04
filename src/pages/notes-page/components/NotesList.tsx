@@ -149,7 +149,7 @@ function NotesList({ notes }: NotesListProps) {
           </div>
         </div>
       </div>
-      <ToastContainer position="top-center" theme="colored" autoclose={1000} />
+      <ToastContainer position="top-center" theme="colored" autoClose={1000} />
     </>
   );
 }
