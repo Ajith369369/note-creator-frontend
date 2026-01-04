@@ -1,6 +1,6 @@
 import { editNoteOfAUserApi } from "@/services/api";
 import { serverUrl } from "@/services/nc_serverUrl";
-import { ChangeEvent, useEffect, useState } from "react";
+import { type ChangeEvent, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,13 +22,29 @@ function EditNoteForm() {
   const [titleError] = useState(false);
   const [contentError] = useState(false);
   const [canSave] = useState(true);
-  const [preview, setPreview] = useState<string>("");
-  const [noteDetails, setNoteDetails] = useState<NoteDetails>({
-    noteTitle: selectedNote?.noteTitle,
-    noteContent: selectedNote?.noteContent,
-    noteDate: selectedNote?.noteDate,
-    noteImage: "",
+  const [noteDetails, setNoteDetails] = useState<NoteDetails>(() => {
+    const initial: NoteDetails = { noteImage: "" };
+    if (selectedNote) {
+      if (selectedNote.noteTitle !== undefined) {
+        initial.noteTitle = selectedNote.noteTitle;
+      }
+      if (selectedNote.noteContent !== undefined) {
+        initial.noteContent = selectedNote.noteContent;
+      }
+      if (selectedNote.noteDate !== undefined) {
+        initial.noteDate = selectedNote.noteDate;
+      }
+    }
+    return initial;
   });
+
+  // Derive preview URL from noteImage using useMemo
+  const preview = useMemo(() => {
+    if (noteDetails.noteImage && typeof noteDetails.noteImage !== "string") {
+      return URL.createObjectURL(noteDetails.noteImage);
+    }
+    return "";
+  }, [noteDetails.noteImage]);
 
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -39,21 +55,14 @@ function EditNoteForm() {
     }));
   };
 
+  // Cleanup object URL when preview changes or component unmounts
   useEffect(() => {
-    if (noteDetails.noteImage && typeof noteDetails.noteImage !== "string") {
-      const objectUrl = URL.createObjectURL(noteDetails.noteImage);
-      setPreview(objectUrl);
-
-      // Cleanup function to revoke the object URL when component unmounts or image changes
+    if (preview) {
       return () => {
-        URL.revokeObjectURL(objectUrl);
+        URL.revokeObjectURL(preview);
       };
     }
-    // Reset preview if noteImage is a string (existing image from server)
-    if (typeof noteDetails.noteImage === "string") {
-      setPreview("");
-    }
-  }, [noteDetails.noteImage]);
+  }, [preview]);
 
   const onSaveNoteClicked = async () => {
     window.scrollTo(0, 0);
