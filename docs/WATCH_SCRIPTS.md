@@ -1,3 +1,100 @@
+# What `--kill-others-on-fail` does
+
+If one process exits with a non-zero code, `concurrently` stops all other processes.
+
+## Benefits
+
+### 1. Clean shutdown
+- If lint fails and exits, typecheck stops too
+- Avoids leaving orphaned processes running
+
+### 2. Clear feedback
+- All processes stop when one fails
+- Easier to see that something needs fixing
+
+### 3. Resource efficiency
+- Stops unnecessary processes when one tool is broken
+
+## Watch mode consideration
+
+In watch mode, processes usually keep running and report errors without exiting. So `--kill-others-on-fail` may not trigger unless a process actually exits.
+
+### When it helps in watch mode
+- If a watch process crashes or exits unexpectedly
+- If you manually stop one process (Ctrl+C), it can stop the others too
+
+### When it doesn't help
+- If lint reports errors but keeps watching, typecheck continues (which is usually fine)
+
+## Alternative: `--kill-others`
+
+Stops all processes when any process exits (even on success). Useful for:
+- CI/CD pipelines
+- One-time runs
+- Not ideal for watch mode (stops everything when one finishes)
+
+## Recommendation for your watch script
+
+For watch mode, `--kill-others-on-fail` is optional:
+- Useful if you want all processes to stop when one crashes
+- Not necessary if you prefer to keep processes running independently
+
+Your current script without it is fine for development. Add it if you want automatic cleanup on crashes.
+
+Should I add it to your watch scripts, or keep them as-is?
+
+---
+
+# Is "watch": "concurrently \"npm run lint:watch\" \"npm run typecheck:watch\" --names \"lint,typecheck\" --prefix-colors \"yellow,blue\"", best practice?
+
+Yes, this is a solid approach. Here are some considerations and optional improvements:
+
+## Current approach — good practices
+- Uses `concurrently` to run multiple watch tasks
+- Clear naming with `--names`
+- Color coding for readability
+- Separates lint and typecheck concerns
+
+## Potential improvements
+
+### 1. Add error handling
+Stop all processes if one fails:
+```json
+"watch": "concurrently \"npm run lint:watch\" \"npm run typecheck:watch\" --names \"lint,typecheck\" --prefix-colors \"yellow,blue\" --kill-others-on-fail"
+```
+
+### 2. Shorter syntax
+You can use shorter command syntax:
+```json
+"watch": "concurrently -n lint,typecheck -c yellow,blue \"npm run lint:watch\" \"npm run typecheck:watch\""
+```
+
+### 3. Add graceful shutdown
+Stop all when one exits (useful for CI):
+```json
+"watch": "concurrently \"npm run lint:watch\" \"npm run typecheck:watch\" --names \"lint,typecheck\" --prefix-colors \"yellow,blue\" --kill-others"
+```
+
+## Alternative approaches
+
+### Option A: Keep it simple (current)
+Your current setup is fine for development.
+
+### Option B: Enhanced version
+```json
+"watch": "concurrently -n lint,typecheck -c yellow,blue --kill-others-on-fail \"npm run lint:watch\" \"npm run typecheck:watch\""
+```
+
+### Option C: IDE integration
+Many developers rely on IDE extensions for real-time linting/typechecking instead of watch scripts.
+
+## Recommendation
+Your current script is good. If you want to add error handling, use `--kill-others-on-fail`. Otherwise, keep it as is.
+
+Should I update both `package.json` files with the enhanced version?
+
+---
+
 # Chokidar is only used for the lint watch script, not for typecheck.
 
 ## The difference
