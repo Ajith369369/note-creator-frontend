@@ -1,7 +1,8 @@
 import App from "@/App";
-import store from "@/redux/store";
+import { persistor, store } from "@/redux/store";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
@@ -18,7 +19,9 @@ if (rootElement) {
         }}
       >
         <Provider store={store}>
-          <App />
+          <PersistGate loading={null} persistor={persistor}>
+            <App />
+          </PersistGate>
         </Provider>
       </BrowserRouter>
     </StrictMode>

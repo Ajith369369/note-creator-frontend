@@ -50,8 +50,8 @@ export const USER_CONFIG: Record<UserRole, UserConfig> = {
     password: "",
     role: USER_ROLES.SHARED,
     label: "",
-    urlPrefix: "profile",
-    defaultDashboardRoute: "/profile/introduction",
+    urlPrefix: "profile-home",
+    defaultDashboardRoute: "/profile-home/introduction",
   },
 };
 
@@ -86,18 +86,14 @@ export const getAllUserConfigs = (): UserConfig[] => {
 };
 
 // Get user config by email (useful for login)
-export const getUserConfigByEmail = (
-  email: string,
-): UserConfig | undefined => {
+export const getUserConfigByEmail = (email: string): UserConfig | undefined => {
   return Object.values(USER_CONFIG).find(
-    (config) => config.email.toLowerCase() === email.toLowerCase(),
+    (config) => config.email.toLowerCase() === email.toLowerCase()
   );
 };
 
 // Get user config by role key (e.g., "SUPER_ADMIN" or "superadmin")
-export const getUserConfigByRoleKey = (
-  roleKey: string,
-): UserConfig | null => {
+export const getUserConfigByRoleKey = (roleKey: string): UserConfig | null => {
   // Try direct role match first
   if (USER_CONFIG[roleKey as UserRole]) {
     return USER_CONFIG[roleKey as UserRole];
@@ -112,8 +108,7 @@ export const getUserConfigByRoleKey = (
   // Try to find by urlPrefix
   return (
     Object.values(USER_CONFIG).find(
-      (config) => config.urlPrefix.toLowerCase() === roleKey.toLowerCase(),
+      (config) => config.urlPrefix.toLowerCase() === roleKey.toLowerCase()
     ) || null
   );
 };
-

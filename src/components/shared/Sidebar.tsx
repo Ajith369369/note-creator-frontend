@@ -1,4 +1,5 @@
 import notesIcon from "@/assets/images/notes_icon.png";
+import type { RootState } from "@/redux/store";
 import type { ReactNode } from "react";
 import { AiFillHome } from "react-icons/ai";
 import { BsPlusLg } from "react-icons/bs";
@@ -48,7 +49,9 @@ function NavItem({ to, icon, label, active }: NavItemProps) {
 }
 
 function Sidebar() {
-  const authFormState = useSelector((state: any) => state.auth);
+  const isAdminAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAdminAuthenticated
+  );
 
   // Uses the useLocation hook to get the current location object. This object contains information about the current URL, which is useful for determining the active link.
   const location = useLocation();
@@ -67,7 +70,7 @@ function Sidebar() {
         </Link>
 
         <ul className="flex-1 space-y-2 px-2 list-none">
-          {authFormState?.isAdminAuthenticated && (
+          {isAdminAuthenticated && (
             <NavItem
               to="/profile-home/admin"
               icon={<RiAdminFill size={18} />}

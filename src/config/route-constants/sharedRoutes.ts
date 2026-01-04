@@ -8,9 +8,9 @@ export const SHARED = {
   NOTE_EDIT: "edit",
 
   // Full paths for navigation
-  PROFILE_INTRODUCTION: "/profile/introduction",
-  PROFILE_NOTES: "/profile/notes",
-  PROFILE_NOTE_VIEW: "/profile/note",
-  PROFILE_NOTE_ADD: "/profile/add",
-  PROFILE_NOTE_EDIT: "/profile/edit",
+  PROFILE_INTRODUCTION: "/profile-home/introduction",
+  PROFILE_NOTES: "/profile-home/notes",
+  PROFILE_NOTE_VIEW: "/profile-home/note",
+  PROFILE_NOTE_ADD: "/profile-home/add",
+  PROFILE_NOTE_EDIT: "/profile-home/edit",
 } as const;
