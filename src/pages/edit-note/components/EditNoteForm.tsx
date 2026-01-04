@@ -10,6 +10,7 @@ type NoteDetails = {
   noteContent?: string;
   noteDate?: string;
   noteImage?: File | string | null;
+  _id?: string;
 };
 
 function EditNoteForm() {
@@ -40,7 +41,17 @@ function EditNoteForm() {
 
   useEffect(() => {
     if (noteDetails.noteImage && typeof noteDetails.noteImage !== "string") {
-      setPreview(URL.createObjectURL(noteDetails.noteImage));
+      const objectUrl = URL.createObjectURL(noteDetails.noteImage);
+      setPreview(objectUrl);
+
+      // Cleanup function to revoke the object URL when component unmounts or image changes
+      return () => {
+        URL.revokeObjectURL(objectUrl);
+      };
+    }
+    // Reset preview if noteImage is a string (existing image from server)
+    if (typeof noteDetails.noteImage === "string") {
+      setPreview("");
     }
   }, [noteDetails.noteImage]);
 
@@ -76,11 +87,13 @@ function EditNoteForm() {
             Authorization: `Bearer ${token}`,
           };
 
-    const result = await editNoteOfAUserApi(
-      (selectedNote as any)?._id,
-      reqBody,
-      reqHeader
-    );
+    const noteId = selectedNote?._id;
+    if (!noteId) {
+      toast.error("Note ID is missing.");
+      return;
+    }
+
+    const result = await editNoteOfAUserApi(noteId, reqBody, reqHeader);
 
     if (result.status === 200) {
       toast.success("Note updated successfully.", {
