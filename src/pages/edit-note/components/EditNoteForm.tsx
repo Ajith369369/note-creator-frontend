@@ -119,7 +119,7 @@ function EditNoteForm() {
   return (
     <div className="space-y-8">
       <header className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-        <div>
+        <div className="px-4">
           <p className="text-sm uppercase tracking-[0.2em] text-emerald-200/80">
             Edit note
           </p>
