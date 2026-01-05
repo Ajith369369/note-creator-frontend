@@ -2,16 +2,16 @@ import headerImg from "@/assets/images/header_img.jpg";
 import noteCreatorLogo from "@/assets/images/note-creator-square-logo.jpeg";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 
 function Home() {
-  const [token, setToken] = useState<string | null>(() => {
+  const token = useMemo(() => {
     if (typeof window !== "undefined") {
       return sessionStorage.getItem("token");
     }
     return null;
-  });
+  }, []);
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950">
