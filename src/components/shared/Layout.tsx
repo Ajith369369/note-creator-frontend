@@ -66,14 +66,14 @@ function Layout() {
   return (
     <div className="w-full overflow-x-hidden">
       <Sidebar />
-      <div className="ml-[60px] lg:ml-sidebar w-[calc(100%-60px)] lg:w-[calc(100%-196px)] min-h-screen overflow-y-scroll">
+      <div className="ml-[60px] lg:ml-sidebar w-[calc(100%-60px)] lg:w-[calc(100%-196px)] h-screen flex flex-col min-h-0">
         <Header
           greetText={greetText}
           date={date}
           token={token}
           handleLogout={handleLogout}
         />
-        <div className="min-h-screen">
+        <div className="flex-1 min-h-0 overflow-y-auto">
           <Outlet />
         </div>
       </div>

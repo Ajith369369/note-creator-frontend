@@ -12,7 +12,7 @@ type HeaderProps = {
 function Header({ greetText, date, token, handleLogout }: HeaderProps) {
   return (
     <header
-      className="relative w-full min-h-[72px] bg-cover bg-center bg-no-repeat flex items-center"
+      className="sticky top-0 z-50 relative w-full min-h-[72px] bg-cover bg-center bg-no-repeat flex items-center"
       style={{
         backgroundImage: `url(${headerImg})`,
       }}
