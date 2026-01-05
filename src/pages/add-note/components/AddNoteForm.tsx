@@ -52,6 +52,13 @@ function AddNoteForm() {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+
+    // Update local state immediately (preserves cursor position)
+    setNoteDetails((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
     if (name === "noteTitle") {
       setTitleError(value.length === 0);
       if (value.length > 0) setCanSave(true);
@@ -61,6 +68,8 @@ function AddNoteForm() {
       setContentError(value.length === 0);
       if (value.length > 0) setCanSave(true);
     }
+
+    // Update Redux for persistence (optional)
     dispatch(updateNoteFormState({ [name]: value } as Partial<NoteFormState>));
   };
 
@@ -92,14 +101,17 @@ function AddNoteForm() {
     setKey((prevKey) => !prevKey);
   };
 
+  // Only sync from Redux on initial mount if local state is empty
   useEffect(() => {
-    if (noteFormState) {
+    if (noteFormState && !noteDetails.noteTitle && !noteDetails.noteContent) {
+      // Only sync if local state is empty (initial load)
       setNoteDetails((prev) => ({
         ...prev,
         ...noteFormState,
       }));
     }
-  }, [noteFormState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependency array - only run on mount
 
   useEffect(() => {
     if (noteDetails.noteImage) {
