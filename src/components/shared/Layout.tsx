@@ -2,7 +2,7 @@ import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
 import useAuthGuard from "@/hooks/useAuthGuard";
 import { logout } from "@/redux/slices/authSlice";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -10,14 +10,11 @@ function Layout() {
   // Check if user is authenticated
   useAuthGuard();
 
-  const [token, setToken] = useState<string | null>(null);
-  const [greetText, setGreetText] = useState("");
-  const [date, setDate] = useState("");
-  const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const existingUser = useMemo(() => {
+    if (typeof window === "undefined") return null;
     const rawUser = sessionStorage.getItem("existingUser");
     if (!rawUser) return null;
     try {
@@ -27,30 +24,36 @@ function Layout() {
     }
   }, []);
 
-  useEffect(() => {
-    setToken(sessionStorage.getItem("token"));
-    if (existingUser?.username) {
-      setUsername(existingUser.username);
+  const token = useMemo(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("token");
     }
+    return null;
+  }, []);
+
+  const username = useMemo(() => {
+    return existingUser?.username || "";
   }, [existingUser]);
 
-  useEffect(() => {
+  const date = useMemo(() => {
     const currentDate = new Date();
     const day = currentDate.toLocaleDateString("default", { weekday: "long" });
     const month = currentDate.toLocaleString("default", { month: "long" });
-    setDate(
-      `${day}, ${month} ${currentDate.getDate()}, ${currentDate.getFullYear()}`,
-    );
+    return `${day}, ${month} ${currentDate.getDate()}, ${currentDate.getFullYear()}`;
+  }, []);
 
+  const greetText = useMemo(() => {
+    if (!username) return "";
+    const currentDate = new Date();
     const currentHour = currentDate.getHours();
     if (currentHour > 0 && currentHour < 12)
-      setGreetText(`Good Morning, ${username}!`);
-    else if (currentHour === 12) setGreetText(`Good Noon, ${username}!`);
+      return `Good Morning, ${username}!`;
+    else if (currentHour === 12) return `Good Noon, ${username}!`;
     else if (currentHour > 12 && currentHour < 18)
-      setGreetText(`Good Afternoon, ${username}!`);
+      return `Good Afternoon, ${username}!`;
     else if (currentHour === 18 && currentHour < 21)
-      setGreetText(`Good Evening, ${username}!`);
-    else setGreetText(`Good Night, ${username}!`);
+      return `Good Evening, ${username}!`;
+    else return `Good Night, ${username}!`;
   }, [username]);
 
   const handleLogout = () => {
