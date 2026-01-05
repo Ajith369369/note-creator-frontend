@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext js,jsx,ts,tsx --fix --report-unused-disable-directives --max-warnings 0",
-    "lint:watch": "chokidar \"src/**/*.{js,jsx,ts,tsx}\" -c \"npm run lint\" --ignore dist --ignore node_modules --ignore \"**/*.test.*\"",
+    "lint:watch": "chokidar \"src/**/*.{js,jsx,ts,tsx}\" -c \"npm run lint || true\" --ignore dist --ignore node_modules --ignore \"**/*.test.*\"",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --watch --noEmit",
     "watch": "concurrently \"npm run lint:watch\" \"npm run typecheck:watch\" --names \"lint,typecheck\" --prefix-colors \"yellow,blue\"",

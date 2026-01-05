@@ -34,7 +34,6 @@ function AddNoteForm() {
   const [canSave, setCanSave] = useState(false);
   const [preview, setPreview] = useState<string>("");
   const [key, setKey] = useState(false);
-  const [imageSet, setImageSet] = useState(false);
 
   const formatDate = () => {
     const now = new Date();
@@ -81,7 +80,6 @@ function AddNoteForm() {
         ...prevData,
         noteImage: file,
       }));
-      setImageSet(true);
       setPreview(URL.createObjectURL(file));
     } else {
       const defaultFile = await fetchDefaultImageFile();
@@ -89,7 +87,6 @@ function AddNoteForm() {
         ...prevData,
         noteImage: defaultFile,
       }));
-      setImageSet(true);
       setPreview(URL.createObjectURL(defaultFile));
     }
     setKey((prevKey) => !prevKey);
