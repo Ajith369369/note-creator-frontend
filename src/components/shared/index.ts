@@ -5,3 +5,4 @@ export { default as LoadingSpinner } from "./LoadingSpinner";
 export { default as ProtectedRoute } from "./ProtectedRoute";
 export { default as Sidebar } from "./Sidebar";
 export { default as SuspenseWrapper } from "./SuspenseWrapper";
+export { default as TestCredentials } from "./TestCredentials";
