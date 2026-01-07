@@ -1,12 +1,13 @@
 import { ADMIN_USER } from "@/admin/constants";
 import headerImg from "@/assets/images/header_img.jpg";
 import loginImage from "@/assets/images/note-creator-round-logo.png";
+import TestCredentials from "@/components/shared/TestCredentials";
 import { loginAdmin, loginUser } from "@/redux/slices/authSlice";
 import { loginApi, registerApi } from "@/services/api";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ChangeEvent, MouseEvent } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -40,6 +41,16 @@ function Auth({ register }: AuthProps) {
 
   const [userDetails, setUserDetails] =
     useState<UserDetails>(defaultUserDetails);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const handleChange = <K extends keyof UserDetails>(
     name: K,
@@ -154,7 +165,7 @@ function Auth({ register }: AuthProps) {
         }}
       />
 
-      <div className="relative z-10 w-full max-w-6xl px-6 md:px-10 py-10">
+      <div className="relative z-10 w-full max-w-8xl px-6 md:px-5 py-5">
         <div className="flex justify-between items-center mb-6">
           <Link
             to={"/"}
@@ -169,8 +180,14 @@ function Auth({ register }: AuthProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-white/5 border border-white/15 rounded-3xl shadow-2xl backdrop-blur-2xl p-6 md:p-10">
-          <div className="order-2 md:order-1 space-y-6 text-white">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start bg-white/5 border border-white/15 rounded-3xl shadow-2xl backdrop-blur-2xl p-6 md:p-5">
+          {/* Test Credentials - Left side on desktop, top on mobile */}
+          <div className="order-1 lg:order-1">
+            <TestCredentials isMobile={isMobile} />
+          </div>
+
+          {/* Form Section - Middle on desktop, second on mobile */}
+          <div className="order-2 lg:order-2 space-y-6 text-white p-5 w-full h-full flex flex-col justify-center items-center">
             <div className="space-y-2">
               <p className="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold text-emerald-100 bg-emerald-500/20 border border-emerald-200/40 rounded-full">
                 <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
@@ -185,7 +202,7 @@ function Auth({ register }: AuthProps) {
               </p>
             </div>
 
-            <form className="space-y-4 text-slate-900">
+            <form className="space-y-4 text-slate-900 w-full">
               {register && (
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-slate-200">
@@ -303,10 +320,11 @@ function Auth({ register }: AuthProps) {
             </form>
           </div>
 
-          <div className="order-1 md:order-2 flex justify-center">
-            <div className="relative w-full max-w-sm">
+          {/* Image Section - Right side on desktop, third on mobile */}
+          <div className="order-3 lg:order-3 w-full h-full flex justify-center items-center">
+            <div className="relative w-full h-full max-w-sm">
               <div className="absolute -inset-6 bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-500 blur-3xl opacity-30 animate-pulse" />
-              <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-white/10 shadow-2xl shadow-emerald-500/20 backdrop-blur-2xl p-6">
+              <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-white/10 shadow-2xl shadow-emerald-500/20 backdrop-blur-2xl p-6 h-full flex flex-col justify-center items-center">
                 <img
                   src={loginImage}
                   alt="Note Creator"
