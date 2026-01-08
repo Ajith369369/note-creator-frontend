@@ -12,8 +12,7 @@ import type { ChangeEvent, MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 type AuthProps = {
   register?: boolean;
@@ -402,11 +401,6 @@ function Auth({ register }: AuthProps) {
               </div>
             </div>
           </div>
-          <ToastContainer
-            autoClose={2000}
-            theme="colored"
-            position="top-center"
-          />
         </div>
       </div>
     </>

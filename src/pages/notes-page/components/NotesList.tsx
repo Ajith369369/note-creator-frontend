@@ -5,8 +5,7 @@ import { FiEdit } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 type Note = {
   _id?: string;
@@ -149,7 +148,6 @@ function NotesList({ notes }: NotesListProps) {
           </div>
         </div>
       </div>
-      <ToastContainer position="top-center" theme="colored" autoClose={1000} />
     </>
   );
 }

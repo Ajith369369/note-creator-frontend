@@ -7,8 +7,7 @@ import { addNoteOfAUserApi } from "@/services/api";
 import type { ChangeEvent } from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 type NoteFormState = {
   noteTitle: string;
@@ -338,12 +337,6 @@ function AddNoteForm() {
               </div>
             </aside>
           </div>
-
-          <ToastContainer
-            position="top-center"
-            theme="colored"
-            autoClose={1000}
-          />
         </div>
       </section>
     </>

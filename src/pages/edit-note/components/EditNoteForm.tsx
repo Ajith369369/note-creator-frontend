@@ -2,8 +2,7 @@ import { editNoteOfAUserApi } from "@/services/api";
 import { serverUrl } from "@/services/nc_serverUrl";
 import { type ChangeEvent, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 type NoteDetails = {
   noteTitle?: string;
@@ -285,8 +284,6 @@ function EditNoteForm() {
           </div>
         </aside>
       </div>
-
-      <ToastContainer position="top-center" theme="colored" autoClose={1000} />
     </div>
   );
 }

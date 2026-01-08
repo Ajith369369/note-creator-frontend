@@ -4,8 +4,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { useCallback, useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 interface User {
   _id: string;
@@ -283,7 +282,6 @@ function Admin() {
           </div>
         </div>
       </div>
-      <ToastContainer position="top-center" theme="colored" autoClose={1000} />
     </main>
   );
 }
