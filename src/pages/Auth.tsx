@@ -134,7 +134,7 @@ function Auth({ register }: AuthProps) {
         toast.error("Something went wrong.");
         setUserDetails(defaultUserDetails);
       }
-    } catch (_error) {
+    } catch {
       toast.error("An error occurred during registration.");
       setUserDetails(defaultUserDetails);
     } finally {
@@ -185,7 +185,7 @@ function Auth({ register }: AuthProps) {
         toast.error("Something went wrong.");
         setUserDetails(defaultUserDetails);
       }
-    } catch (_error) {
+    } catch {
       toast.error("An error occurred during login.");
       setUserDetails(defaultUserDetails);
     } finally {
