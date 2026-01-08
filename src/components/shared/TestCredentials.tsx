@@ -1,4 +1,7 @@
-import { USER_CONFIG } from "@/config/route-constants/userCredentials";
+import {
+  USER_CONFIG,
+  USER_ROLES,
+} from "@/config/route-constants/userCredentials";
 import {
   CheckCircleIcon,
   ChevronDownIcon,
@@ -24,11 +27,17 @@ type TestCredentialsProps = {
   isMobile?: boolean;
 };
 
+// Filter USER_CONFIG to exclude SUPER_ADMIN and SHARED
+const FILTERED_USER_CONFIG = Object.values(USER_CONFIG).filter(
+  (config) =>
+    config.role !== USER_ROLES.SUPER_ADMIN && config.role !== USER_ROLES.SHARED
+);
+
 // Convert USER_CONFIG to format needed for TestCredentials component
-// Maps urlPrefix (e.g., "superadmin") to credentials
+// Maps urlPrefix (e.g., "admin") to credentials
 const USER_CREDENTIALS: Record<string, Credentials> = Object.fromEntries(
-  Object.values(USER_CONFIG).map((config) => [
-    config.urlPrefix, // Use urlPrefix as key (e.g., "superadmin")
+  FILTERED_USER_CONFIG.map((config) => [
+    config.urlPrefix, // Use urlPrefix as key (e.g., "admin")
     {
       email: config.email,
       password: config.password,
@@ -36,18 +45,20 @@ const USER_CREDENTIALS: Record<string, Credentials> = Object.fromEntries(
   ])
 );
 
-// Generate USER_ROLE_OPTIONS from USER_CONFIG
-const USER_ROLE_OPTIONS: RoleOption[] = Object.values(USER_CONFIG).map(
-  (config) => ({
-    id: config.urlPrefix, // Use urlPrefix as id (e.g., "superadmin")
-    label: config.label,
-  })
-);
+// Generate USER_ROLE_OPTIONS from filtered USER_CONFIG
+const USER_ROLE_OPTIONS: RoleOption[] = FILTERED_USER_CONFIG.map((config) => ({
+  id: config.urlPrefix, // Use urlPrefix as id (e.g., "admin")
+  label: config.label,
+}));
 
 const TestCredentials = ({ isMobile = false }: TestCredentialsProps) => {
   const [selectedRole, setSelectedRole] = useState<string>(() => {
-    // Initialize from localStorage or default to superadmin
-    return localStorage.getItem("testCredentialsSelectedRole") || "superadmin";
+    // Initialize from localStorage or default to admin (first available option)
+    const savedRole = localStorage.getItem("testCredentialsSelectedRole");
+    const defaultRole = USER_ROLE_OPTIONS[0]?.id || "admin";
+    return savedRole && USER_ROLE_OPTIONS.some((opt) => opt.id === savedRole)
+      ? savedRole
+      : defaultRole;
   });
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
