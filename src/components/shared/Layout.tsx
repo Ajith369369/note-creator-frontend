@@ -1,8 +1,9 @@
 import Header from "@/components/shared/Header";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import Sidebar from "@/components/shared/Sidebar";
 import useAuthGuard from "@/hooks/useAuthGuard";
 import { logout } from "@/redux/slices/authSlice";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -12,6 +13,7 @@ function Layout() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const existingUser = useMemo(() => {
     if (typeof window === "undefined") return null;
@@ -56,28 +58,51 @@ function Layout() {
     else return `Good Night, ${username}!`;
   }, [username]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+
+    // Navigate FIRST, before clearing auth to avoid race condition with useAuthGuard
+
+    // Small delay to ensure navigation starts before clearing auth
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    // Then clear auth (useAuthGuard will see we're already on public route)
     sessionStorage.removeItem("existingUser");
     sessionStorage.removeItem("token");
     dispatch(logout());
     navigate("/");
+
+    // Reset loading state after navigation completes
+    setTimeout(() => setIsLoggingOut(false), 300);
   };
 
   return (
-    <div className="w-full overflow-x-hidden">
-      <Sidebar />
-      <div className="ml-[60px] lg:ml-sidebar w-[calc(100%-60px)] lg:w-[calc(100%-196px)] h-screen flex flex-col min-h-0">
-        <Header
-          greetText={greetText}
-          date={date}
-          token={token}
-          handleLogout={handleLogout}
+    <>
+      {isLoggingOut && (
+        <LoadingSpinner
+          title="Logging out..."
+          subtitle="Please wait while we sign you out"
+          spinnerColor="border-amber-400"
+          bgColor="bg-slate-950"
+          bgOpacity="bg-opacity-50"
         />
-        <div className="flex-1 min-h-0 overflow-y-auto">
-          <Outlet />
+      )}
+      <div className="w-full overflow-x-hidden">
+        <Sidebar />
+        <div className="ml-[60px] lg:ml-sidebar w-[calc(100%-60px)] lg:w-[calc(100%-196px)] h-screen flex flex-col min-h-0">
+          <Header
+            greetText={greetText}
+            date={date}
+            token={token}
+            handleLogout={handleLogout}
+            isLoggingOut={isLoggingOut}
+          />
+          <div className="flex-1 min-h-0 overflow-y-auto">
+            <Outlet />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

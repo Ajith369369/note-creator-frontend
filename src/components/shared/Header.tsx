@@ -7,9 +7,16 @@ type HeaderProps = {
   date: string;
   token?: string | null;
   handleLogout: () => void;
+  isLoggingOut?: boolean;
 };
 
-function Header({ greetText, date, token, handleLogout }: HeaderProps) {
+function Header({
+  greetText,
+  date,
+  token,
+  handleLogout,
+  isLoggingOut = false,
+}: HeaderProps) {
   return (
     <header
       className="sticky top-0 z-50 relative w-full min-h-[72px] bg-cover bg-center bg-no-repeat flex items-center"
@@ -46,13 +53,14 @@ function Header({ greetText, date, token, handleLogout }: HeaderProps) {
               {token && (
                 <button
                   onClick={handleLogout}
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-900 font-semibold text-sm px-4 py-2 shadow-md shadow-amber-500/40 border border-amber-200/60 hover:scale-[1.02] active:scale-100 transition"
+                  disabled={isLoggingOut}
+                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-900 font-semibold text-sm px-4 py-2 shadow-md shadow-amber-500/40 border border-amber-200/60 hover:scale-[1.02] active:scale-100 transition disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   <FontAwesomeIcon
                     icon={faPowerOff}
                     className="text-slate-900"
                   />
-                  Log Out
+                  {isLoggingOut ? "Logging out..." : "Log Out"}
                 </button>
               )}
             </div>

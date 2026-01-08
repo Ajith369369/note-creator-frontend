@@ -1,7 +1,7 @@
+import type { RootState } from "@/redux/store";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import type { RootState } from "@/redux/store";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // #region Multi-line Comment
 /**
@@ -21,7 +21,7 @@ const useAuthGuard = () => {
    */
   // #endregion
   const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated,
+    (state: RootState) => state.auth.isAuthenticated
   );
 
   // #region Multi-line Comment
@@ -32,6 +32,7 @@ const useAuthGuard = () => {
    */
   // #endregion
   const navigate = useNavigate();
+  const location = useLocation();
 
   // #region Multi-line Comment
   /**
@@ -49,15 +50,28 @@ const useAuthGuard = () => {
      */
     // #endregion
     if (!isAuthenticated) {
-      // #region Multi-line Comment
-      /**
-       * Redirect to NotFoundPage if not authenticated.
-       * navigate('*');: This is a call to the navigate function provided by useNavigate.
-       * It navigates the user to the route corresponding to the wildcard (*), which is a catch-all route in the application. It is a 404 Page Not Found page.
-       * This effectively redirects unauthenticated users to a Page Not Found if they attempt to access a route that requires authentication.
-       */
-      // #endregion
-      navigate("*");
+      // Public routes that don't require authentication
+      const publicRoutes = [
+        "/",
+        "/login",
+        "/register",
+        "/forgot-password",
+        "/reset-password",
+      ];
+      const currentPath = location.pathname;
+
+      // Only redirect if not already on a public route (prevents race condition during logout)
+      if (!publicRoutes.includes(currentPath)) {
+        // #region Multi-line Comment
+        /**
+         * Redirect to NotFoundPage if not authenticated.
+         * navigate('*');: This is a call to the navigate function provided by useNavigate.
+         * It navigates the user to the route corresponding to the wildcard (*), which is a catch-all route in the application. It is a 404 Page Not Found page.
+         * This effectively redirects unauthenticated users to a Page Not Found if they attempt to access a route that requires authentication.
+         */
+        // #endregion
+        navigate("*");
+      }
     }
 
     // #region Multi-line Comment
@@ -67,7 +81,7 @@ const useAuthGuard = () => {
      * This ensures that when isAuthenticated changes (e.g., the user logs in or logs out), the hook will check the authentication status and possibly redirect the user.
      */
     // #endregion
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, location.pathname]);
 };
 
 // #region Multi-line Comment
@@ -77,4 +91,3 @@ const useAuthGuard = () => {
  */
 // #endregion
 export default useAuthGuard;
-

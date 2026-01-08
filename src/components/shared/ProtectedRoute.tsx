@@ -40,7 +40,7 @@ const ProtectedRoute = ({
 
   // Check if user is authenticated
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   // Check admin access if required
