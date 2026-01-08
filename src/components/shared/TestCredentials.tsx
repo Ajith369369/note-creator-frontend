@@ -81,9 +81,9 @@ const TestCredentials = ({ isMobile = false }: TestCredentialsProps) => {
   if (isMobile) {
     return (
       <div className="w-full max-w-md mb-4 transition-opacity duration-300">
-        <div className="bg-white/5 border border-white/15 backdrop-blur-2xl p-6 rounded-2xl shadow-2xl">
-          <div className="flex flex-col items-center mb-4">
-            <h2 className="text-xl font-bold text-white mb-1">
+        <div className="bg-white/5 border border-white/15 backdrop-blur-2xl p-4 rounded-2xl shadow-2xl">
+          <div className="flex flex-col items-center mb-3">
+            <h2 className="text-xl font-bold text-white mb-0.5">
               Test Credentials
             </h2>
             <p className="text-xs text-slate-200/80 text-center">
@@ -92,8 +92,8 @@ const TestCredentials = ({ isMobile = false }: TestCredentialsProps) => {
           </div>
 
           {/* Mobile Role Selection Dropdown */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-slate-200 mb-2">
+          <div className="mb-3">
+            <label className="block text-sm font-medium text-slate-200 mb-1.5">
               Select User Role
             </label>
             <div className="relative">
@@ -114,8 +114,8 @@ const TestCredentials = ({ isMobile = false }: TestCredentialsProps) => {
 
           {/* Mobile Selected Role Credentials */}
           {selectedCredentials && (
-            <div className="bg-white/5 border border-white/15 rounded-xl p-3 backdrop-blur-sm">
-              <div className="flex items-center justify-between mb-3">
+            <div className="bg-white/5 border border-white/15 rounded-xl p-2.5 backdrop-blur-sm">
+              <div className="flex items-center justify-between mb-2">
                 <h3 className="font-semibold text-white text-sm">
                   {selectedRoleInfo?.label}
                 </h3>
@@ -124,7 +124,7 @@ const TestCredentials = ({ isMobile = false }: TestCredentialsProps) => {
                 </div>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <div className="flex items-center justify-between bg-white/10 border border-white/15 rounded-lg p-2 backdrop-blur-sm">
                   <div className="flex items-center space-x-2">
                     <EnvelopeIcon className="h-4 w-4 text-slate-300" />
@@ -179,7 +179,7 @@ const TestCredentials = ({ isMobile = false }: TestCredentialsProps) => {
               </div>
 
               {copiedField && copiedField.startsWith(selectedRole) && (
-                <div className="mt-3 p-2 bg-emerald-500/20 border border-emerald-200/40 rounded-lg transition-all duration-300 animate-in fade-in slide-in-from-top-2">
+                <div className="mt-2 p-1.5 bg-emerald-500/20 border border-emerald-200/40 rounded-lg transition-all duration-300 animate-in fade-in slide-in-from-top-2">
                   <div className="flex items-center space-x-1 text-xs text-emerald-100">
                     <CheckCircleIcon className="h-3 w-3" />
                     <span className="font-medium">
@@ -199,24 +199,24 @@ const TestCredentials = ({ isMobile = false }: TestCredentialsProps) => {
 
   // Desktop version
   return (
-    <div className="max-w-md w-full mx-4 my-8 bg-white/5 border border-white/15 backdrop-blur-2xl p-8 rounded-3xl shadow-2xl relative z-10 transition-opacity duration-300">
-      <div className="flex flex-col items-center mb-6">
-        <h2 className="text-2xl font-bold text-white mb-2">Test Credentials</h2>
+    <div className="w-full my-4 bg-white/5 border border-white/15 backdrop-blur-2xl p-3 rounded-3xl shadow-2xl relative z-10 transition-opacity duration-300">
+      <div className="flex flex-col items-center mb-4">
+        <h2 className="text-2xl font-bold text-white mb-1">Test Credentials</h2>
         <p className="text-sm text-slate-200/80 text-center">
           Click to copy credentials for testing
         </p>
       </div>
 
       {/* Role Selection Dropdown */}
-      <div className="mb-6">
-        <label className="block text-sm font-medium text-slate-200 mb-2">
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-slate-200 mb-1.5">
           Select User Role
         </label>
         <div className="relative">
           <select
             value={selectedRole}
             onChange={handleRoleChange}
-            className="appearance-none w-full px-4 py-3 pr-10 border border-white/40 rounded-xl bg-white/90 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-300 transition duration-300 hover:border-emerald-300 cursor-pointer shadow-inner shadow-white/20"
+            className="appearance-none w-full px-4 py-2 pr-10 border border-white/40 rounded-xl bg-white/90 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-300 transition duration-300 hover:border-emerald-300 cursor-pointer shadow-inner shadow-white/20"
           >
             {USER_ROLE_OPTIONS.map((option) => (
               <option key={option.id} value={option.id}>
@@ -230,8 +230,8 @@ const TestCredentials = ({ isMobile = false }: TestCredentialsProps) => {
 
       {/* Selected Role Credentials */}
       {selectedCredentials && (
-        <div className="bg-white/5 border border-white/15 rounded-xl p-4 backdrop-blur-sm">
-          <div className="flex items-center justify-between mb-4">
+        <div className="bg-white/5 border border-white/15 rounded-xl p-3 backdrop-blur-sm">
+          <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold text-white text-lg">
               {selectedRoleInfo?.label || selectedRole}
             </h3>
@@ -240,15 +240,15 @@ const TestCredentials = ({ isMobile = false }: TestCredentialsProps) => {
             </div>
           </div>
 
-          <div className="space-y-3">
-            <div className="flex items-center justify-between bg-white/10 border border-white/15 rounded-lg p-3 backdrop-blur-sm">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between bg-white/10 border border-white/15 rounded-lg p-2.5 backdrop-blur-sm">
               <div className="flex items-center space-x-3">
                 <EnvelopeIcon className="h-5 w-5 text-slate-300" />
                 <div>
                   <span className="text-sm font-medium text-slate-200/80">
                     Email:
                   </span>
-                  <div className="text-sm font-mono text-white mt-1">
+                  <div className="text-sm font-mono text-white mt-0.5">
                     {selectedCredentials.email}
                   </div>
                 </div>
@@ -268,14 +268,14 @@ const TestCredentials = ({ isMobile = false }: TestCredentialsProps) => {
               </button>
             </div>
 
-            <div className="flex items-center justify-between bg-white/10 border border-white/15 rounded-lg p-3 backdrop-blur-sm">
+            <div className="flex items-center justify-between bg-white/10 border border-white/15 rounded-lg p-2.5 backdrop-blur-sm">
               <div className="flex items-center space-x-3">
                 <LockClosedIcon className="h-5 w-5 text-slate-300" />
                 <div>
                   <span className="text-sm font-medium text-slate-200/80">
                     Password:
                   </span>
-                  <div className="text-sm font-mono text-white mt-1">
+                  <div className="text-sm font-mono text-white mt-0.5">
                     {selectedCredentials.password}
                   </div>
                 </div>
@@ -297,7 +297,7 @@ const TestCredentials = ({ isMobile = false }: TestCredentialsProps) => {
           </div>
 
           {copiedField && copiedField.startsWith(selectedRole) && (
-            <div className="mt-4 p-2 bg-emerald-500/20 border border-emerald-200/40 rounded-lg transition-all duration-300 animate-in fade-in slide-in-from-top-2">
+            <div className="mt-3 p-1.5 bg-emerald-500/20 border border-emerald-200/40 rounded-lg transition-all duration-300 animate-in fade-in slide-in-from-top-2">
               <div className="flex items-center space-x-2 text-sm text-emerald-100">
                 <CheckCircleIcon className="h-4 w-4" />
                 <span className="font-medium">
@@ -311,7 +311,7 @@ const TestCredentials = ({ isMobile = false }: TestCredentialsProps) => {
         </div>
       )}
 
-      <div className="mt-6 p-3 bg-emerald-500/20 border border-emerald-200/40 rounded-lg transition-opacity duration-300">
+      <div className="mt-4 p-2 bg-emerald-500/20 border border-emerald-200/40 rounded-lg transition-opacity duration-300">
         <p className="text-xs text-emerald-100 text-center">
           <strong>Note:</strong> These are test credentials for development
           purposes only.

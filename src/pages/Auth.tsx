@@ -165,8 +165,8 @@ function Auth({ register }: AuthProps) {
         }}
       />
 
-      <div className="relative z-10 w-full max-w-8xl px-6 md:px-5 py-5">
-        <div className="flex justify-between items-center mb-6">
+      <div className="relative z-10 w-full max-w-7xl p-4">
+        <div className="flex justify-between items-center mb-4 px-5">
           <Link
             to={"/"}
             className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white border border-white/30 rounded-full bg-white/5 hover:bg-white/10 transition shadow-lg shadow-white/10"
@@ -180,7 +180,7 @@ function Auth({ register }: AuthProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start bg-white/5 border border-white/15 rounded-3xl shadow-2xl backdrop-blur-2xl p-6 md:p-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start bg-white/5 border border-white/15 rounded-3xl shadow-2xl backdrop-blur-2xl p-4">
           {/* Test Credentials - Left side on desktop, top on mobile */}
           <div className="order-1 lg:order-1">
             <TestCredentials isMobile={isMobile} />
@@ -322,7 +322,7 @@ function Auth({ register }: AuthProps) {
 
           {/* Image Section - Right side on desktop, third on mobile */}
           <div className="order-3 lg:order-3 w-full h-full flex justify-center items-center">
-            <div className="relative w-full h-full max-w-sm">
+            <div className="relative w-full h-[500px] max-w-sm">
               <div className="absolute -inset-6 bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-500 blur-3xl opacity-30 animate-pulse" />
               <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-white/10 shadow-2xl shadow-emerald-500/20 backdrop-blur-2xl p-6 h-full flex flex-col justify-center items-center">
                 <img
