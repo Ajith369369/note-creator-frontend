@@ -3,6 +3,7 @@ import headerImg from "@/assets/images/header_img.jpg";
 import loginImage from "@/assets/images/note-creator-round-logo.png";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import TestCredentials from "@/components/shared/TestCredentials";
+import useScrollToTop from "@/hooks/useScrollToTop";
 import { loginAdmin, loginUser } from "@/redux/slices/authSlice";
 import { loginApi, registerApi } from "@/services/api";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -37,6 +38,7 @@ const defaultUserDetails: UserDetails = {
 };
 
 function Auth({ register }: AuthProps) {
+  useScrollToTop();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

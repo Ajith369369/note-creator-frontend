@@ -1,5 +1,5 @@
+import useScrollToTop from "@/hooks/useScrollToTop";
 import { serverUrl } from "@/services/nc_serverUrl";
-import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 type Note = {
@@ -10,13 +10,10 @@ type Note = {
 };
 
 const ViewNote = () => {
+  useScrollToTop();
   const location = useLocation();
   const selectedNote = (location.state as { selectedNote?: Note } | null)
     ?.selectedNote;
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const imageSrc = selectedNote?.noteImage
     ? `${serverUrl}/uploads/${selectedNote.noteImage}`

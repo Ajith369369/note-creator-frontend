@@ -1,9 +1,11 @@
+import useScrollToTop from "@/hooks/useScrollToTop";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import pageNotFound from "/src/assets/images/pnf-octocat.gif";
 
 function NotFoundPage() {
+  useScrollToTop();
   return (
     <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
       <div className="pointer-events-none absolute inset-0">

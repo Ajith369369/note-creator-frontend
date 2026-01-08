@@ -1,11 +1,8 @@
+import useScrollToTop from "@/hooks/useScrollToTop";
 import AddNoteForm from "@/pages/add-note/components/AddNoteForm";
-import { useEffect } from "react";
 
 function AddNote() {
-  // Scroll to the top on component mount
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useScrollToTop();
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">

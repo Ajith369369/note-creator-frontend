@@ -1,13 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
+import useScrollToTop from "@/hooks/useScrollToTop";
 import EditNoteForm from "@/pages/edit-note/components/EditNoteForm";
-import { useEffect } from "react";
 
 function EditNote() {
-  // Scroll to the top on component mount
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useScrollToTop();
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">

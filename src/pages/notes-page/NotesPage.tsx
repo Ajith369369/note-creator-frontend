@@ -1,4 +1,5 @@
 import noteCreatorLogo from "@/assets/images/note-creator-square-logo.jpeg";
+import useScrollToTop from "@/hooks/useScrollToTop";
 import NotesList from "@/pages/notes-page/components/NotesList";
 import { updateNotes } from "@/redux/slices/noteSlice";
 import { getAllNotesOfAUserApi } from "@/services/api";
@@ -23,6 +24,7 @@ type RootState = {
 };
 
 function NotesPage() {
+  useScrollToTop();
   // Use lazy initializer to read from sessionStorage only once during initial render
   const [isToken] = useState<string | null>(() =>
     sessionStorage.getItem("token")

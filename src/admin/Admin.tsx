@@ -1,3 +1,4 @@
+import useScrollToTop from "@/hooks/useScrollToTop";
 import { adminDataApi, deleteUserAndNotesApi } from "@/services/api";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +16,7 @@ interface User {
 }
 
 function Admin() {
+  useScrollToTop();
   // useDispatch() is a hook provided by React-Redux. It returns a reference to the dispatch function from the Redux store.
   // By calling useDispatch(), we can dispatch actions from within our React component.
 
@@ -229,7 +231,7 @@ function Admin() {
                           key={item._id}
                           className="transition hover:bg-white/5 hover:backdrop-blur"
                         >
-                          <td className="px-4 py-4 font-medium text-slate-50/90">
+                          <td className="px-4 py-4 font-medium text-slate-50/90 text-center">
                             {index + 1}
                           </td>
                           <td className="px-4 py-4 text-slate-50">
