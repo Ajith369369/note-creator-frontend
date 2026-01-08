@@ -1,4 +1,3 @@
-import useAuthGuard from "@/hooks/useAuthGuard";
 import { adminDataApi, deleteUserAndNotesApi } from "@/services/api";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,9 +15,6 @@ interface User {
 }
 
 function Admin() {
-  // Check if user is authenticated
-  useAuthGuard();
-
   // useDispatch() is a hook provided by React-Redux. It returns a reference to the dispatch function from the Redux store.
   // By calling useDispatch(), we can dispatch actions from within our React component.
 

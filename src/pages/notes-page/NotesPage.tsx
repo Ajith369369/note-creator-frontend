@@ -1,5 +1,4 @@
 import noteCreatorLogo from "@/assets/images/note-creator-square-logo.jpeg";
-import useAuthGuard from "@/hooks/useAuthGuard";
 import NotesList from "@/pages/notes-page/components/NotesList";
 import { updateNotes } from "@/redux/slices/noteSlice";
 import { getAllNotesOfAUserApi } from "@/services/api";
@@ -24,9 +23,6 @@ type RootState = {
 };
 
 function NotesPage() {
-  // Check if user is authenticated
-  useAuthGuard();
-
   // Use lazy initializer to read from sessionStorage only once during initial render
   const [isToken] = useState<string | null>(() =>
     sessionStorage.getItem("token")

@@ -1,16 +1,12 @@
 import Header from "@/components/shared/Header";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import Sidebar from "@/components/shared/Sidebar";
-import useAuthGuard from "@/hooks/useAuthGuard";
 import { logout } from "@/redux/slices/authSlice";
 import { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 
 function Layout() {
-  // Check if user is authenticated
-  useAuthGuard();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -61,18 +57,19 @@ function Layout() {
   const handleLogout = async () => {
     setIsLoggingOut(true);
 
-    // Navigate FIRST, before clearing auth to avoid race condition with useAuthGuard
-
-    // Small delay to ensure navigation starts before clearing auth
-    await new Promise((resolve) => setTimeout(resolve, 100));
-
-    // Then clear auth (useAuthGuard will see we're already on public route)
+    // Clear auth (Outlet remains visible underneath spinner)
     sessionStorage.removeItem("existingUser");
     sessionStorage.removeItem("token");
     dispatch(logout());
+
+    // Wait for spinner to be visible (user sees the transition)
+    // This keeps the Outlet visible underneath the spinner
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    // Navigate after spinner has been visible
     navigate("/");
 
-    // Reset loading state after navigation completes
+    // Reset loading state after navigation
     setTimeout(() => setIsLoggingOut(false), 300);
   };
 

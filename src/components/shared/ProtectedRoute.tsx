@@ -39,6 +39,7 @@ const ProtectedRoute = ({
   );
 
   // Check if user is authenticated
+  // Redirect to login for better UX (user knows they need to authenticate)
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;
   }
