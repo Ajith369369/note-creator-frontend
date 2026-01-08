@@ -1,5 +1,6 @@
 import { updateNotes } from "@/redux/slices/noteSlice";
 import { deleteNoteOfAUserApi, getAllNotesOfAUserApi } from "@/services/api";
+import { serverUrl } from "@/services/nc_serverUrl";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { FiEdit } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
@@ -94,6 +95,9 @@ function NotesList({ notes }: NotesListProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-6">
             {notes.map((note) => {
               const noteDate = note.noteDate ? parseISO(note.noteDate) : null;
+              const imageSrc = note.noteImage
+                ? `${serverUrl}/uploads/${note.noteImage}`
+                : undefined;
               return (
                 <div
                   key={note._id}
@@ -101,45 +105,58 @@ function NotesList({ notes }: NotesListProps) {
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/0 to-white/5 opacity-80" />
                   <div className="absolute right-3 top-3 h-8 w-8 rounded-full bg-red-salsa/20 blur-xl" />
-                  <div className="relative p-5 flex flex-col gap-3">
-                    <div className="flex items-start justify-between gap-2">
-                      <h3 className="text-base font-semibold text-white line-clamp-2">
-                        {note.noteTitle}
-                      </h3>
-                      <span className="text-[11px] font-semibold text-white/80 bg-white/10 border border-white/10 rounded-full px-2 py-1">
-                        {noteDate ? formatDistanceToNow(noteDate) : "—"}
-                      </span>
-                    </div>
-
-                    <p className="text-sm text-white/80 leading-relaxed line-clamp-4">
-                      {note.noteContent}
-                    </p>
-
-                    <div className="flex items-center justify-between pt-2 border-t border-white/10">
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          className="flex items-center justify-center h-9 w-9 rounded-lg bg-red-500/15 border border-red-400/30 text-red-200 hover:bg-red-500/25 transition"
-                          onClick={() => handleDelete(note._id)}
-                        >
-                          <ImCancelCircle />
-                        </button>
-                        <button
-                          type="button"
-                          className="flex items-center justify-center h-9 w-9 rounded-lg bg-emerald-500/15 border border-emerald-400/30 text-emerald-200 hover:bg-emerald-500/25 transition"
-                          onClick={() => handleNavigate(note)}
-                        >
-                          <FiEdit />
-                        </button>
+                  <div className="relative flex flex-col">
+                    {/* Note Image */}
+                    {imageSrc && (
+                      <div className="relative w-full h-48 overflow-hidden border-b border-white/10">
+                        <img
+                          src={imageSrc}
+                          alt={note.noteTitle || "Note image"}
+                          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                      </div>
+                    )}
+                    <div className="relative p-5 flex flex-col gap-3">
+                      <div className="flex items-start justify-between gap-2">
+                        <h3 className="text-base font-semibold text-white line-clamp-2">
+                          {note.noteTitle}
+                        </h3>
+                        <span className="text-[11px] font-semibold text-white/80 bg-white/10 border border-white/10 rounded-full px-2 py-1 flex-shrink-0">
+                          {noteDate ? formatDistanceToNow(noteDate) : "—"}
+                        </span>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => handleNavigateToView(note)}
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/10 border border-white/10 rounded-full px-3 py-2 hover:bg-white/15 transition"
-                      >
-                        Read More
-                      </button>
+                      <p className="text-sm text-white/80 leading-relaxed line-clamp-4">
+                        {note.noteContent}
+                      </p>
+
+                      <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            className="flex items-center justify-center h-9 w-9 rounded-lg bg-red-500/15 border border-red-400/30 text-red-200 hover:bg-red-500/25 transition"
+                            onClick={() => handleDelete(note._id)}
+                          >
+                            <ImCancelCircle />
+                          </button>
+                          <button
+                            type="button"
+                            className="flex items-center justify-center h-9 w-9 rounded-lg bg-emerald-500/15 border border-emerald-400/30 text-emerald-200 hover:bg-emerald-500/25 transition"
+                            onClick={() => handleNavigate(note)}
+                          >
+                            <FiEdit />
+                          </button>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => handleNavigateToView(note)}
+                          className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/10 border border-white/10 rounded-full px-3 py-2 hover:bg-white/15 transition"
+                        >
+                          Read More
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
