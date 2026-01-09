@@ -5,6 +5,7 @@ import {
   updateNoteFormState,
 } from "@/redux/slices/noteSlice";
 import { addNoteOfAUserApi } from "@/services/api";
+import { formatDate, formatDateForDisplay } from "@/utils/dateUtils";
 import type { ChangeEvent } from "react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -39,11 +40,6 @@ function AddNoteForm() {
 
   // Minimum loading time to prevent flickering on fast networks (500ms)
   const MIN_LOADING_TIME = 500;
-
-  const formatDate = () => {
-    const now = new Date();
-    return now.toISOString().split("T")[0];
-  };
 
   // Initialize noteDetails with current date using lazy initializer
   const [noteDetails, setNoteDetails] = useState<NoteFormState>(() => ({
@@ -247,10 +243,10 @@ function AddNoteForm() {
               <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-300 to-cyan-400 opacity-90 shadow-inner"></div>
               <div>
                 <p className="text-xs uppercase tracking-[0.15em] text-emerald-100/80">
-                  Date
+                  Date & Time
                 </p>
                 <p className="text-sm font-medium text-white">
-                  {noteDetails.noteDate || "—"}
+                  {formatDateForDisplay()}
                 </p>
               </div>
             </div>
