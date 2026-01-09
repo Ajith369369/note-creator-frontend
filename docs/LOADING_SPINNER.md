@@ -1,3 +1,43 @@
+# Adding LoadingSpinner to Home.tsx for the "Get Started" and "Manage Notes" buttons. Checking the current implementation:
+
+Adding LoadingSpinner to Home.tsx for both buttons:
+
+Verifying the final implementation:
+
+Added LoadingSpinner to Home.tsx for both buttons.
+
+**Summary of changes:**
+
+1. **Added imports**: `LoadingSpinner`, `createPortal`, `useState`, and `useNavigate`
+2. **Added state management**: `isLoading` state and `MIN_LOADING_TIME` constant (500ms)
+3. **Created `handleNavigation` function**: 
+   - Sets loading state
+   - Uses `setTimeout(resolve, 0)` (consistent with other components)
+   - Ensures minimum 500ms loading time
+   - Navigates after spinner is visible
+4. **Replaced `Link` components with buttons**: 
+   - "Get Started" button navigates to `/login`
+   - "Manage Notes" button navigates to `/profile-home/introduction`
+   - Both show "Loading..." text when loading
+   - Both are disabled during loading
+5. **Added LoadingSpinner**: Rendered via `createPortal` to `document.body` for consistent behavior
+
+**How it works:**
+- Click "Get Started" or "Manage Notes" → spinner appears
+- Spinner stays visible for at least 500ms
+- Navigation happens after the minimum time
+- Button shows "Loading..." and is disabled during loading
+
+**Consistency:**
+- Uses the same pattern as `AddNoteForm`, `EditNoteForm`, and `Layout`
+- Uses `setTimeout(resolve, 0)` for state processing
+- Uses `createPortal` for rendering
+- Ensures minimum loading time to prevent flickering
+
+No linting errors. The implementation is ready to use.
+
+---
+
 # Adjusting the background opacity for a semi-transparent overlay:
 
 Checking how LoadingSpinner is used in Auth.tsx:
