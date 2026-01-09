@@ -1,6 +1,8 @@
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { editNoteOfAUserApi } from "@/services/api";
 import { serverUrl } from "@/services/nc_serverUrl";
 import { type ChangeEvent, useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -21,6 +23,11 @@ function EditNoteForm() {
   const [titleError] = useState(false);
   const [contentError] = useState(false);
   const [canSave] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Minimum loading time to prevent flickering on fast networks (500ms)
+  const MIN_LOADING_TIME = 500;
+
   const [noteDetails, setNoteDetails] = useState<NoteDetails>(() => {
     const initial: NoteDetails = { noteImage: "" };
     if (selectedNote) {
@@ -71,32 +78,11 @@ function EditNoteForm() {
       return;
     }
 
-    const reqBody = new FormData();
-    reqBody.append("noteTitle", noteTitle as string);
-    reqBody.append("noteContent", noteContent as string);
-    reqBody.append("noteDate", noteDate as string);
-    if (preview && noteImage && typeof noteImage !== "string") {
-      reqBody.append("noteImage", noteImage);
-    } else if (
-      selectedNote?.noteImage &&
-      typeof selectedNote.noteImage !== "string"
-    ) {
-      reqBody.append("noteImage", selectedNote.noteImage);
-    }
-
     const token = sessionStorage.getItem("token");
-    if (!token) return;
-
-    const reqHeader =
-      preview && noteImage
-        ? {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          }
-        : {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          };
+    if (!token) {
+      toast.error("Authentication required. Please log in.");
+      return;
+    }
 
     const noteId = selectedNote?._id;
     if (!noteId) {
@@ -104,19 +90,76 @@ function EditNoteForm() {
       return;
     }
 
-    const result = await editNoteOfAUserApi(noteId, reqBody, reqHeader);
+    // Set loading state first
+    setIsLoading(true);
 
-    if (result.status === 200) {
-      toast.success("Note updated successfully.", {
-        onClose: () => navigate("/profile-home/notes"),
-      });
-    } else {
-      toast.error("Something went wrong.");
+    // Use setTimeout to ensure React processes the state update and renders the spinner
+    // before starting the async operation
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    const startTime = Date.now();
+
+    try {
+      const reqBody = new FormData();
+      reqBody.append("noteTitle", noteTitle as string);
+      reqBody.append("noteContent", noteContent as string);
+      reqBody.append("noteDate", noteDate as string);
+      if (preview && noteImage && typeof noteImage !== "string") {
+        reqBody.append("noteImage", noteImage);
+      } else if (
+        selectedNote?.noteImage &&
+        typeof selectedNote.noteImage !== "string"
+      ) {
+        reqBody.append("noteImage", selectedNote.noteImage);
+      }
+
+      const reqHeader =
+        preview && noteImage
+          ? {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            }
+          : {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            };
+
+      const result = await editNoteOfAUserApi(noteId, reqBody, reqHeader);
+
+      // Ensure minimum loading time
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
+      await new Promise((resolve) => setTimeout(resolve, remainingTime));
+
+      if (result.status === 200) {
+        toast.success("Note updated successfully.", {
+          onClose: () => navigate("/profile-home/notes"),
+        });
+      } else {
+        toast.error("Something went wrong.");
+      }
+    } catch {
+      toast.error("An error occurred while updating the note.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="space-y-8">
+    <>
+      {isLoading &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <LoadingSpinner
+            title="Updating note..."
+            subtitle="Please wait while we save your changes"
+            spinnerColor="border-emerald-400"
+            bgColor="bg-slate-950"
+            bgOpacity="bg-opacity-50"
+          />,
+          document.body
+        )}
+      <div className="space-y-8">
       <header className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div className="px-4">
           <p className="text-sm uppercase tracking-[0.2em] text-emerald-200/80">
@@ -241,10 +284,10 @@ function EditNoteForm() {
               type="button"
               onClick={onSaveNoteClicked}
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-cyan-400 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-slate-900 shadow-lg shadow-emerald-500/30 transition hover:shadow-emerald-400/40 active:translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-60"
-              disabled={!canSave}
+              disabled={!canSave || isLoading}
             >
               <span className="transition group-hover:translate-x-0.5">
-                Update Note
+                {isLoading ? "Updating..." : "Update Note"}
               </span>
               <span className="text-lg leading-none transition group-hover:translate-x-0.5">
                 ↗
@@ -285,6 +328,7 @@ function EditNoteForm() {
         </aside>
       </div>
     </div>
+    </>
   );
 }
 
