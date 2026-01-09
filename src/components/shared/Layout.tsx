@@ -1,5 +1,4 @@
 import Header from "@/components/shared/Header";
-import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import Sidebar from "@/components/shared/Sidebar";
 import { logout } from "@/redux/slices/authSlice";
 import { useMemo, useState } from "react";
@@ -10,6 +9,9 @@ function Layout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  // Minimum loading time to prevent flickering on fast networks (500ms)
+  const MIN_LOADING_TIME = 500;
 
   const existingUser = useMemo(() => {
     if (typeof window === "undefined") return null;
@@ -55,51 +57,52 @@ function Layout() {
   }, [username]);
 
   const handleLogout = async () => {
+    // Set loading state first
     setIsLoggingOut(true);
 
-    // Clear auth (Outlet remains visible underneath spinner)
-    sessionStorage.removeItem("existingUser");
-    sessionStorage.removeItem("token");
-    dispatch(logout());
+    // Use setTimeout to ensure React processes the state update and renders the spinner
+    // before starting the logout logic
+    await new Promise((resolve) => setTimeout(resolve, 0));
 
-    // Wait for spinner to be visible (user sees the transition)
-    // This keeps the Outlet visible underneath the spinner
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    const startTime = Date.now();
 
-    // Navigate after spinner has been visible
-    navigate("/");
+    try {
+      // Clear auth (Outlet remains visible underneath spinner)
+      sessionStorage.removeItem("existingUser");
+      sessionStorage.removeItem("token");
+      dispatch(logout());
 
-    // Reset loading state after navigation
-    setTimeout(() => setIsLoggingOut(false), 300);
+      // Ensure minimum loading time to prevent flickering
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
+      await new Promise((resolve) => setTimeout(resolve, remainingTime));
+
+      // Navigate after spinner has been visible for at least MIN_LOADING_TIME
+      navigate("/");
+    } catch {
+      // Handle any errors if needed
+    } finally {
+      // Reset loading state after navigation
+      setTimeout(() => setIsLoggingOut(false), 300);
+    }
   };
 
   return (
-    <>
-      {isLoggingOut && (
-        <LoadingSpinner
-          title="Logging out..."
-          subtitle="Please wait while we sign you out"
-          spinnerColor="border-amber-400"
-          bgColor="bg-slate-950"
-          bgOpacity="bg-opacity-50"
+    <div className="w-full overflow-x-hidden">
+      <Sidebar />
+      <div className="ml-[60px] lg:ml-sidebar w-[calc(100%-60px)] lg:w-[calc(100%-196px)] h-screen flex flex-col min-h-0">
+        <Header
+          greetText={greetText}
+          date={date}
+          token={token}
+          handleLogout={handleLogout}
+          isLoggingOut={isLoggingOut}
         />
-      )}
-      <div className="w-full overflow-x-hidden">
-        <Sidebar />
-        <div className="ml-[60px] lg:ml-sidebar w-[calc(100%-60px)] lg:w-[calc(100%-196px)] h-screen flex flex-col min-h-0">
-          <Header
-            greetText={greetText}
-            date={date}
-            token={token}
-            handleLogout={handleLogout}
-            isLoggingOut={isLoggingOut}
-          />
-          <div className="flex-1 min-h-0 overflow-y-auto">
-            <Outlet />
-          </div>
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          <Outlet />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

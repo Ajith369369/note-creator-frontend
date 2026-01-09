@@ -1,6 +1,8 @@
 import headerImg from "@/assets/images/header_img.jpg";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { createPortal } from "react-dom";
 
 type HeaderProps = {
   greetText: string;
@@ -18,7 +20,20 @@ function Header({
   isLoggingOut = false,
 }: HeaderProps) {
   return (
-    <header
+    <>
+      {isLoggingOut &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <LoadingSpinner
+            title="Logging out..."
+            subtitle="Please wait while we sign you out"
+            spinnerColor="border-amber-400"
+            bgColor="bg-slate-950"
+            bgOpacity="bg-opacity-50"
+          />,
+          document.body
+        )}
+      <header
       className="sticky top-0 z-50 relative w-full min-h-[72px] bg-cover bg-center bg-no-repeat flex items-center"
       style={{
         backgroundImage: `url(${headerImg})`,
@@ -68,6 +83,7 @@ function Header({
         </div>
       </div>
     </header>
+    </>
   );
 }
 
