@@ -1,4 +1,5 @@
 import defaultImage from "@/assets/images/note-creator-square-logo.jpeg";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import {
   resetNoteFormState,
   updateNoteFormState,
@@ -6,6 +7,7 @@ import {
 import { addNoteOfAUserApi } from "@/services/api";
 import type { ChangeEvent } from "react";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -33,6 +35,10 @@ function AddNoteForm() {
   const [canSave, setCanSave] = useState(false);
   const [preview, setPreview] = useState<string>("");
   const [key, setKey] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Minimum loading time to prevent flickering on fast networks (500ms)
+  const MIN_LOADING_TIME = 500;
 
   const formatDate = () => {
     const now = new Date();
@@ -142,8 +148,23 @@ function AddNoteForm() {
       toast.info("Please fill the form completely.");
       return;
     }
+
     const token = sessionStorage.getItem("token");
-    if (token) {
+    if (!token) {
+      toast.error("Authentication required. Please log in.");
+      return;
+    }
+
+    // Set loading state first
+    setIsLoading(true);
+
+    // Use setTimeout to ensure React processes the state update and renders the spinner
+    // before starting the async operation
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    const startTime = Date.now();
+
+    try {
       const reqBody = new FormData();
       reqBody.append("noteTitle", noteDetails.noteTitle);
       reqBody.append("noteContent", noteDetails.noteContent);
@@ -161,6 +182,12 @@ function AddNoteForm() {
       };
 
       const result = await addNoteOfAUserApi(reqBody, reqHeader);
+
+      // Ensure minimum loading time
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
+      await new Promise((resolve) => setTimeout(resolve, remainingTime));
+
       if (result.status === 200) {
         toast.success("Note added successfully");
         setNoteDetails({
@@ -174,11 +201,27 @@ function AddNoteForm() {
       } else {
         toast.error("Something went wrong.");
       }
+    } catch {
+      toast.error("An error occurred while saving the note.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <>
+      {isLoading &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <LoadingSpinner
+            title="Uploading note..."
+            subtitle="Please wait while we save your note"
+            spinnerColor="border-emerald-400"
+            bgColor="bg-slate-950"
+            bgOpacity="bg-opacity-50"
+          />,
+          document.body
+        )}
       <section className="relative isolate overflow-hidden bg-gradient-to-br from-emerald-900 via-slate-900 to-black text-white min-h-[80vh] px-4 py-12 sm:px-10 lg:px-14 shadow-2xl rounded-3xl">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-24 top-10 h-64 w-64 rounded-full bg-emerald-400/20 blur-3xl"></div>
@@ -298,10 +341,10 @@ function AddNoteForm() {
                   type="button"
                   onClick={onSaveNoteClicked}
                   className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-cyan-400 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-slate-900 shadow-lg shadow-emerald-500/30 transition hover:shadow-emerald-400/40 active:translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-60"
-                  disabled={!canSave}
+                  disabled={!canSave || isLoading}
                 >
                   <span className="transition group-hover:translate-x-0.5">
-                    Save Note
+                    {isLoading ? "Uploading..." : "Save Note"}
                   </span>
                   <span className="text-lg leading-none transition group-hover:translate-x-0.5">
                     ↗

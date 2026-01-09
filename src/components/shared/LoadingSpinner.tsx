@@ -61,8 +61,9 @@ const LoadingSpinner = ({
   return (
     <div
       className={`fixed inset-0 ${bgColor} ${bgOpacity} flex items-center justify-center z-50 animate-fade-in`}
+      style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0 }}
     >
-      <div className="text-center flex flex-col items-center justify-center min-h-screen">
+      <div className="text-center flex flex-col items-center justify-center">
         {/* Spinning loader */}
         <div
           className={`rounded-full h-44 w-44 border-b-8 ${spinnerColor} mx-auto mb-4 animate-spin`}
