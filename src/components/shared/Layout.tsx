@@ -60,25 +60,31 @@ function Layout() {
     // Set loading state first
     setIsLoggingOut(true);
 
-    // Use setTimeout to ensure React processes the state update and renders the spinner
-    // before starting the logout logic
-    await new Promise((resolve) => setTimeout(resolve, 0));
-
+    // Start timing immediately
     const startTime = Date.now();
 
+    // Use setTimeout to ensure React processes the state update and renders the spinner
+    // before starting the logout logic (consistent with AddNoteForm/EditNoteForm)
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
     try {
-      // Clear auth (Outlet remains visible underneath spinner)
+      // Clear sessionStorage (this doesn't cause re-renders)
       sessionStorage.removeItem("existingUser");
       sessionStorage.removeItem("token");
-      dispatch(logout());
 
       // Ensure minimum loading time to prevent flickering
+      // Wait the full MIN_LOADING_TIME from when we started
       const elapsedTime = Date.now() - startTime;
       const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
       await new Promise((resolve) => setTimeout(resolve, remainingTime));
 
-      // Navigate after spinner has been visible for at least MIN_LOADING_TIME
+      // Navigate first (before dispatching logout to avoid ProtectedRoute redirect)
+      // This ensures the spinner stays visible during navigation
       navigate("/");
+
+      // Dispatch logout after navigation to avoid unmounting Layout too early
+      // This prevents ProtectedRoute from redirecting and unmounting before spinner is visible
+      dispatch(logout());
     } catch {
       // Handle any errors if needed
     } finally {
