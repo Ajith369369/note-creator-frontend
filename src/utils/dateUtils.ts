@@ -18,17 +18,41 @@ export const formatDate = (): string => {
 };
 
 /**
- * Formats the current date and time for display in IST timezone
+ * Formats a date and time for display in IST timezone
  * Format: "Sept 19, 2024 • 06:44 PM (IST)"
  *
+ * @param {string | Date} [dateInput] - Optional date string (YYYY-MM-DD) or Date object. If not provided, uses current date/time.
  * @returns {string} Formatted date and time string
  *
  * @example
- * formatDateForDisplay() // "Sept 19, 2024 • 06:44 PM (IST)"
+ * formatDateForDisplay() // "Sept 19, 2024 • 06:44 PM (IST)" (current date/time)
+ * formatDateForDisplay("2024-09-19") // "Sept 19, 2024 • 06:44 PM (IST)" (specific date with current time)
  */
-export const formatDateForDisplay = (): string => {
-  // Get current date/time in IST
-  const now = new Date();
+export const formatDateForDisplay = (dateInput?: string | Date): string => {
+  // Get date/time in IST - use provided date or current date
+  let dateToFormat: Date;
+  
+  if (dateInput) {
+    if (typeof dateInput === "string") {
+      // If it's an ISO date string (YYYY-MM-DD), parse it and use current time
+      const parsedDate = new Date(dateInput);
+      if (isNaN(parsedDate.getTime())) {
+        // Invalid date, fall back to current date
+        dateToFormat = new Date();
+      } else {
+        // Use the provided date but with current time
+        const now = new Date();
+        parsedDate.setHours(now.getHours());
+        parsedDate.setMinutes(now.getMinutes());
+        parsedDate.setSeconds(now.getSeconds());
+        dateToFormat = parsedDate;
+      }
+    } else {
+      dateToFormat = dateInput;
+    }
+  } else {
+    dateToFormat = new Date();
+  }
 
   // Format: "Sept 19, 2024 • 06:44 PM (IST)"
   const monthNames = [
@@ -57,7 +81,7 @@ export const formatDateForDisplay = (): string => {
     hour12: true,
   });
 
-  const parts = formatter.formatToParts(now);
+  const parts = formatter.formatToParts(dateToFormat);
 
   const monthPart = parts.find((p) => p.type === "month")?.value || "";
   const dayPart = parts.find((p) => p.type === "day")?.value || "";

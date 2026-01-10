@@ -1,6 +1,7 @@
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { editNoteOfAUserApi } from "@/services/api";
 import { serverUrl } from "@/services/nc_serverUrl";
+import { formatDateForDisplay } from "@/utils/dateUtils";
 import { type ChangeEvent, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -177,10 +178,12 @@ function EditNoteForm() {
           <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-300 to-cyan-400 opacity-90 shadow-inner"></div>
           <div>
             <p className="text-xs uppercase tracking-[0.15em] text-emerald-100/80">
-              Last touched
+              Date & Time
             </p>
             <p className="text-sm font-medium text-white">
-              {noteDetails.noteDate || "—"}
+              {noteDetails.noteDate
+                ? formatDateForDisplay(noteDetails.noteDate)
+                : "—"}
             </p>
           </div>
         </div>
