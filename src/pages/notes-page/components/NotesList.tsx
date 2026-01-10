@@ -1,7 +1,10 @@
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { updateNotes } from "@/redux/slices/noteSlice";
 import { deleteNoteOfAUserApi, getAllNotesOfAUserApi } from "@/services/api";
 import { serverUrl } from "@/services/nc_serverUrl";
 import { formatDistanceToNow, parseISO } from "date-fns";
+import { useState } from "react";
+import { createPortal } from "react-dom";
 import { FiEdit } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { useDispatch } from "react-redux";
@@ -23,6 +26,10 @@ type NotesListProps = {
 function NotesList({ notes }: NotesListProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loadingNoteId, setLoadingNoteId] = useState<string | null>(null);
+
+  // Minimum loading time to prevent flickering on fast networks (500ms)
+  const MIN_LOADING_TIME = 500;
 
   const refreshNotes = async () => {
     const token = sessionStorage.getItem("token");
@@ -57,8 +64,29 @@ function NotesList({ notes }: NotesListProps) {
     navigate("/profile-home/edit", { state: { selectedNote } });
   };
 
-  const handleNavigateToView = (selectedNote: Note) => {
-    navigate("/profile-home/note", { state: { selectedNote } });
+  const handleNavigateToView = async (selectedNote: Note) => {
+    if (!selectedNote._id) return;
+
+    // Set loading state first for this specific note
+    setLoadingNoteId(selectedNote._id);
+
+    // Use setTimeout to ensure React processes the state update and renders the spinner
+    // before starting the async operation
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    const startTime = Date.now();
+
+    try {
+      // Navigate to view note page
+      navigate("/profile-home/note", { state: { selectedNote } });
+
+      // Ensure minimum loading time
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
+      await new Promise((resolve) => setTimeout(resolve, remainingTime));
+    } finally {
+      setLoadingNoteId(null);
+    }
   };
 
   if (!notes || notes.length === 0) {
@@ -78,6 +106,18 @@ function NotesList({ notes }: NotesListProps) {
 
   return (
     <>
+      {loadingNoteId &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <LoadingSpinner
+            title="Loading note..."
+            subtitle="Please wait while we prepare your note"
+            spinnerColor="border-emerald-400"
+            bgColor="bg-slate-950"
+            bgOpacity="bg-opacity-50"
+          />,
+          document.body
+        )}
       <div className="mx-3 my-6">
         <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-xl shadow-slate-900/40 p-6">
           <div className="absolute -left-12 top-0 h-32 w-32 bg-gradient-to-b from-emerald-400/30 to-indigo-500/10 blur-3xl" />
@@ -152,9 +192,12 @@ function NotesList({ notes }: NotesListProps) {
                         <button
                           type="button"
                           onClick={() => handleNavigateToView(note)}
-                          className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/10 border border-white/10 rounded-full px-3 py-2 hover:bg-white/15 transition"
+                          className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/10 border border-white/10 rounded-full px-3 py-2 hover:bg-white/15 transition disabled:cursor-not-allowed disabled:opacity-60"
+                          disabled={loadingNoteId === note._id}
                         >
-                          Read More
+                          {loadingNoteId === note._id
+                            ? "Loading..."
+                            : "Read More"}
                         </button>
                       </div>
                     </div>

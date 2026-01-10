@@ -1,5 +1,6 @@
 import useScrollToTop from "@/hooks/useScrollToTop";
 import { serverUrl } from "@/services/nc_serverUrl";
+import { formatDateForDisplay } from "@/utils/dateUtils";
 import { useLocation } from "react-router-dom";
 
 type Note = {
@@ -36,7 +37,9 @@ const ViewNote = () => {
             </h1>
             <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-slate-200/80">
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-                {selectedNote?.noteDate || "Date not available"}
+                {selectedNote?.noteDate
+                  ? formatDateForDisplay(selectedNote.noteDate)
+                  : "Date not available"}
               </span>
               <span className="rounded-full border border-emerald-200/30 bg-emerald-300/10 px-3 py-1 text-emerald-100">
                 Elegant view
