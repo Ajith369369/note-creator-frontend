@@ -54,7 +54,7 @@ const ViewNote = () => {
                   <img
                     src={imageSrc}
                     alt={selectedNote?.noteTitle || "Note cover"}
-                    className="h-[340px] w-full object-cover transition duration-700 hover:scale-[1.02]"
+                    className="h-[340px] w-full object-contain transition duration-700 hover:scale-[1.02]"
                   />
                 ) : (
                   <div className="flex h-[340px] w-full items-center justify-center text-slate-200/70">

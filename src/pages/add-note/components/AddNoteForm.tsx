@@ -301,7 +301,7 @@ function AddNoteForm() {
                   <img
                     src={preview || defaultImage}
                     alt="Note cover"
-                    className="h-48 w-full rounded-xl object-cover shadow-lg transition duration-500 hover:scale-[1.01]"
+                    className="h-48 w-full rounded-xl object-contain shadow-lg transition duration-500 hover:scale-[1.01]"
                   />
                 </div>
               </div>
@@ -360,7 +360,7 @@ function AddNoteForm() {
                   <img
                     src={preview || defaultImage}
                     alt="Note preview"
-                    className="h-56 w-full rounded-xl object-cover shadow-lg"
+                    className="h-56 w-full rounded-xl object-contain shadow-lg"
                   />
                 </div>
               </div>
