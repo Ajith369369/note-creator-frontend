@@ -53,6 +53,16 @@ function EditNoteForm() {
     return "";
   }, [noteDetails.noteImage]);
 
+  // Get existing image URL for display (when no new file is selected)
+  const existingImageUrl = useMemo(() => {
+    if (preview) return null; // If preview exists, use that instead
+    return getNoteImageUrl(
+      typeof selectedNote?.noteImage === "string"
+        ? selectedNote.noteImage
+        : undefined
+    );
+  }, [preview, selectedNote?.noteImage]);
+
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -105,15 +115,17 @@ function EditNoteForm() {
       reqBody.append("noteTitle", noteTitle as string);
       reqBody.append("noteContent", noteContent as string);
       reqBody.append("noteDate", noteDate as string);
-      
+
       // Handle image: append new file if selected, otherwise append existing image URL or empty string
       if (noteImage && typeof noteImage !== "string") {
         // New image file selected
         reqBody.append("noteImage", noteImage);
       } else {
         // No new image - send existing image URL or empty string
-        const existingImageUrl = 
-          (typeof selectedNote?.noteImage === "string" ? selectedNote.noteImage : "") || "";
+        const existingImageUrl =
+          (typeof selectedNote?.noteImage === "string"
+            ? selectedNote.noteImage
+            : "") || "";
         reqBody.append("noteImage", existingImageUrl);
       }
 
@@ -236,19 +248,17 @@ function EditNoteForm() {
                 </label>
               </div>
               <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-3 shadow-inner">
-                <img
-                  src={
-                    preview ||
-                    getNoteImageUrl(
-                      typeof selectedNote?.noteImage === "string"
-                        ? selectedNote.noteImage
-                        : undefined
-                    ) ||
-                    ""
-                  }
-                  alt="Note cover"
-                  className="h-48 w-full rounded-xl object-contain shadow-lg transition duration-500 hover:scale-[1.01]"
-                />
+                {preview || existingImageUrl ? (
+                  <img
+                    src={preview || existingImageUrl || ""}
+                    alt="Note cover"
+                    className="h-48 w-full rounded-xl object-contain shadow-lg transition duration-500 hover:scale-[1.01]"
+                  />
+                ) : (
+                  <div className="flex h-48 w-full items-center justify-center rounded-xl bg-white/5">
+                    <p className="text-sm text-white/60">No image selected</p>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -308,19 +318,17 @@ function EditNoteForm() {
                 keeps your story visually polished.
               </p>
               <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-3 shadow-inner">
-                <img
-                  src={
-                    preview ||
-                    getNoteImageUrl(
-                      typeof selectedNote?.noteImage === "string"
-                        ? selectedNote.noteImage
-                        : undefined
-                    ) ||
-                    ""
-                  }
-                  alt="Note preview"
-                  className="h-56 w-full rounded-xl object-contain shadow-lg"
-                />
+                {preview || existingImageUrl ? (
+                  <img
+                    src={preview || existingImageUrl || ""}
+                    alt="Note preview"
+                    className="h-56 w-full rounded-xl object-contain shadow-lg"
+                  />
+                ) : (
+                  <div className="flex h-56 w-full items-center justify-center rounded-xl bg-white/5">
+                    <p className="text-sm text-white/60">No image preview</p>
+                  </div>
+                )}
               </div>
             </div>
 
