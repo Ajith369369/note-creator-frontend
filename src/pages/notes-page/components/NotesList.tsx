@@ -1,7 +1,7 @@
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { updateNotes } from "@/redux/slices/noteSlice";
 import { deleteNoteOfAUserApi, getAllNotesOfAUserApi } from "@/services/api";
-import { serverUrl } from "@/services/nc_serverUrl";
+import { getNoteImageUrl } from "@/utils/imageUtils";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -135,9 +135,7 @@ function NotesList({ notes }: NotesListProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-6">
             {notes.map((note) => {
               const noteDate = note.noteDate ? parseISO(note.noteDate) : null;
-              const imageSrc = note.noteImage
-                ? `${serverUrl}/uploads/${note.noteImage}`
-                : undefined;
+              const imageSrc = getNoteImageUrl(note.noteImage);
               return (
                 <div
                   key={note._id}
@@ -152,7 +150,7 @@ function NotesList({ notes }: NotesListProps) {
                         <img
                           src={imageSrc}
                           alt={note.noteTitle || "Note image"}
-                          className="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
+                          className="w-full h-full object-contain transition-transform duration-300 ?hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
                       </div>

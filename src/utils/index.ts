@@ -4,3 +4,4 @@
  */
 
 export { formatDate, formatDateForDisplay } from "./dateUtils";
+export { getNoteImageUrl } from "./imageUtils";

@@ -1,6 +1,6 @@
 import useScrollToTop from "@/hooks/useScrollToTop";
-import { serverUrl } from "@/services/nc_serverUrl";
 import { formatDateForDisplay } from "@/utils/dateUtils";
+import { getNoteImageUrl } from "@/utils/imageUtils";
 import { useLocation } from "react-router-dom";
 
 type Note = {
@@ -16,9 +16,7 @@ const ViewNote = () => {
   const selectedNote = (location.state as { selectedNote?: Note } | null)
     ?.selectedNote;
 
-  const imageSrc = selectedNote?.noteImage
-    ? `${serverUrl}/uploads/${selectedNote.noteImage}`
-    : undefined;
+  const imageSrc = getNoteImageUrl(selectedNote?.noteImage);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
