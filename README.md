@@ -1,206 +1,347 @@
-# React + Vite
+# Note Creator Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-
-
-Creating documentation for a Note Creator app involves detailing the app's purpose, features, installation instructions, usage guidelines, and any other relevant information. Here’s a structured approach to documenting your Note Creator app:
-
----
-
-# Note Creator App Documentation
+A modern, full-featured note-taking application built with React, TypeScript, and Vite. This frontend application provides a beautiful, responsive interface for creating, managing, and organizing personal notes with image support via Cloudinary.
 
 ## Overview
 
-The Note Creator app allows users to create, view, edit, and delete notes. It's a simple application designed to manage personal notes efficiently with a user-friendly interface.
-
-## Project Structure
-
-├── note-app/
-│   ├── app/
-│   │   ├── models/
-│   │   │   ├── userModel.js
-│   │   │   ├── projectModel.js
-│   │   │   └── ...
-│   │   ├── views/
-│   │   │   ├── index.ejs
-│   │   │   ├── login.ejs
-│   │   │   └── ...
-│   │   ├── controllers/
-│   │   │   ├── userController.js
-│   │   │   ├── projectController.js
-│   │   │   └── ...
-│   │   ├── routes/
-│   │   │   ├── userRoutes.js
-│   │   │   ├── projectRoutes.js
-│   │   │   └── index.js
-│   │   ├── middlewares/
-│   │   │   ├── authMiddleware.js
-│   │   │   ├── errorMiddleware.js
-│   │   │   └── ...
-│   │   ├── config/
-│   │   │   ├── db.js
-│   │   │   └── ...
-│   │   ├── public/
-│   │   │   ├── css/
-│   │   │   │   ├── style.css
-│   │   │   ├── js/
-│   │   │   │   ├── script.js
-│   │   │   ├── images/
-│   │   │   └── ...
-│   │   ├── utils/
-│   │   │   ├── helpers.js
-│   │   │   └── ...
-│   │   ├── .env
-│   │   ├── package.json
-│   │   ├── server.js
-│   │   └── ...
-└── ...
-
+The Note Creator app is a comprehensive note-taking solution that allows users to create, view, edit, and delete notes with rich content including images. It features user authentication, role-based access control (admin functionality), and a modern UI built with Tailwind CSS.
 
 ## Features
 
-- **Create Notes:** Add new notes with titles and content.
-- **View Notes:** View a list of all notes and individual note details.
-- **Edit Notes:** Modify existing notes.
-- **Delete Notes:** Remove notes that are no longer needed.
-- **Search and Filter:** Find notes using search functionality.
-- **Sort Notes:** Organize notes based on various criteria.
+### Core Features
+
+- **User Authentication**: Secure registration and login with JWT-based authentication
+- **Create Notes**: Add new notes with title, content, and optional cover images
+- **View Notes**: Browse all your notes in an elegant grid layout with previews
+- **Edit Notes**: Update existing notes with real-time preview
+- **Delete Notes**: Remove notes with confirmation
+- **Image Upload**: Upload and manage note cover images via Cloudinary
+- **Search Functionality**: Search notes by title or content
+- **Admin Dashboard**: Admin users can view all users, manage accounts, and view statistics
+- **Responsive Design**: Fully responsive UI that works on all devices
+- **Protected Routes**: Route protection based on authentication status and user roles
+
+### Technical Features
+
+- **TypeScript**: Full type safety throughout the application
+- **State Management**: Redux Toolkit with Redux Persist for state management
+- **Modern UI**: Tailwind CSS for styling with custom gradients and animations
+- **Loading States**: Elegant loading spinners and state management
+- **Toast Notifications**: User-friendly notifications using react-toastify
+- **Date Formatting**: Beautiful date display using date-fns
+- **Chart Visualization**: Admin dashboard with Chart.js for data visualization
 
 ## Technologies Used
 
-- **Frontend:** React
-- **Backend:** JSON Server (for mocking a REST API)
-- **Styling:** Bootstrap (for styling)
-- **State Management:** Redux (for state management)
+### Core Framework
+
+- **React** 19.2.1 - UI library
+- **TypeScript** 5.9.3 - Type safety
+- **Vite** 7.2.4 - Build tool and dev server
+
+### State Management & Routing
+
+- **Redux Toolkit** 2.11.1 - State management
+- **Redux Persist** 6.0.0 - State persistence
+- **React Router DOM** 6.26.1 - Client-side routing
+
+### Styling & UI
+
+- **Tailwind CSS** 3.4.18 - Utility-first CSS framework
+- **React Icons** 5.3.0 - Icon library
+- **Font Awesome** 6.6.0 - Additional icons
+- **Heroicons** 2.2.0 - Icon components
+
+### Data & API
+
+- **Axios** 1.7.4 - HTTP client
+- **Chart.js** 4.5.1 - Data visualization
+- **React Chart.js 2** 5.3.1 - React wrapper for Chart.js
+
+### Utilities
+
+- **date-fns** 3.6.0 - Date formatting and manipulation
+- **React Toastify** 10.0.5 - Toast notifications
+- **React Hook Form** 7.68.0 - Form handling
+
+### Development Tools
+
+- **ESLint** 9.39.1 - Code linting
+- **Prettier** 3.7.4 - Code formatting
+- **TypeScript ESLint** 8.18.1 - TypeScript linting
+- **Concurrently** 9.2.1 - Run multiple scripts
+- **Chokidar CLI** 3.0.0 - File watching
+
+## Project Structure
+
+```plain
+note-creator-frontend/
+├── src/
+│   ├── admin/                    # Admin dashboard components
+│   │   ├── Admin.tsx
+│   │   └── constants.ts
+│   ├── assets/                   # Static assets
+│   │   └── images/               # Image assets
+│   ├── components/               # Reusable components
+│   │   └── shared/
+│   │       ├── Header.tsx
+│   │       ├── Introduction.tsx
+│   │       ├── Layout.tsx
+│   │       ├── LoadingSpinner.tsx
+│   │       ├── ProtectedRoute.tsx
+│   │       ├── Sidebar.tsx
+│   │       ├── SuspenseWrapper.tsx
+│   │       ├── TestCredentials.tsx
+│   │       └── index.ts
+│   ├── config/                   # Configuration files
+│   │   └── route-constants/     # Route definitions
+│   ├── hooks/                    # Custom React hooks
+│   │   └── useScrollToTop.ts
+│   ├── pages/                    # Page components
+│   │   ├── add-note/
+│   │   │   ├── AddNote.tsx
+│   │   │   └── components/
+│   │   │       └── AddNoteForm.tsx
+│   │   ├── edit-note/
+│   │   │   ├── EditNote.tsx
+│   │   │   └── components/
+│   │   │       └── EditNoteForm.tsx
+│   │   ├── notes-page/
+│   │   │   ├── NotesPage.tsx
+│   │   │   └── components/
+│   │   │       └── NotesList.tsx
+│   │   ├── Auth.tsx              # Authentication page
+│   │   ├── Home.tsx              # Home page
+│   │   ├── NotFoundPage.tsx     # 404 page
+│   │   └── ViewNote.tsx          # View single note
+│   ├── redux/                     # Redux store
+│   │   ├── slices/
+│   │   │   ├── authSlice.ts      # Auth state
+│   │   │   └── noteSlice.ts      # Note state
+│   │   └── store.ts              # Store configuration
+│   ├── routes/                    # Route components
+│   │   ├── AdminRoutes.tsx
+│   │   ├── AppRoutes.tsx
+│   │   ├── SuperAdminRoutes.tsx
+│   │   └── UserRoutes.tsx
+│   ├── services/                  # API services
+│   │   ├── api/
+│   │   │   ├── adminAPI.ts
+│   │   │   ├── authAPI.ts
+│   │   │   ├── index.ts
+│   │   │   └── noteAPI.ts
+│   │   ├── axiosHTTPClientWrapper.ts
+│   │   └── nc_serverUrl.ts       # Backend URL configuration
+│   ├── types/                     # TypeScript type definitions
+│   │   └── static.d.ts
+│   ├── utils/                     # Utility functions
+│   │   ├── dateUtils.ts          # Date formatting utilities
+│   │   ├── imageUtils.ts         # Image URL utilities (Cloudinary)
+│   │   └── index.ts              # Barrel export
+│   ├── App.tsx                    # Root component
+│   ├── main.tsx                   # Entry point
+│   ├── index.css                  # Global styles
+│   └── vite-env.d.ts             # Vite type definitions
+├── docs/                          # Documentation
+├── dist/                          # Build output
+├── node_modules/                  # Dependencies
+├── .gitignore
+├── eslint.config.js              # ESLint configuration
+├── index.html                     # HTML template
+├── package.json                   # Dependencies and scripts
+├── package-lock.json
+├── postcss.config.js             # PostCSS configuration
+├── README.md                      # This file
+├── tailwind.config.js            # Tailwind configuration
+├── tsconfig.json                  # TypeScript configuration
+├── vercel.json                    # Vercel deployment config
+└── vite.config.ts                # Vite configuration
+```
+
+## Prerequisites
+
+- **Node.js** v18 or higher
+- **npm** or **yarn**
+- **Backend API** running (see [note-creator-backend](https://github.com/Ajith369369/note-creator-backend))
 
 ## Installation
 
-### Prerequisites
-
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Clone the Repository
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/note-creator-app.git
-cd note-creator-app
+git clone https://github.com/Ajith369369/note-creator-frontend.git
+cd note-creator-frontend
 ```
 
-### Install Dependencies
-
-Install the required dependencies for both frontend and backend.
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Setup JSON Server
+### 3. Configure Backend URL
 
-To mock the backend API, you'll use JSON Server.
+Update the backend server URL in `src/services/nc_serverUrl.ts`:
 
-1. **Install JSON Server:**
+```typescript
+// For local development
+export const serverUrl = "http://localhost:3000";
 
-   ```bash
-   npm install -g json-server
-   ```
+// For production (uncomment when deploying)
+// export const serverUrl = 'https://note-creator-backend.onrender.com'
+```
 
-2. **Create a `db.json` File:**
+### 4. Start Development Server
 
-   Add initial data to the `db.json` file in the root directory:
+```bash
+npm run dev
+```
 
-   ```json
-   {
-     "notes": [
-       {
-         "id": 1,
-         "title": "Sample Note",
-         "content": "This is a sample note."
-       }
-     ]
-   }
-   ```
+The application will be available at `http://localhost:5173` (or the port shown in the terminal).
 
-3. **Start JSON Server:**
+## Available Scripts
 
-   ```bash
-   json-server --watch db.json --port 5000
-   ```
+### Development
 
-### Run the App
+- `npm run dev` - Start development server with hot module replacement
+- `npm run build` - Build for production (TypeScript check + Vite build)
+- `npm run preview` - Preview production build locally
+- `npm run start:prod` - Build and preview production build
 
-1. **Start the React App:**
+### Code Quality
 
-   ```bash
-   npm start
-   ```
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint errors automatically
+- `npm run lint:watch` - Watch files and lint on changes
+- `npm run typecheck` - Type check TypeScript without emitting files
+- `npm run typecheck:watch` - Watch mode for type checking
+- `npm run watch` - Run lint and typecheck in watch mode concurrently
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting
 
-2. **Visit the App:**
+### Validation
 
-   Open your browser and go to `http://localhost:3000`.
+- `npm run validate:build` - Build and validate production build
+
+### Deployment
+
+- `npm run deploy:vercel` - Deploy to Vercel
+- `npm run deploy:netlify` - Deploy to Netlify
+- `npm run deploy` - Run deployment script (Linux/Mac)
+- `npm run deploy:win` - Run deployment script (Windows)
 
 ## Usage
 
+### Authentication
+
+1. **Register**: Navigate to the registration page and create a new account
+2. **Login**: Use your credentials to log in
+3. **Session**: Your session is stored and persists across page refreshes
+
 ### Creating a Note
 
-1. Navigate to the "Create Note" page.
-2. Enter a title and content for your note.
-3. Click the "Save" button to add the note.
+1. Navigate to the "Add Note" page (requires authentication)
+2. Enter a title and content for your note
+3. Optionally upload a cover image (supports PNG, JPG, JPEG)
+4. Click "Save Note" to create the note
+5. Images are automatically uploaded to Cloudinary
 
 ### Viewing Notes
 
-1. Navigate to the "Notes" page to view the list of all notes.
-2. Click on a note title to view its details.
+1. Navigate to the "Notes" page to see all your notes
+2. Notes are displayed in a responsive grid layout
+3. Click "Read More" to view full note details
+4. Use the search bar to filter notes by title or content
 
 ### Editing a Note
 
-1. Navigate to the "Edit Note" page.
-2. Modify the title or content as needed.
-3. Click the "Save" button to update the note.
+1. Click the edit button on any note card
+2. Modify the title, content, or image
+3. Preview changes in real-time
+4. Click "Update Note" to save changes
 
 ### Deleting a Note
 
-1. Navigate to the "Notes" page.
-2. Click the "Delete" button next to the note you wish to remove.
-3. Confirm the deletion.
+1. Click the delete button on any note card
+2. Confirm the deletion
+3. The note will be permanently removed
 
-### Searching and Filtering
+### Admin Features
 
-1. Use the search bar to filter notes by title or content.
-2. Apply filters to narrow down the list of notes.
+Admin users have access to:
 
-### Sorting Notes
+- **Dashboard**: View all users with statistics
+- **User Management**: Delete users and their associated notes
+- **Analytics**: View user activity and note statistics
 
-1. Use the sorting options to arrange notes in ascending or descending order based on title or creation date.
+## API Integration
 
-## API Endpoints
+The frontend communicates with the backend API at the configured `serverUrl`. All API calls are made through the `axiosHTTPClientWrapper` service.
 
-### Notes
+### API Endpoints Used
 
-- **GET /notes** - Retrieve a list of all notes.
-- **GET /notes/:id** - Retrieve a specific note by ID.
-- **POST /notes** - Create a new note.
-- **PUT /notes/:id** - Update an existing note.
-- **DELETE /notes/:id** - Delete a specific note by ID.
+#### Authentication
 
-## Configuration
+- `POST /register` - User registration
+- `POST /login` - User login
 
-### Environment Variables
+#### Notes
 
-If you need to configure environment variables for your app, create a `.env` file in the root directory and add the necessary variables.
+- `POST /notes/user/add` - Create a new note (requires auth)
+- `GET /notes/user/all?search={query}` - Get all user's notes (requires auth)
+- `GET /notes/user/:id` - Get a specific note
+- `PUT /notes/user/edit/:id` - Update a note (requires auth)
+- `DELETE /notes/user/delete/:id` - Delete a note (requires auth)
 
-### vercel.json
-The `vercel.json` file is a configuration file used by Vercel, a popular hosting platform, to customize the behavior of your deployed application. The specific configuration you've shared defines a rewrite rule, which is a way to route requests to specific files in your application.
+#### Admin
 
-The `vercel.json` rewrite rule ensures that all requests to your application are routed to `index.html`, enabling client-side routing in a Single Page Application (SPA). This prevents 404 errors when users navigate directly to different routes and ensures the correct handling of URLs by your frontend code.
+- `GET /profile-home/admin` - Get admin dashboard data (requires auth + admin role)
+- `DELETE /profile-home/admin/user/delete/:id` - Delete user and notes (requires auth + admin role)
 
-#### Breakdown of the Configuration
+### Authentication
+
+All protected endpoints require a JWT token in the Authorization header:
+
+```typescript
+{
+  "Authorization": "Bearer <token>"
+}
+```
+
+The token is stored in `sessionStorage` after successful login.
+
+## Image Handling
+
+### Cloudinary Integration
+
+- Images are uploaded directly to Cloudinary via the backend
+- The frontend receives Cloudinary URLs for display
+- The `imageUtils.ts` utility handles Cloudinary URL processing
+- Supports PNG, JPG, and JPEG formats
+- Maximum file size: 5MB
+
+### Image Display
+
+Images are displayed using the `getNoteImageUrl()` utility function which:
+
+- Accepts Cloudinary URLs directly
+- Returns the URL as-is for display
+- Handles undefined/null values gracefully
+
+## Environment Configuration
+
+### Backend URL Configuration
+
+The backend URL is configured in `src/services/nc_serverUrl.ts`:
+
+```typescript
+export const serverUrl = "http://localhost:3500"; // Development
+// export const serverUrl = 'https://note-creator-backend.onrender.com' // Production
+```
+
+### Vercel Configuration
+
+The `vercel.json` file configures SPA routing:
 
 ```json
 {
@@ -208,45 +349,125 @@ The `vercel.json` rewrite rule ensures that all requests to your application are
 }
 ```
 
-##### 1. **`"rewrites"`:**
-   - The `rewrites` property in `vercel.json` is an array of objects. Each object defines a rewrite rule that tells Vercel how to handle requests to certain URLs.
+This ensures all routes are handled by the React Router on the client side.
 
-##### 2. **`"source": "/(.*)"`:**
-   - The `source` property specifies the URL pattern to match incoming requests. 
-   - `"/(.*)"` is a regular expression pattern that matches any URL path. 
-     - `"/"` matches the root URL.
-     - `"(.*)"` is a capturing group that matches any character (`.`) zero or more times (`*`), effectively capturing the entire path after the root.
-   - In essence, this pattern will match any route, whether it's `/about`, `/contact`, or any other path.
+## State Management
 
-##### 3. **`"destination": "/index.html"`:**
-   - The `destination` property specifies the file that the matched requests should be routed to.
-   - In this case, all matched requests are directed to `/index.html`.
+### Redux Store Structure
 
-#### What Does This Configuration Do?
+- **authSlice**: Manages authentication state (user info, token)
+- **noteSlice**: Manages note-related state (notes list, form state)
 
-- **Single Page Application (SPA) Routing:**
-  - This configuration is often used in Single Page Applications (SPAs), like those built with React, Vue, or Angular.
-  - SPAs typically use client-side routing, where the JavaScript code on the client side handles different routes (e.g., `/about`, `/contact`).
-  - However, when a user navigates directly to a route like `/about` by typing it in the browser or refreshing the page, the server receives the request and needs to know how to handle it.
-  - Without this rewrite rule, the server would look for a file named `/about` on the server, which usually doesn't exist in SPAs, leading to a 404 error.
+### Redux Persist
 
-- **How It Works:**
-  - This rule ensures that every request, no matter the path, is routed to `/index.html`.
-  - Once `/index.html` is loaded, the SPA's JavaScript code (like React Router) takes over, reads the actual path (e.g., `/about`), and displays the correct content.
+State is persisted to localStorage using Redux Persist, ensuring:
+
+- User session persists across page refreshes
+- Form state is preserved during navigation
+
+## Routing
+
+### Route Structure
+
+- **Public Routes**: Home, Authentication, NotFound
+- **User Routes**: Add Note, Edit Note, View Note, Notes List
+- **Admin Routes**: Admin Dashboard
+- **Protected Routes**: All user and admin routes require authentication
+
+### Route Protection
+
+Routes are protected using the `ProtectedRoute` component which:
+
+- Checks authentication status
+- Redirects to login if not authenticated
+- Validates user roles for admin routes
+
+## Styling
+
+### Tailwind CSS
+
+The application uses Tailwind CSS for styling with:
+
+- Custom color palette (emerald, slate, cyan)
+- Responsive design utilities
+- Custom gradients and animations
+- Dark theme optimized
+
+### Component Styling
+
+- Modern glassmorphism effects
+- Smooth transitions and hover effects
+- Responsive grid layouts
+- Mobile-first approach
+
+## TypeScript
+
+The project is fully typed with TypeScript:
+
+- Strict type checking enabled
+- Type definitions for all components
+- Type-safe API calls
+- Interface definitions for data models
+
+## Deployment
+
+### Vercel Deployment
+
+1. Build the project: `npm run build`
+2. Deploy: `npm run deploy:vercel`
+3. Configure environment variables if needed
+
+### Build Output
+
+The production build is output to the `dist/` directory and includes:
+
+- Optimized JavaScript bundles
+- Minified CSS
+- Static assets
+- Production-ready HTML
 
 ## Troubleshooting
 
-- **App Not Loading:** Ensure that JSON Server is running on the specified port and that your React app is configured to use the correct API URL.
-- **API Errors:** Check the browser console and server logs for error messages.
+### Common Issues
+
+1. **Backend Connection Errors**
+   - Ensure the backend server is running
+   - Check the `serverUrl` configuration
+   - Verify CORS settings on the backend
+
+2. **Authentication Issues**
+   - Clear `sessionStorage` and try logging in again
+   - Check that the token is being stored correctly
+   - Verify backend authentication endpoints
+
+3. **Image Upload Failures**
+   - Verify Cloudinary configuration on the backend
+   - Check file size (max 5MB)
+   - Ensure file format is supported (PNG, JPG, JPEG)
+
+4. **Build Errors**
+   - Run `npm run typecheck` to identify TypeScript errors
+   - Run `npm run lint` to find linting issues
+   - Clear `node_modules` and reinstall: `rm -rf node_modules && npm install`
 
 ## Contributing
 
-To contribute to the Note Creator app, follow these steps:
+To contribute to the Note Creator Frontend:
 
-1. Fork the repository.
-2. Create a new branch for your feature or fix.
-3. Commit your changes and push them to your fork.
-4. Submit a pull request for review.
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Make your changes
+4. Run tests and linting: `npm run lint && npm run typecheck`
+5. Commit your changes: `git commit -m "Add your feature"`
+6. Push to the branch: `git push origin feature/your-feature-name`
+7. Submit a pull request
+
+### Code Style
+
+- Follow TypeScript best practices
+- Use ESLint and Prettier configurations
+- Write meaningful commit messages
+- Add comments for complex logic
 
 ## License
 
@@ -254,5 +475,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-For any questions or issues, please contact [ajithks98086@gmail.com](mailto:ajithks98086@gmail.com).
+For questions or issues, please contact [ajithks98086@gmail.com](mailto:ajithks98086@gmail.com).
 
+## Related Projects
+
+- [note-creator-backend](https://github.com/Ajith369369/note-creator-backend) - Express.js backend API
