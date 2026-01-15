@@ -105,25 +105,22 @@ function EditNoteForm() {
       reqBody.append("noteTitle", noteTitle as string);
       reqBody.append("noteContent", noteContent as string);
       reqBody.append("noteDate", noteDate as string);
-      if (preview && noteImage && typeof noteImage !== "string") {
+      
+      // Handle image: append new file if selected, otherwise append existing image URL or empty string
+      if (noteImage && typeof noteImage !== "string") {
+        // New image file selected
         reqBody.append("noteImage", noteImage);
-      } else if (
-        selectedNote?.noteImage &&
-        typeof selectedNote.noteImage !== "string"
-      ) {
-        reqBody.append("noteImage", selectedNote.noteImage);
+      } else {
+        // No new image - send existing image URL or empty string
+        const existingImageUrl = 
+          (typeof selectedNote?.noteImage === "string" ? selectedNote.noteImage : "") || "";
+        reqBody.append("noteImage", existingImageUrl);
       }
 
-      const reqHeader =
-        preview && noteImage
-          ? {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`,
-            }
-          : {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            };
+      const reqHeader = {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      };
 
       const result = await editNoteOfAUserApi(noteId, reqBody, reqHeader);
 

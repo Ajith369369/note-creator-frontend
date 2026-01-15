@@ -1,4 +1,3 @@
-import defaultImage from "@/assets/images/note-creator-square-logo.jpeg";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import {
   resetNoteFormState,
@@ -74,15 +73,6 @@ function AddNoteForm() {
     dispatch(updateNoteFormState({ [name]: value } as Partial<NoteFormState>));
   };
 
-  const fetchDefaultImageFile = async () => {
-    const response = await fetch(defaultImage);
-    const blob = await response.blob();
-    const file = new File([blob], "note-creator-square-logo.jpeg", {
-      type: blob.type,
-    });
-    return file;
-  };
-
   const handleFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -92,12 +82,12 @@ function AddNoteForm() {
       }));
       setPreview(URL.createObjectURL(file));
     } else {
-      const defaultFile = await fetchDefaultImageFile();
+      // User cleared the file - allow note without image
       setNoteDetails((prevData) => ({
         ...prevData,
-        noteImage: defaultFile,
+        noteImage: "",
       }));
-      setPreview(URL.createObjectURL(defaultFile));
+      setPreview(""); // Clear preview
     }
     setKey((prevKey) => !prevKey);
   };
@@ -165,12 +155,12 @@ function AddNoteForm() {
       reqBody.append("noteTitle", noteDetails.noteTitle);
       reqBody.append("noteContent", noteDetails.noteContent);
       reqBody.append("noteDate", noteDetails.noteDate);
+
+      // Only append image if user selected one (optional)
       if (noteDetails.noteImage instanceof File) {
         reqBody.append("noteImage", noteDetails.noteImage);
-      } else {
-        const defaultFile = await fetchDefaultImageFile();
-        reqBody.append("noteImage", defaultFile);
       }
+      // If noteImage is empty string or null, don't append - backend will handle it
 
       const reqHeader = {
         "Content-Type": "multipart/form-data",
@@ -298,11 +288,17 @@ function AddNoteForm() {
                   </label>
                 </div>
                 <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-3 shadow-inner">
-                  <img
-                    src={preview || defaultImage}
-                    alt="Note cover"
-                    className="h-48 w-full rounded-xl object-contain shadow-lg transition duration-500 hover:scale-[1.01]"
-                  />
+                  {preview ? (
+                    <img
+                      src={preview}
+                      alt="Note cover"
+                      className="h-48 w-full rounded-xl object-contain shadow-lg transition duration-500 hover:scale-[1.01]"
+                    />
+                  ) : (
+                    <div className="flex h-48 w-full items-center justify-center rounded-xl bg-white/5">
+                      <p className="text-sm text-white/60">No image selected</p>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -357,11 +353,17 @@ function AddNoteForm() {
                   images keeps your story visually polished.
                 </p>
                 <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-3 shadow-inner">
-                  <img
-                    src={preview || defaultImage}
-                    alt="Note preview"
-                    className="h-56 w-full rounded-xl object-contain shadow-lg"
-                  />
+                  {preview ? (
+                    <img
+                      src={preview}
+                      alt="Note preview"
+                      className="h-56 w-full rounded-xl object-contain shadow-lg"
+                    />
+                  ) : (
+                    <div className="flex h-56 w-full items-center justify-center rounded-xl bg-white/5">
+                      <p className="text-sm text-white/60">No image preview</p>
+                    </div>
+                  )}
                 </div>
               </div>
 
