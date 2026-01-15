@@ -335,7 +335,7 @@ Images are displayed using the `getNoteImageUrl()` utility function which:
 The backend URL is configured in `src/services/nc_serverUrl.ts`:
 
 ```typescript
-export const serverUrl = "http://localhost:3500"; // Development
+export const serverUrl = "http://localhost:3000"; // Development
 // export const serverUrl = 'https://note-creator-backend.onrender.com' // Production
 ```
 
