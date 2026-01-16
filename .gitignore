@@ -6,6 +6,8 @@
 # git remote add origin https://github.com/Ajith369369/note-creator-frontend.git
 # git push -u origin main
 
+.cursorrules
+
 # Logs
 logs
 *.log
